@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="right">
+            <block type="share/fanbox" name="facebook.fanbox" template="share/fanbox.phtml" after="-" />
+        </reference>
+    </default>
+    <share_index_index>
+        <reference name="content">
+            <block type="share/share" name="share" template="share/share.phtml" />
+        </reference>
+    </share_index_index>
+    <customer_account>
+        <remove name="facebook.fanbox"/>
+    </customer_account>
+</layout> 

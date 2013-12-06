@@ -1,0 +1,16 @@
+/* PayPal */
+
+h3.mailchimp-header { background:url(ebizmarts-mailchimp-small.png) no-repeat 0 20px; height:60px; overflow:hidden; padding:0; margin-top:0; width:286px; }
+
+ul.tabs a.mailchimp-section,
+ul.tabs a.mailchimp-section:hover { background:url(../images/tabs_span_bg.gif) repeat-x 0 100%; border-bottom:none; padding:0.5em 0.5em 0.28em 1.5em; }
+ul.tabs a.mailchimp-section:hover { background-color:#d8e6e6; }
+ul.tabs a.mailchimp-section.active,
+ul.tabs a.mailchimp-section.active:hover { background-color:#fff; }
+ul.tabs a.mailchimp-section span,
+ul.tabs a.mailchimp-section:hover span { background:url(ebizmarts-mailchimp-section.png) no-repeat 0 0; height:0; overflow:hidden; padding:14px 0 0; width:103px; }
+
+.mailchimp-adminhtml-bulksync-index .massaction td.left {    padding-left: 0 !important;    padding-right: 0 !important;    width: 1% !important;}
+.mailchimp-adminhtml-bulksync-index .massaction td.right {    padding-left: 0 !important;    padding-right: 0 !important;    width: 99% !important;}
+.mailchimp-adminhtml-bulksync-index .textChimp { width: 35px !important; }
+.mailchimp-adminhtml-bulksync-index .selectChimp { width: 205px !important; }

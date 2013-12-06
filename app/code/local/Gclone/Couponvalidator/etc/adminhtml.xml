@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<config>
+    <menu>
+        <sales translate="title" module="sales">
+            <title>Sales</title>
+            <sort_order>20</sort_order>
+            <depends>
+                <module>Mage_Sales</module>
+            </depends>
+            <children>
+                <couponvalidator translate="title" module="couponvalidator">
+                    <title>Coupon Validation</title>
+                    <action>couponvalidator/adminhtml_couponvalidator</action>
+                    <sort_order>20</sort_order>
+                </couponvalidator>              
+            </children>
+        </sales>
+    </menu>
+    <acl>
+        <resources>            
+            <admin>
+                <children>
+                   <sales translate="title" module="sales">
+                    
+                        <children>
+                            <couponvalidator translate="title" module="couponvalidator">
+                                <title>Couponvalidator</title>
+                            </couponvalidator>
+                         </children>                                               
+                    
+                    </sales>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

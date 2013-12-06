@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-1.7.2.min.js</name>
+            </action>
+         
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/loopedslider.js</name>
+            </action>
+            
+              <action method="addItem">
+                <type>skin_js</type>
+                <name>js/more.js</name>
+            </action>
+        </reference>
+        <reference name="right">
+            <remove name="right.permanent.callout"/>
+        </reference>
+    </default>
+    <deal_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-1.7.2.min.js</name>
+            </action>
+           
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery.orbit.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/home.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/homecontent.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ds-sleight.js</name>
+                <params/>
+                <if>lt IE 7</if>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/iehover-fix.js</name>
+                <params/>
+                <if>lt IE 7</if>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="deal/deal" name="deal" template="deal/deal.phtml" />
+        </reference>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-" />
+            
+        </reference>
+
+    </deal_index_index>
+    <deal_index_view>
+<!--        <update handle="catalog_product_view"/>-->
+        <reference name="head">
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/homecontent.css</name>
+            </action> 
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/home.js</name>
+            </action>
+             <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery.orbit.min.js</name>
+            </action>       
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ds-sleight.js</name>
+                <params/>
+                <if>lt IE 7</if>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/iehover-fix.js</name>
+                <params/>
+                <if>lt IE 7</if>
+            </action>
+
+            <action method="addJs"><script>varien/product.js</script></action>
+            <action method="addJs"><script>varien/configurable.js</script></action>
+
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="deal/deal" name="deal123" template="deal/deal.phtml" />
+        </reference>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-" />
+        </reference>
+    </deal_index_view>
+    <deal_index_active>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>       
+        <remove name="left"/>
+        <reference name="content">            
+            <block type="deal/active" name="ajax" template="deal/active.phtml" >
+            <action method="setPageSize"><page_size>15</page_size></action>
+            </block>
+        </reference>
+    </deal_index_active>
+    <deal_index_occasions>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>       
+        <remove name="left"/>
+        <reference name="content">            
+            <block type="deal/occasions" name="occasions" template="deal/occasions.phtml" >
+            <action method="setPageSize"><page_size>15</page_size></action>
+            </block>
+        </reference>
+    </deal_index_occasions>
+
+    <deal_index_alldeals>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>       
+        <remove name="left"/>
+        <reference name="content">            
+            <block type="deal/alldeals" name="alldeals" template="deal/alldeals.phtml" >
+            <action method="setPageSize"><page_size>15</page_size></action>
+            </block>
+        </reference>
+    </deal_index_alldeals>
+
+    <deal_index_alldealsview>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>       
+        <remove name="left"/>
+     <reference name="content">            
+       <block type="deal/alldealsview" name="alldealsview" template="deal/alldealsview.phtml" >
+            <action method="setPageSize"><page_size>15</page_size></action>
+            </block>
+     </reference>
+    </deal_index_alldealsview>
+
+
+    <deal_index_goods>
+        <reference name="root">
+              
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <remove name="left"/>
+        <reference name="content">
+            <block type="deal/goods" name="ajax" template="deal/goods.phtml" />
+        </reference>  
+    </deal_index_goods>
+    <deal_index_getaways>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <remove name="left"/>
+        <reference name="content">
+            <block type="deal/getaways" name="ajax" template="deal/getaways.phtml" />
+        </reference>
+    </deal_index_getaways>
+    <deal_index_recent>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <remove name="left"/>
+        <reference name="content">
+            <block type="deal/recent" name="recentpage" template="deal/recent.phtml" />
+        </reference>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-"/>
+        </reference>
+    </deal_index_recent>
+    <deal_index_upcoming>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <remove name="left"/>
+        <reference name="content">
+            <block type="deal/upcoming" name="upcomingpage" template="deal/upcoming.phtml" />
+        </reference>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-"/>
+        </reference>
+    </deal_index_upcoming>
+    <deal_index_subscribepage>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/landing.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/loopslider.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+             <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/homecontent.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            
+            <action method="addJs">
+                <script>prototype/validation.js</script>
+            </action>
+            <action method="addJs">
+                <script>varien/form.js</script>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>prototype/deprecation.js</name>
+            </action>
+             <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/home.js</name>
+                
+            </action>
+            
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>scriptaculous/effects.js</name>
+            </action>
+           
+            <action method="removeItem">
+                <type>skin_js</type>
+
+                <name>js/jquery.orbit.min.js</name>
+
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+               
+                 <name>js/loopedslider.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+
+                 <name>js/jquery-1.4.1.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ccard.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/builder.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/dragdrop.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/controls.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>scriptaculous/slider.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/js.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>varien/menu.js</name>
+            </action>
+            
+        </reference>
+        <remove name="header"/>
+        <remove name="right"/>
+        <remove name="left"/>
+        <remove name="footer"/>
+        <remove name="facebook_init"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="deal/subscribepage" name="subscribepage123" template="deal/subscribepage.phtml" />
+        </reference>
+    </deal_index_subscribepage>
+    <customer_account_login>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-"/>
+        </reference>
+    </customer_account_login>
+    <customer_account_logoutsuccess>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" />
+        </reference>
+    </customer_account_logoutsuccess>
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/loopslider.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery-1.4.1.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/loopedslider.js</name>
+            </action>
+        </reference>
+    </checkout_cart_index>
+    <cms_page>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-"/>
+        </reference>
+    </cms_page>
+    <merchant_index_index>
+        <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-"/>
+        </reference>
+    </merchant_index_index>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/loopslider.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery-1.4.1.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/loopedslider.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.orbit.min.js</name>
+            </action>
+        </reference>
+    </checkout_onepage_index>
+</layout> 

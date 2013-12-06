@@ -1,0 +1,99 @@
+<?php
+/*
+ * Contus Support Interactive
+ * Author @ Sathish kumar
+ */
+/*
+ * Check the enabled status
+ */
+$isRecent = Mage::getStoreConfig('rssfeed/recent/enabled');
+if($isRecent !=0){
+$file = $this->generateRecentFeeds();
+
+/*
+ * color Configuration
+ */
+$background = Mage::getStoreConfig('rssfeed/color/shellbackground');
+$textBackground = Mage::getStoreConfig('rssfeed/color/textbackground');
+$textColor = Mage::getStoreConfig('rssfeed/color/text');
+$linkColor = Mage::getStoreConfig('rssfeed/color/link');
+/*
+ * Text configuration
+ */
+$title = Mage::getStoreConfig('rssfeed/recent/title');
+if($title !=''){
+    $title = $this->__($title);
+}
+else{
+    $title = $this->__('Feed for');
+}
+$caption = Mage::getStoreConfig('rssfeed/recent/caption');
+
+if($caption !=''){
+    $caption = $this->__($caption);
+}
+else{
+    $caption = $this->__('Recent Deals');
+}
+?>
+    <div class="feed-wrap" <?php if($background != ''){?> style="background-color:<?php echo $background;?>" <?php }?> style="margin:0;">
+        <div class="feed-head">
+            <div class="feed-head-in">
+                <h4><?php echo $title ?></h4>
+                <h2><?php echo $caption ?></h2>
+            </div>
+            <div class="feed-head-img">
+                <a title="Click to download" target="_blank" href="<?php echo $file['download'];?>"><img alt="" src="<?php echo $this->getSkinUrl('images/rss.png') ?>" class="floatleft"></a>
+            </div>
+        </div>
+        <div class="feed-content" style="<?php if($textColor != ''){?> color:<?php echo $textColor;?>; <?php }?><?php if($textBackground != ''){?> background-color:<?php echo $textBackground;?>; <?php }?> <?php if($background != ''){?>border-left: 1px solid <?php echo $background;?>; border-right: 1px solid <?php echo $background;?>; border-bottom: 1px solid <?php echo $background;?>; <?php }?>">
+            <div class="content-main">
+                <div>
+<?php
+$doc = new DOMDocument();
+$doc->load($file['dom']);
+$count=0;
+$books = $doc->getElementsByTagName("item");
+
+foreach ($books as $book) {
+    if($count < 3){
+    $count = $count +1;
+    $titles = $book->getElementsByTagName("title");
+    $title = $titles->item(0)->nodeValue;
+
+    $links = $book->getElementsByTagName("link");
+    $link = $links->item(0)->nodeValue;
+
+    $descriptions = $book->getElementsByTagName("description");
+    $description = $descriptions->item(0)->nodeValue;
+
+    $pubDates = $book->getElementsByTagName("pubDate");
+    $pubDate = $pubDates->item(0)->nodeValue;
+    $enclosures = $book->getElementsByTagName("enclosure");
+    foreach ($enclosures as $attr) {
+        $imageUrl = $attr->getAttribute('url');
+    }
+?>
+                    <div class="content-feed">
+                        <div class="content-feed-wrap">
+                            <div class="content-feed-avatar">
+                                <div class="content-feed-img"><a target="_blank" href="<?php echo $link;?>"><img alt="<?php echo $title;?>" src="<?php echo $imageUrl;?>"></a></div>
+                            </div>
+                            <div class="content-feed-text">
+                                <p>
+                                    <a <?php if($linkColor != ''){?> style="color:<?php echo $linkColor;?>" <?php }?> class="content-feed-hyperlink" target="_blank" href="<?php echo $link;?>"><?php echo substr($title, 0, 25);?></a>
+                                    <?php echo substr($description,0, 40);?>                                  
+                                    <em>
+<!--                                        <a <?php if($linkColor != ''){?> style="color:<?php echo $linkColor;?>" <?php }?> target="_blank" class="content-feed-timestamp" href="<?php echo $cityUrl;?>"><?php echo $cityName;?></a> --->
+                                        <span <?php if($linkColor != ''){?> style="color:<?php echo $linkColor;?>" <?php }?> class="content-category"><?php echo $pubDate;?></span>
+                                    </em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } }?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php }?>

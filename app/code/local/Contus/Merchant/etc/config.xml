@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Contus_Merchant>
+            <version>0.1.0</version>
+        </Contus_Merchant>
+    </modules>
+    <frontend>
+        <routers>
+            <merchant>
+                <use>standard</use>
+                <args>
+                    <module>Contus_Merchant</module>
+                    <frontName>merchant</frontName>
+                </args>
+            </merchant>
+        </routers>
+        <layout>
+            <updates>
+                <merchant>
+                    <file>merchant.xml</file>
+                </merchant>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <resources>
+            <merchant_setup>
+                <setup>
+                    <module>Contus_Merchant</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </merchant_setup>
+            <merchant_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </merchant_write>
+            <merchant_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </merchant_read>
+        </resources>
+
+         <models>
+            <merchant>
+                <class>Contus_Merchant_Model</class>
+            </merchant>
+         </models>
+         <template>
+            <email>
+                <merchant_email_newaccount_template translate="label" module="merchant">
+                    <label>Merchant New Account Template</label>
+                    <file>merchant_acount_new.html</file>
+                    <type>html</type>
+                </merchant_email_newaccount_template>
+            </email>
+            <email>
+                <merchant_email_adddeal_template translate="label" module="merchant">
+                    <label>Merchant Add Deal Template</label>
+                    <file>merchant_deal_add.html</file>
+                    <type>html</type>
+                </merchant_email_adddeal_template>
+            </email>
+        </template>
+        <blocks>
+            <merchant>
+                <class>Contus_Merchant_Block</class>
+            </merchant>
+        </blocks>
+        <helpers>
+            <merchant>
+                <class>Contus_Merchant_Helper</class>
+            </merchant>
+        </helpers>
+          <events>
+<!--         <catalog_product_save_after>
+                <observers>
+                    <merchant>
+                        <type>singleton</type>
+                        <class>merchant/observer</class>
+                        <method>saveMerchantDeal</method>
+                    </merchant>
+                </observers>
+         </catalog_product_save_after>-->
+
+     </events>
+    </global>
+</config>

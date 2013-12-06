@@ -1,0 +1,632 @@
+<?xml version="1.0"?>
+
+<config>
+	<menu>
+		<all translate="title" module="all">
+			<title>Contus GroupClone</title>
+			<sort_order>300</sort_order>
+			<class>all</class>
+			<id>1</id>
+			<frontend_type>text</frontend_type>
+			<children>
+				<Deals translate="title">
+					<title>Deals</title>
+					<sort_order>1</sort_order>
+					<children>
+						<ManageDeals translate="title">
+							<title>Manage Deals</title>
+							<sort_order>1</sort_order>
+							<action>adddeals/adminhtml_adddeals</action>
+						</ManageDeals>
+
+						<Adddeals translate="title">
+							<title>Add New Deal</title>
+							<sort_order>0</sort_order>
+							<action>adddeals/adminhtml_adddeals/new</action>
+						</Adddeals>
+
+						<items module="ordercustomer">
+							<title>Manage Coupons</title>
+							<sort_order>3</sort_order>
+							<action>ordercustomer/adminhtml_ordercustomer</action>
+						</items>
+
+						<couponvalidator translate="title" module="couponvalidator">
+							<title>Coupon Validation</title>
+							<action>couponvalidator/adminhtml_couponvalidator</action>
+							<sort_order>4</sort_order>
+						</couponvalidator>
+
+						<categories translate="title" module="catalog">
+							<title>Manage Categories</title>
+							<action>adminhtml/catalog_category/</action>
+							<sort_order>5</sort_order>
+						</categories>
+						<attributes translate="title" module="catalog">
+							<title>Manage Cities</title>
+							<sort_order>6</sort_order>
+							<action>adminhtml/catalog_product_attribute/</action>
+						</attributes>
+						<order translate="title" module="sales">
+							<title>Manage Orders</title>
+							<action>adminhtml/sales_order</action>
+							<sort_order>2</sort_order>
+						</order>
+						
+						<deal translate="title">
+							<title>Deal Configuration </title>
+							<sort_order>7</sort_order>
+							<action>adminhtml/system_config/edit/section/deal</action>
+						</deal>
+
+
+					</children>
+				</Deals>
+
+				<advertsystem translate="title" module="advertsystem">
+					<title>Advert System</title>
+					<sort_order>2</sort_order>
+					<children>
+						<rules translate="title">
+							<title>Manage Rule</title>
+							<sort_order>1</sort_order>
+							<action>advertsystem/adminhtml_adrule</action>
+						</rules>
+						<referral translate="title">
+							<title>Customers</title>
+							<sort_order>0</sort_order>
+							<action>advertsystem/adminhtml_adcustomer</action>
+						</referral>
+						<config translate="title">
+							<title>Configuration</title>
+							<sort_order>2</sort_order>
+							<action>adminhtml/system_config/edit/section/advertsystem
+							</action>
+
+						</config>
+					</children>
+				</advertsystem>
+
+				<configuration translate="title" module="all">
+					<title>Global Configuration</title>
+					<sort_order>3</sort_order>
+					<children>
+						<license translate="title">
+							<title>License Key</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/system_config/edit/section/license</action>
+						</license>
+						<dealcoupon translate="title">
+							<title>Deal Coupon Sender</title>
+							<sort_order>3</sort_order>
+							<action>adminhtml/system_config/edit/section/dealcoupon</action>
+						</dealcoupon>
+
+						<currency translate="title">
+							<title>Currency Settings</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/system_config/edit/section/currency</action>
+						</currency>
+						<emailnewsletter translate="title">
+							<title>Email Newsletter</title>
+							<sort_order>4</sort_order>
+							<action>adminhtml/system_config/edit/section/emailnewsletter
+							</action>
+						</emailnewsletter>
+						<fbusiness translate="title">
+							<title>Featured Business</title>
+							<sort_order>5</sort_order>
+							<action>adminhtml/system_config/edit/section/fbusiness</action>
+						</fbusiness>
+						<customer translate="title">
+							<title>Customer Configuration</title>
+							<sort_order>6</sort_order>
+							<action>adminhtml/system_config/edit/section/customer</action>
+						</customer>
+						<trans_email>
+							<title>Store Email Address</title>
+							<sort_order>7</sort_order>
+							<action>adminhtml/system_config/edit/section/trans_email</action>
+						</trans_email>
+						<page translate="title" module="cms">
+							<title>CMS Pages</title>
+							<action>adminhtml/cms_page</action>
+							<sort_order>8</sort_order>
+						</page>
+
+
+
+
+					</children>
+				</configuration>
+				<socialshare>
+					<title>Social Configuration</title>
+					<sort_order>4</sort_order>
+					<children>
+						<share module="share">
+							<title>Social Share Links</title>
+							<sort_order>0</sort_order>
+							<action>share/adminhtml_share</action>
+						</share>
+						<sociallogin>
+							<title>Social Login Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/sociallogin</action>
+						</sociallogin>
+						<customer translate="title">
+							<title>Facebook API</title>
+							<sort_order>3</sort_order>
+							<action>adminhtml/system_config/edit/section/customer</action>
+						</customer>
+					</children>
+
+				</socialshare>
+
+				<paymentconfiguration translate="title" module="all">
+					<title>Payment Configuration</title>
+					<sort_order>5</sort_order>
+					<children>
+						<payment translate="title">
+							<title>Payment Methods</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/system_config/edit/section/payment</action>
+						</payment>
+
+
+						<checkout translate="title">
+							<title>Checkout configuration Settings</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/checkout</action>
+						</checkout>
+						<carriers>
+							<title>Shipping Methods</title>
+							<sort_order>5</sort_order>
+							<action>adminhtml/system_config/edit/section/carriers</action>
+						</carriers>
+						<catalog translate="title" module="catalogrule">
+							<title>Promotions</title>
+							<sort_order>3</sort_order>
+							<action>adminhtml/promo_catalog/</action>
+							<depends>
+								<module>Mage_Catalog</module>
+							</depends>
+						</catalog>
+						<shipping>
+							<title>Shipping settings</title>
+							<sort_order>4</sort_order>
+							<action>adminhtml/system_config/edit/section/shipping</action>
+						</shipping>
+						<merchant translate="title">
+							<title>Merchant Payment</title>
+							<sort_order>6</sort_order>
+							<action>adminhtml/system_config/edit/section/merchant/</action>
+						</merchant>
+						<tax translate="title">
+							<title>Tax Configuration</title>
+							<sort_order>7</sort_order>
+							<action>adminhtml/system_config/edit/section/tax</action>
+						</tax>
+						<sales_email>
+							<title>Sales Emails</title>
+							<sort_order>8</sort_order>
+							<action>adminhtml/system_config/edit/section/sales_email</action>
+						</sales_email>
+						<sales>
+							<title>Sales Settings</title>
+							<sort_order>9</sort_order>
+							<action>adminhtml/system_config/edit/section/sales</action>
+						</sales>
+					</children>
+				</paymentconfiguration>
+
+				<background translate="title" module="background">
+					<title>Design Configuration</title>
+					<sort_order>6</sort_order>
+					<children>
+						<background translate="title">
+							<title>Set Site Background</title>
+							<sort_order>1</sort_order>
+							<action>background/adminhtml_background</action>
+						</background>
+						<design translate="title">
+							<title>Set Custom Design</title>
+							<sort_order>2</sort_order>
+							<action>adminhtml/system_config/edit/section/background</action>
+						</design>
+					</children>
+				</background>
+				<optional translate="title" module="all">
+					<title>Optional Settings</title>
+					<sort_order>7</sort_order>
+					<children>
+						<rss translate="title">
+							<title>Deal RSS Feeds</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/system_config/edit/section/rssfeed</action>
+						</rss>
+						<constantcontact translate="title">
+							<title>Constant Contact</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/constantcontact
+							</action>
+						</constantcontact>
+						<mailchimp translate="title">
+							<title>MailChimp</title>
+							<sort_order>2</sort_order>
+							<action>adminhtml/system_config/edit/section/mailchimp</action>
+						</mailchimp>
+						<google translate="title">
+							<title>Google Analytic/API</title>
+							<sort_order>3</sort_order>
+							<action>adminhtml/system_config/edit/section/google</action>
+						</google>
+
+						<sitemap translate="title">
+							<title>Google Sitemap</title>
+							<sort_order>4</sort_order>
+							<action>adminhtml/system_config/edit/section/sitemap</action>
+						</sitemap>
+
+					</children>
+
+				</optional>
+
+				<localization translate="title" module="all">
+					<title>Localization</title>
+					<sort_order>9</sort_order>
+					<children>
+						<general translate="title">
+							<title>Language Settings</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/system_config/edit/section/general</action>
+						</general>
+						<attributes translate="title" module="catalog">
+							<title>Manage Cities</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/catalog_product_attribute/</action>
+						</attributes>
+						<payment translate="title">
+							<title>Payment Settings</title>
+							<sort_order>2</sort_order>
+							<action>adminhtml/system_config/edit/section/payment</action>
+						</payment>
+					</children>
+				</localization>
+			</children>
+		</all>
+	</menu>
+
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<all>
+						<title>Contus GroupClone</title>
+						<children>
+							<Deals translate="title">
+								<title>Deals</title>
+								<sort_order>1</sort_order>
+								<children>
+									<ManageDeals translate="title">
+										<title>Manage Deals</title>
+										<sort_order>1</sort_order>
+										<action>adddeals/adminhtml_adddeals</action>
+									</ManageDeals>
+
+									<Adddeals translate="title">
+										<title>Add New Deal</title>
+										<sort_order>0</sort_order>
+										<action>adddeals/adminhtml_adddeals/new</action>
+									</Adddeals>
+
+									<items module="ordercustomer">
+										<title>Manage Coupons</title>
+										<sort_order>3</sort_order>
+										<action>ordercustomer/adminhtml_ordercustomer</action>
+									</items>
+
+									<couponvalidator translate="title" module="couponvalidator">
+										<title>Coupon Validation</title>
+										<action>couponvalidator/adminhtml_couponvalidator</action>
+										<sort_order>4</sort_order>
+									</couponvalidator>
+
+									<categories translate="title" module="catalog">
+										<title>Manage Categories</title>
+										<action>adminhtml/catalog_category/</action>
+										<sort_order>5</sort_order>
+									</categories>
+									<attributes translate="title" module="catalog">
+										<title>Manage Cities</title>
+										<sort_order>6</sort_order>
+										<action>adminhtml/catalog_product_attribute/</action>
+									</attributes>
+									<order translate="title" module="sales">
+										<title>Manage Orders</title>
+										<action>adminhtml/sales_order</action>
+										<sort_order>2</sort_order>
+									</order>
+									
+								
+									<deal translate="title">
+										<title>Deal Configuration </title>
+										<sort_order>7</sort_order>
+										<action>adminhtml/system_config/edit/section/deal</action>
+									</deal>
+
+
+								</children>
+							</Deals>
+
+							<advertsystem translate="title" module="advertsystem">
+								<title>Advert System</title>
+								<sort_order>2</sort_order>
+								<children>
+									<rules translate="title">
+										<title>Manage Rule</title>
+										<sort_order>1</sort_order>
+										<action>advertsystem/adminhtml_adrule</action>
+									</rules>
+									<referral translate="title">
+										<title>Customers</title>
+										<sort_order>0</sort_order>
+										<action>advertsystem/adminhtml_adcustomer</action>
+									</referral>
+									<config translate="title">
+										<title>Configuration</title>
+										<sort_order>2</sort_order>
+										<action>adminhtml/system_config/edit/section/advertsystem
+										</action>
+
+									</config>
+								</children>
+							</advertsystem>
+
+							<configuration translate="title" module="all">
+								<title>Global Configuration</title>
+								<sort_order>3</sort_order>
+								<children>
+									<license translate="title">
+										<title>License Key</title>
+										<sort_order>0</sort_order>
+										<action>adminhtml/system_config/edit/section/license</action>
+									</license>
+									<dealcoupon translate="title">
+										<title>Deal Coupon Sender</title>
+										<sort_order>3</sort_order>
+										<action>adminhtml/system_config/edit/section/dealcoupon
+										</action>
+									</dealcoupon>
+
+									<currency translate="title">
+										<title>Currency Settings</title>
+										<sort_order>0</sort_order>
+										<action>adminhtml/system_config/edit/section/currency</action>
+									</currency>
+									<emailnewsletter translate="title">
+										<title>Email Newsletter</title>
+										<sort_order>4</sort_order>
+										<action>adminhtml/system_config/edit/section/emailnewsletter
+										</action>
+									</emailnewsletter>
+									<fbusiness translate="title">
+										<title>Featured Business</title>
+										<sort_order>5</sort_order>
+										<action>adminhtml/system_config/edit/section/fbusiness
+										</action>
+									</fbusiness>
+									<customer translate="title">
+										<title>Customer Configuration</title>
+										<sort_order>6</sort_order>
+										<action>adminhtml/system_config/edit/section/customer</action>
+									</customer>
+									<trans_email>
+										<title>Store Email Address</title>
+										<sort_order>7</sort_order>
+										<action>adminhtml/system_config/edit/section/trans_email
+										</action>
+									</trans_email>
+
+								<page translate="title" module="cms">
+								<title>CMS Pages</title>
+								<sort_order>8</sort_order>
+							</page>
+									
+
+
+
+								</children>
+							</configuration>
+							<socialshare>
+								<title>Social Congifiguration</title>
+								<sort_order>4</sort_order>
+								<children>
+									<share module="share">
+										<title>Social Share Links</title>
+										<sort_order>0</sort_order>
+										<action>share/adminhtml_share</action>
+									</share>
+									<sociallogin>
+										<title>SocialLogin Configuration</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/sociallogin
+										</action>
+									</sociallogin>
+									<twitterbox translate="title">
+										<title>Twitter Box</title>
+										<sort_order>2</sort_order>
+									</twitterbox>
+									<customer translate="title">
+										<title>Facebook API</title>
+										<sort_order>3</sort_order>
+									</customer>
+								</children>
+
+							</socialshare>
+
+							<paymentconfiguration translate="title"
+								module="all">
+								<title>Payment Configuration</title>
+								<sort_order>5</sort_order>
+								<children>
+									<payment translate="title">
+										<title>Payment Methods</title>
+										<sort_order>0</sort_order>
+										<action>adminhtml/system_config/edit/section/payment</action>
+									</payment>
+									<onestepcheckout translate="title">
+										<title>OneStepCheckout</title>
+										<sort_order>2</sort_order>
+									</onestepcheckout>
+
+									<checkout translate="title">
+										<title>Checkout configuration Settings</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/checkout</action>
+									</checkout>
+									<carriers>
+										<title>Shipping Methods</title>
+										<sort_order>5</sort_order>
+										<action>adminhtml/system_config/edit/section/carriers</action>
+									</carriers>
+									<catalog translate="title" module="catalogrule">
+										<title>Promotions</title>
+										<sort_order>3</sort_order>
+										<action>adminhtml/promo_catalog/</action>
+										<depends>
+											<module>Mage_Catalog</module>
+										</depends>
+									</catalog>
+									<shipping>
+										<title>Shipping settings</title>
+										<sort_order>4</sort_order>
+										<action>adminhtml/system_config/edit/section/shipping</action>
+									</shipping>
+									<merchant translate="title">
+										<title>Merchant Payment</title>
+										<sort_order>6</sort_order>
+										<action>adminhtml/system_config/edit/section/background
+										</action>
+									</merchant>
+									<tax translate="title">
+										<title>Tax Configuration</title>
+										<sort_order>7</sort_order>
+										<action>adminhtml/system_config/edit/section/tax</action>
+									</tax>
+									<sales_email>
+										<title>Sales Emails</title>
+										<sort_order>8</sort_order>
+										<action>adminhtml/system_config/edit/section/sales_email
+										</action>
+									</sales_email>
+									<sales>
+										<title>Sales Settings</title>
+										<sort_order>9</sort_order>
+										<action>adminhtml/system_config/edit/section/sales</action>
+									</sales>
+								</children>
+							</paymentconfiguration>
+
+							<background translate="title" module="background">
+								<title>Design Configuration</title>
+								<sort_order>6</sort_order>
+								<children>
+									<background translate="title">
+										<title>Set Site Background</title>
+										<sort_order>1</sort_order>
+										<action>background/adminhtml_background</action>
+									</background>
+									<design translate="title">
+										<title>Set Custom Design</title>
+										<sort_order>2</sort_order>
+										<action>adminhtml/system_config/edit/section/background
+										</action>
+									</design>
+								</children>
+							</background>
+							<optional translate="title" module="all">
+								<title>Optional Settings</title>
+								<sort_order>7</sort_order>
+								<children>
+									<rss translate="title">
+										<title>Deal RSS Feeds</title>
+										<sort_order>0</sort_order>
+										<action>adminhtml/system_config/edit/section/rssfeed</action>
+									</rss>
+									<constantcontact translate="title">
+										<title>Constant Contact</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/constantcontact
+										</action>
+									</constantcontact>
+									<mailchimp translate="title">
+										<title>MailChimp</title>
+										<sort_order>2</sort_order>
+										<action>adminhtml/system_config/edit/section/mailchimp
+										</action>
+									</mailchimp>
+									<google translate="title">
+										<title>Google Analytic or API</title>
+										<sort_order>3</sort_order>
+										<action>adminhtml/system_config/edit/section/google</action>
+									</google>
+
+									<sitemap translate="title">
+										<title>Google Sitemap</title>
+										<sort_order>4</sort_order>
+										<action>adminhtml/system_config/edit/section/sitemap</action>
+									</sitemap>
+
+								</children>
+
+							</optional>
+
+							<localization translate="title" module="all">
+								<title>Localization</title>
+								<sort_order>9</sort_order>
+								<children>
+									<general translate="title">
+										<title>Language Settings</title>
+										<sort_order>0</sort_order>
+										<action>adminhtml/system_config/edit/section/general</action>
+									</general>
+									<attributes translate="title" module="catalog">
+										<title>Manage Cities</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/catalog_product_attribute/</action>
+									</attributes>
+									<payment translate="title">
+										<title>Payment Settings</title>
+										<sort_order>2</sort_order>
+										<action>adminhtml/system_config/edit/section/payment</action>
+									</payment>
+								</children>
+							</localization>
+						</children>
+					</all>
+					<system>
+						<children>
+							<config>
+								<children>
+									<all>
+										<title>Contus GroupClone</title>
+									</all>
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<layout>
+		<updates>
+			<all>
+				<file>all.xml</file>
+			</all>
+		</updates>
+	</layout>
+</config>

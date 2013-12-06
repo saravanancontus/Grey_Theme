@@ -1,0 +1,119 @@
+<?php
+/**
+ * Contus Support
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@Contus Supportcommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Contus Support to newer
+ * versions in the future. If you wish to customize Contus Support for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_blank
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+/* Condition for displaying the more great deals in the main deal page */
+if (Mage::app()->getRequest()->getParam('id')) {
+    $id = Mage::app()->getRequest()->getParam('id');
+} else {
+    $productIds = Mage::getSingleton('core/session')->getProductIds();
+    $id = $productIds[0];
+}
+$cnt = 0;
+$dealsCity = Mage::getSingleton('core/session')->getCity();
+$products = Mage::getModel('deal/deal')->getSidedeals($dealsCity);
+$productCount = count($products);
+$title = $this->__('More Great Deals');
+?>
+<?php if ($this->getLayout()->createBlock('cms/block')->setBlockId('side_banner')->toHtml()) { ?>
+    <div class="side_banner_image">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('side_banner')->toHtml() ?>
+</div>
+<?php
+}
+if ($productCount > 1) {
+?>
+    <div class="block block-cart">
+        
+        <div class="block-title"><strong class="link_view"><?php echo $this->__($title); ?>  </strong> <?php if($productCount >5){?><a href="<?php echo Mage::getBaseUrl(); ?>" class="deal_view_link"><?php echo $this->__('See All'); ?></a>
+            <?php } ?><div class="clear"></div>
+        </div>
+        
+        <div class="block-content">
+        <?php
+        foreach ($products as $item) {
+            $productId = $item;
+            if ($productId != $id) {
+                $cnt+=1;  // count of displaying products
+                $model = Mage::getModel('catalog/product');
+                $_product = $model->load($productId);
+                $productId = $_product->getId();
+                $images = $this->helper('catalog/image')->init($_product, 'thumbnail');
+                if (strlen($_product->getName()) > 38) {
+                    $desc = substr($this->htmlEscape($_product->getName()), 0, 38) . "..";
+                } else {
+                    $desc = $this->htmlEscape($_product->getName());
+                }
+                $URL = $_product->getProductUrl();
+                $sp_price = $_product->getSpecialPrice();               
+         if ($cnt == 1) {
+ ?>
+                    <div class="midtxt moredeal_grid moredeal_grid_first_child">                        
+            <?php
+                    if (!$_product->isGrouped()) {
+                        $resultQuantity = $this->getQuantityPurchase($_product);
+                    }
+            ?>   
+                <div class="price_box">
+                     <div class="deal_content"><a href="<?php echo $URL; ?>"><?php echo $desc; ?></a></div>
+                     <p class="online_deal"><span></span>Online Deal</p>
+                    <span class="price_tag price_tag" id="price_value-<?php echo $count; ?>"><?php echo Mage::helper('core')->currency($sp_price, true, true) ?></span>
+                    <span class="value_box"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, true) ?></span>                    
+                </div>
+                <a href="<?php echo $URL; ?>"><img src="<?php echo $images; ?>" width="90" height="54" alt="" class="deal_img"/></a>
+                        <div class="clear"></div>
+                        <span class="number_sold clearfix"><?php
+                    if ($resultQuantity[0] > $_product->gettarget_number()) {
+                        echo $this->__('Over');
+                    }
+            ?> <?php echo $resultQuantity[0]; ?> <?php echo $this->__('bought'); ?>  </span>
+                    </div>
+<?php
+                } else {
+?>                                              
+                <div class="midtxt moredeal_grid">
+            <?php
+                    if (!$_product->isGrouped()) {
+                        $resultQuantity = $this->getQuantityPurchase($_product);
+                    }
+            ?>                    
+                        <div class="deal_content_even"><span class="online_deal">Online Deal</span> <a href="<?php echo $URL; ?>"><?php echo $desc; ?></a></div>
+                        <div class="clearfix">
+                        <span class="number_sold next_sold clearfix floatleft"> <small><?php if ($resultQuantity[0] > $_product->gettarget_number()) {
+                        echo $this->__('Over');
+                    } ?> <?php echo $resultQuantity[0]; ?> <?php echo $this->__('bought'); ?></small>  </span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+<?php
+                }
+            }
+        }
+?>
+            </div>
+        </div>
+
+<?php } ?>

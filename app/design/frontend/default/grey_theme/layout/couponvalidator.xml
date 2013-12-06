@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <couponvalidator_index_couponvalidation>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/empty.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="couponvalidator/couponvalidator" name="couponvalidator" template="couponvalidator/form.phtml" />
+            <remove name="breadcrumbs"/>
+        </reference>
+    </couponvalidator_index_couponvalidation>
+</layout>

@@ -1,0 +1,182 @@
+<script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
+<?php
+$widgetType = Mage::getStoreConfig('twitterbox/general/widget');
+if ($widgetType == 0) {
+?>
+    <script type="text/javascript">
+        <!--
+        var twitterBoxWidget = new TWTR.Widget(
+        {
+            version:	2,
+            type:		'profile',
+            rpp:		<?php echo $this->_helper->getCount(); ?>,
+            interval:	<?php echo $this->_helper->getInterval(); ?>,
+            width:		<?php echo $this->_helper->getWidth(); ?>,
+            height:		<?php echo $this->_helper->getHeight(); ?>,
+            theme:
+                {
+                shell:
+                    {
+                    background: '<?php echo $this->_helper->getShellBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getShellColor(); ?>'
+                },
+                tweets:
+                    {
+                    background: '<?php echo $this->_helper->getTweetBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getTweetColor(); ?>',
+                    links:      '<?php echo $this->_helper->getTweetLinkColor(); ?>'
+                }
+            },
+            features:
+                {
+                scrollbar:	<?php echo $this->_helper->getScrollbar(); ?>,
+                loop:		<?php echo $this->_helper->getLoop(); ?>,
+                live:		<?php echo $this->_helper->getLive(); ?>,
+                hashtags:	<?php echo $this->_helper->getHashtags(); ?>,
+                timestamp:	<?php echo $this->_helper->getTimestamps(); ?>,
+                avatars:	<?php echo $this->_helper->getAvatars(); ?>,
+                behavior:	'<?php echo $this->_helper->getBehavior(); ?>'
+            }
+        });
+
+        twitterBoxWidget.render().setUser('<?php echo $this->_helper->getUserName(); ?>').start();
+        -->
+    </script>
+<?php
+}
+//search widget
+elseif ($widgetType == 1) {
+?>
+    <script type="text/javascript">
+        <!--
+        var twitterBoxWidget = new TWTR.Widget(
+        {
+            version:	2,
+            type:		'search',
+            search:         "<?php echo strip_tags(Mage::getStoreConfig('twitterbox/general/search')) ?>",
+            title:          "<?php echo $this->__(Mage::getStoreConfig('twitterbox/general/title'))?>",
+            subject:        "<?php echo $this->__(Mage::getStoreConfig('twitterbox/general/caption'))?>",
+            rpp:		<?php echo $this->_helper->getCount(); ?>,
+            interval:	<?php echo $this->_helper->getInterval(); ?>,
+            width:		<?php echo $this->_helper->getWidth(); ?>,
+            height:		<?php echo $this->_helper->getHeight(); ?>,
+            theme:
+                {
+                shell:
+                    {
+                    background: '<?php echo $this->_helper->getShellBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getShellColor(); ?>'
+                },
+                tweets:
+                    {
+                    background: '<?php echo $this->_helper->getTweetBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getTweetColor(); ?>',
+                    links:      '<?php echo $this->_helper->getTweetLinkColor(); ?>'
+                }
+            },
+            features:
+                {
+                scrollbar:	<?php echo $this->_helper->getScrollbar(); ?>,
+                loop:		<?php echo $this->_helper->getLoop(); ?>,
+                live:		<?php echo $this->_helper->getLive(); ?>,
+                hashtags:	<?php echo $this->_helper->getHashtags(); ?>,
+                timestamp:	<?php echo $this->_helper->getTimestamps(); ?>,
+                avatars:	<?php echo $this->_helper->getAvatars(); ?>,
+                behavior:       '<?php echo $this->_helper->getBehavior(); ?>'
+            }
+        });
+
+        twitterBoxWidget.render().start();
+        -->
+    </script>
+<?php
+} elseif ($widgetType == 2) {
+?>
+    <script type="text/javascript">
+        <!--
+        var twitterBoxWidget = new TWTR.Widget(
+        {
+            version:	2,
+            type:		'faves',
+            title:          "<?php echo $this->__(Mage::getStoreConfig('twitterbox/general/title'))?>",
+            subject:        "<?php echo $this->__(Mage::getStoreConfig('twitterbox/general/caption'))?>",
+            rpp:		<?php echo $this->_helper->getCount(); ?>,
+            interval:	<?php echo $this->_helper->getInterval(); ?>,
+            width:		<?php echo $this->_helper->getWidth(); ?>,
+            height:		<?php echo $this->_helper->getHeight(); ?>,
+            theme:
+                {
+                shell:
+                    {
+                    background: '<?php echo $this->_helper->getShellBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getShellColor(); ?>'
+                },
+                tweets:
+                    {
+                    background: '<?php echo $this->_helper->getTweetBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getTweetColor(); ?>',
+                    links:      '<?php echo $this->_helper->getTweetLinkColor(); ?>'
+                }
+            },
+            features:
+                {
+                scrollbar:	<?php echo $this->_helper->getScrollbar(); ?>,
+                loop:		<?php echo $this->_helper->getLoop(); ?>,
+                live:		<?php echo $this->_helper->getLive(); ?>,
+                hashtags:	<?php echo $this->_helper->getHashtags(); ?>,
+                timestamp:	<?php echo $this->_helper->getTimestamps(); ?>,
+                avatars:	<?php echo $this->_helper->getAvatars(); ?>,
+                behavior:	'<?php echo $this->_helper->getBehavior(); ?>'
+            }
+        });
+
+        twitterBoxWidget.render().setUser('<?php echo $this->_helper->getUserName(); ?>').start();
+        -->
+    </script>
+<?php
+} elseif ($widgetType == 3) {
+?>
+    <script type="text/javascript">
+        <!--
+        var twitterBoxWidget = new TWTR.Widget(
+        {
+            version:	2,
+            type:		'list',
+            title:          "<?php echo $this->__(Mage::getStoreConfig('twitterbox/general/title'))?>",
+            subject:        "<?php echo $this->__(Mage::getStoreConfig('twitterbox/general/caption'))?>",
+            rpp:	     <?php echo $this->_helper->getCount(); ?>,
+            interval:	     <?php echo $this->_helper->getInterval(); ?>,
+            width:	     <?php echo $this->_helper->getWidth(); ?>,
+            height:	     <?php echo $this->_helper->getHeight(); ?>,
+            theme:
+                {
+                shell:
+                    {
+                    background: '<?php echo $this->_helper->getShellBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getShellColor(); ?>'
+                },
+                tweets:
+                    {
+                    background: '<?php echo $this->_helper->getTweetBackgroundColor(); ?>',
+                    color:      '<?php echo $this->_helper->getTweetColor(); ?>',
+                    links:      '<?php echo $this->_helper->getTweetLinkColor(); ?>'
+                }
+            },
+            features:
+                {
+                scrollbar:	<?php echo $this->_helper->getScrollbar(); ?>,
+                loop:		<?php echo $this->_helper->getLoop(); ?>,
+                live:		<?php echo $this->_helper->getLive(); ?>,
+                hashtags:	<?php echo $this->_helper->getHashtags(); ?>,
+                timestamp:	<?php echo $this->_helper->getTimestamps(); ?>,
+                avatars:	<?php echo $this->_helper->getAvatars(); ?>,
+                behavior:       '<?php echo $this->_helper->getBehavior(); ?>'
+            }
+        });
+
+        twitterBoxWidget.render().setList('<?php echo $this->_helper->getUserName(); ?>', '<?php echo Mage::getStoreConfig('twitterbox/general/list') ?>').start();
+        -->
+    </script>
+<?php
+}
+?>

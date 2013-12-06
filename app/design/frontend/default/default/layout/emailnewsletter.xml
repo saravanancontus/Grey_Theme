@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+ 
+    <emailnewsletter_index_index>
+        <reference name="content">
+            <block type="emailnewsletter/emailnewsletter" name="emailnewsletter" template="emailnewsletter/emailnewsletter.phtml" />
+        </reference>
+    </emailnewsletter_index_index>
+
+</layout> 

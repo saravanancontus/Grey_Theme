@@ -1,0 +1,28 @@
+.deal_grid{}
+.deal_grid .bottom_div{ overflow: hidden; margin-top: 10px;}
+.deal_grid .bottom_div .floatleft{float: left;}
+.deal_grid .bottom_div .floatright{float:right;}
+.deal_grid .bottom_div .form-button{margin:0 5px 0px 0;}
+.deal_grid .bottom_div label{width: 192px !important;padding: 0 !important;margin: 0;}
+.deal_grid .bottom_div #meta-information input[type="text"],textarea{width: 271px !important;}
+#dataTable1 input[type="text"], select{margin-right: 4px;}
+#dataTable1 button.icon-btn{margin-bottom: 10px;}
+#dataTable1 input[type="text"]{width: 118px;}
+#dataTable1 td{margin-bottom: 5px;}
+table#deal_info{}
+table#deal_info tr{}
+table#deal_info tr td{}
+table#deal_info tr td input#startdate,input#enddate,input#couponvalidtil{width: 257px;}
+table#deal_info tr td textarea{height: 100px;}
+table#deal_info tr td.label label, table#meta-information tr td.label label{width: auto; padding-right: 0;position: relative;}
+.tooltipmsg{left: 206px;position: absolute;width: 257px;background-color: #fff;border: 1px solid rgb(196, 196, 196);padding: 10px; -webkit-box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.75); -moz-box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.75);box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.75);z-index: 1000;top: 28px;}
+.tooltipmsg:after,.tooltipmsg:before{bottom: 100%;border: solid transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;}
+.tooltipmsg:after {border-color: rgba(136, 183, 213, 0);border-bottom-color: #fff;border-width: 10px;left: 5%;}
+.tooltipmsg:before {border-color: rgba(194, 225, 245, 0);border-bottom-color: #ccc;border-width: 13px;left: 4%;}
+#showcustom{margin:10px 0px;}
+.image_upload{padding: 10px 0px 0px;float: left;}
+.image_upload img{padding: 3px;border: 1px solid #aaaaaa;float: left;}
+.choose_type{float: left;padding:20px 0 0 10px;}
+.choose_type button{margin: 0 0 0 8px;}
+#nav li.parent a.groupbuying{padding:0;cursor:pointer;height:27px;}
+.hor-scroll {overflow: visible !important;}

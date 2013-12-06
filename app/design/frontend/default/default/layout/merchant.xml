@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <merchant_index_index>
+         <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="merchant/merchant" name="merchant" template="merchant/merchant.phtml" />
+        </reference>
+    </merchant_index_index>
+    <merchant_account_create>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="merchant/form_register" name="register" template="merchant/form/register.phtml" />
+        </reference>
+    </merchant_account_create>
+</layout> 

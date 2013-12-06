@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * Contus Support Pvt Ltd.
+ *
+ * sathishkumar@contus.in
+ * In xml used to integrate the license Key to system configuration.
+ */
+-->
+<config>
+     <tabs>
+        <license translate="label" module="license">
+            <label>License Key</label>
+            <sort_order>198</sort_order>
+        </license>
+    </tabs>
+    <sections>
+        <license translate="label" module="license">
+            <label>License Key</label>
+            <tab>gclone_all</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <license translate="label">
+                    <label>License Config</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <license translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </license>
+                    </fields>
+                </license>
+            </groups>
+        </license>
+    </sections>
+</config>

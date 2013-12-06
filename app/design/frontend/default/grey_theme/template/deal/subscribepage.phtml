@@ -1,0 +1,114 @@
+<?php
+/**
+ * Created by selva 24/11/2010
+ * email : selvakumar@contus.in
+ * To mention the subscribe page form.
+ *
+ * Updated by : sathish 24/01/2011
+ * Default Newsletter subscribe page.
+ */
+ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+     $customerData = Mage::getSingleton('customer/session')->getCustomer();
+       $customerid = $customerData->getId();
+       $customerData->getEmail();
+
+ $subscriptionData = Gclone_Deal_Block_Newsletter::getCustomerSubscription();
+  $attributeId = Mage::getResourceModel('eav/entity_attribute')->getIdByCode('catalog_product', 'dealcity');
+        $attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', $attributeId); // get the cities attribute id 548
+        // to get the multiple cities in pages(drop down)
+        foreach ($attribute->getSource()->getAllOptions(true, true) as $option) {
+           if($option['value']== $subscriptionData[0]['subscriber_city']){
+                 $citySubscribed = $option['value'];
+           }
+        }
+$citySelect = Gclone_Deal_Block_Newsletter::getCityToSubscribe($subscriptionData[0]['subscriber_city']);
+ }
+$select = "";
+$cities = array();
+$attributeId = Mage::getResourceModel('eav/entity_attribute')->getIdByCode('catalog_product', 'dealcity');
+$attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', $attributeId);
+// to get the multiple cities in pages(drop down)
+foreach ($attribute->getSource()->getAllOptions(true, true) as $option) {
+    $value = $option['value'];
+   if($customerid!="")
+   {
+    if ($value != '' &&  $value!=$citySubscribed  ) {
+        $cities[$value] = $option['label'];
+        $select .= "<option value='" . $option['value'] . "'>" . $option['label'] . "</option>";
+    }
+   }
+ else {
+         if ($value != ''  ) {
+        $cities[$value] = $option['label'];
+        $select .= "<option value='" . $option['value'] . "'>" . $option['label'] . "</option>";
+    }
+   }
+}
+?>
+<div class="main-subscribe">
+    <div id="logo_container">
+<h1 class="logo" >
+        <a href="<?php echo $this->getUrl(); ?>"><img src="<?php echo $this->getSkinUrl('images/logo.png'); ?>" alt="logo" title="Logo" /></a>
+    </h1>
+</div>
+<div class="subscribe-container">
+    <div class="page_content clearfix">
+        <div id="subscribe-top">
+            <h1><?php echo $this->__('Subscribe for newsletter'); ?></h1>
+        </div>
+        <div id="sub-content">
+        <!--- subscribtion form start --->
+        <form action="<?php echo $this->getUrl('newsletter/subscriber/new') ?>" method="post" id="newsletter-validate-detail">
+            <div id="confirm-city">
+                        <!--<img src="<?php echo $this->getSkinUrl('images/confirm-city-img.gif'); ?>" width="140" height="18" alt="Confirm your city" title="" />-->
+
+                <div class="confirm-city-box">
+                    <select id="city" class="validate-select" name="city">
+                        <option value=""><?php echo $this->__('Select your City'); ?></option>
+                        <?php echo $select; ?>
+                    </select>
+                </div>
+
+            </div>
+            <div id="enter-mail">
+                        <!--<img src="<?php echo $this->getSkinUrl('images/email-address-img.gif'); ?>" width="188" height="16" alt="Enter Email Address" title="" />-->
+                <div class="mail-box" >
+                    <input type="text" name="email" size="30" id="newsletter1" class="validate-email" value="<?php echo $this->__('Enter your email address here...'); ?>" onfocus="if (this.value == '<?php echo $this->__('Enter your email address here...'); ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php echo $this->__('Enter your email address here...'); ?>';}"  />
+                </div>
+                <div id="error_msg" style="color:red; font-family: Helvetica, sans-serif; font-size: 10px; position: absolute;"></div>
+            </div>
+            
+
+            <div class="clear"></div>
+
+            <div class="button_container">
+
+                <div class="button_sub buttons">
+
+                    <input type="hidden" name="task" id="task" value="confirmSubscribe" />
+
+                    <button type="submit" title="<?php echo $this->__('Continue') ?>" class="button"><?php echo $this->__('Continue') ?></button>
+                    
+
+                    <a class="button continue" href="javascript:void(0)" id="step_one" onclick="document['skip'].submit();return false;"><?php echo $this->__("I'm already a Subscriber, Skip."); ?></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+        </form>
+        <form  action="<?php echo $this->getBaseUrl() ?>" method="post" name="skip">
+            <input type="hidden" name="skips" value="1" />
+        </form>
+        <!--- subscribtion form end --->
+        </div>
+    </div>
+<div class="clear"></div>
+</div>
+    <div class="clear"></div>
+    </div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+//]]>
+</script>

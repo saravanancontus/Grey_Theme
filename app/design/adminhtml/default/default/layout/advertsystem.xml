@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    
+    <advertsystem_adminhtml_advertsystem_index>
+        <reference name="content">
+            <block type="advertsystem/adminhtml_advertsystem" name="advertsystem" />
+        </reference>
+    </advertsystem_adminhtml_advertsystem_index>
+</layout>

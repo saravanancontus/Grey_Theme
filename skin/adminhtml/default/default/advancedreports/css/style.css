@@ -1,0 +1,487 @@
+.dp-highlight .ui-state-default{
+background: #0076cb;
+color: #FFF;
+}
+#advanced-report-datepicker,
+#product-advanced-report-datepicker,
+#transactions-advanced-report-datepicker,
+#timetopurchase-advanced-report-datepicker
+{
+font-size:8px;
+float: left;
+}
+.advanced_report_wrapper{}
+.report-chart
+{
+clear: both;margin-bottom: 10px;
+padding: 10px;
+border: 1px solid #e5e5e5;
+}
+
+
+.advanced_report_wrapper{}
+.timetopurchase-report-chart
+{
+clear: both;margin-bottom: 10px;
+/*height:400px;*/
+padding: 10px;
+-webkit-border-radius: 4px 4px;
+-moz-border-radius: 4px 4px;
+border-radius: 4px 4px;
+padding: 62px;
+}
+
+
+.total-revenue
+{
+border: 1px solid #bdbdbd;
+}
+.total-revenue.sales_report{}
+
+.total-revenue p.active a,
+.total-revenue p.inactive a{text-decoration: none;}
+.total-revenue p.active a{color: #058dc7; cursor: default;}
+.total-revenue p.inactive a{color: #2f2f2f;}
+.advanced_report_wrapper .total-revenue p.active.include,
+.advanced_report_wrapper .total-revenue p.inactive.include{margin-left: -11px;margin-right: -1px; width: 142px;}
+.advanced_report_wrapper .total-revenue p.active span.tex_text{text-decoration: underline;}
+.advanced_report_wrapper .total-revenue p.active span,
+.advanced_report_wrapper .total-revenue p.inactive span{clear: both;display: block;}
+.advanced_report_wrapper .total-revenue p.active span.price,
+.advanced_report_wrapper .total-revenue p.inactive span.price{font-size: 18px;}
+.advanced_report_wrapper .total-revenue p.active,
+.advanced_report_wrapper .total-revenue p.inactive{font-size: 9px;float: left;width: 141px; border: 1px solid #e8e8e8;margin-bottom: 0;border-bottom-width: 0px;
+background: #fefefe;
+background: -moz-linear-gradient(top, #fefefe 0%, #f3f3f3 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#f3f3f3));
+background: -webkit-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);
+background: -o-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);
+background: -ms-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);
+background: linear-gradient(to bottom, #fefefe 0%,#f3f3f3 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#f3f3f3',GradientType=0 );
+padding: 5px 0;
+}
+.advanced_report_wrapper .total-revenue p.active{color: #058dc7;
+background-color: #dfdfdf;
+background-image: -webkit-linear-gradient(top,#f0f0f0,#dfdfdf);
+background-image: -moz-linear-gradient(top,#f0f0f0,#dfdfdf);
+border-color: #ccc;
+box-shadow: inset 0px 1px 10px rgba(0,0,0,.05);
+}
+.total-revenue p.inactive{color: #2f2f2f; }
+
+.revenue-list
+{
+border: 1px solid #bdbdbd;
+}
+.date_popup
+{
+color: #FFFFFF;
+width: 625px;
+position: absolute;
+padding: 10px;
+background-color: #f7f7f7;
+border: 1px solid #ccc;
+top: 33px;
+right:0px;
+display: none;
+z-index: 10;
+background: #f7f7f7;
+-moz-box-shadow: -1px 1px 2px #dfdfdf;
+-webkit-box-shadow: -1px 1px 2px #dfdfdf;
+box-shadow: -1px 1px 2px #dfdfdf;
+}
+
+.report-date-range {
+border: 1px solid #bdbdbd;
+height: 22px; color: #1c2e3d;
+font: 18px/22px Arial, Helvetica, sans-serif;
+padding: 5px 25px 5px 10px;
+cursor: pointer;
+background: #fff;
+float: right;
+position: relative;
+text-align:center; margin: 0 0 10px 0;
+}
+.report-date-range {background: url(../images/date_down.png) 100% 0px no-repeat;}
+.report-date-range.arrowdown{background: url(../images/date_up.png) 100% 0px no-repeat; }
+.err-msg
+{
+color: red;
+}
+.advanced_report_wrapper{clear: both;}
+.advanced_date_picker{float: right; margin-bottom: -1px;  width: 310px;z-index: 1;position: relative;}
+
+/* button text element */
+.ui-button .ui-button-text {
+display: block;
+line-height: normal;
+}
+.ui-button-text-only .ui-button-text {
+padding: .4em 1em;
+}
+.ui-button-icon-only .ui-button-text,
+.ui-button-icons-only .ui-button-text {
+padding: .4em;
+text-indent: -9999999px;
+}
+.ui-button-text-icon-primary .ui-button-text,
+.ui-button-text-icons .ui-button-text {
+padding: .4em 1em .4em 2.1em;
+}
+.ui-button-text-icon-secondary .ui-button-text,
+.ui-button-text-icons .ui-button-text {
+padding: .4em 2.1em .4em 1em;
+}
+.ui-button-text-icons .ui-button-text {
+padding-left: 2.1em;
+padding-right: 2.1em;
+}
+/* no icon support for input elements, provide padding by default */
+input.ui-button {
+padding: .4em 1em;
+}
+.ui-datepicker .ui-datepicker-header {
+position: relative;
+padding: .2em 0;
+}
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover {border: 1px solid #999;}
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+position: absolute;
+top: 2px;
+width: 1.8em;border: 1px solid #CCC;
+height: 17px;text-indent: -9999px; cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-prev{background: url(../images/cal_prev.png) center no-repeat;}
+.ui-datepicker .ui-datepicker-next{background: url(../images/cal_next.png) center no-repeat; right: 0;}
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span {
+display: block;
+position: absolute;
+left: 50%;
+margin-left: -8px;
+top: 50%;
+margin-top: -8px;
+}
+.ui-datepicker .ui-datepicker-title {
+background: #ddd;
+line-height: 1.8em;
+text-align: center;
+color: #07c;
+font-size: 11px;
+}
+.ui-datepicker .ui-datepicker-title select {
+font-size: 1em;
+margin: 1px 0;
+}
+.ui-datepicker select.ui-datepicker-month-year {
+width: 100%;
+}
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+width: 49%;
+}
+.ui-datepicker table {
+width: 100%;
+border-collapse: collapse;
+margin: 0 0 .4em;
+}
+.ui-datepicker th {
+padding: 0;
+text-align: center;
+font-weight: bold;font-size: 10px;
+border: 0;color: #000;border-bottom: #ccc solid 1px;border-right: #f7f7f7 solid 1px;
+}
+.ui-datepicker td {
+border: 0;
+padding: 1px;
+}
+.ui-datepicker td.ui-state-disabled span{background: #f1f1f1;color: #999;}
+.ui-datepicker td a:hover {background-color: #fc3;}
+.ui-datepicker td span,
+.ui-datepicker td a {
+display: block;
+background: #fff;
+padding: 0;
+text-align: center;text-decoration: none;border-bottom: #f7f7f7 solid 1px;border-right: #f7f7f7 solid 1px;
+}
+.ui-datepicker .ui-datepicker-buttonpane {
+background-image: none;
+margin: .7em 0 0 0;
+padding: 0 .2em;
+border-left: 0;
+border-right: 0;
+border-bottom: 0;
+}
+.ui-datepicker .ui-datepicker-buttonpane button {
+float: right;
+margin: .5em .2em .4em;
+cursor: pointer;
+padding: .2em .6em .3em .6em;
+width: auto;
+overflow: visible;
+}
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+float: left;
+}
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi {
+width: auto;font-size: 9px;
+}
+.ui-datepicker-multi .ui-datepicker-group {
+float: left;
+}
+.ui-datepicker-multi .ui-datepicker-group table {
+background: #fff;
+}
+.dp-highlight{}
+.ui-datepicker-multi-2 .ui-datepicker-group {
+width: 50%;
+}
+.ui-datepicker-group a{color: #000;}
+.ui-datepicker-multi-3 .ui-datepicker-group {
+width: 32%;
+margin: 0 0px;
+}
+.ui-datepicker-multi-4 .ui-datepicker-group {
+width: 25%;
+}
+.advanced-report-datepicker{width: 455px;}
+.advanced-report-right{float: left; width: 160px;margin-top: 10px;color: #2f2f2f;}
+.advanced-report-right label{font-size: 10px;font-weight: bold;}
+.advanced-report-right select{font-size: 10px;}
+#report-err-msg{clear: both;}
+#product-report-err-msg{clear: both;}
+#transactions-report-err-msg{clear: both;}
+#timetopurchase-report-err-msg{clear: both;}
+.advanced-report-right input[type="text"]{border: 1px solid #bdbdbd;width: 67px;padding-left: 4px;
+ text-align: center;
+
+margin: 5px 1px 5px 1px;-webkit-box-shadow: inset 0 1px 0 #d6d6d6;  -moz-box-shadow: inset 0 1px 0 #d6d6d6;  box-shadow: inset 0 1px 0 #d6d6d6;  color: #000;height: 19px;}
+.advanced-report-right .date_label{float: left;margin-top: 10px; color: #999;}
+.advanced-report-right a#report-date-cancel{text-decoration: underline;color: #24b;cursor: pointer;font-size: 12px;padding-top: 4px;display: block;}
+.advanced-report-right a#product-report-date-cancel{text-decoration: underline;color: #24b;cursor: pointer;font-size: 12px;}
+.advanced-report-right a#transactions-report-date-cancel{text-decoration: underline;color: #24b;cursor: pointer;font-size: 12px;}
+.advanced-report-right a#timetopurchase-report-date-cancel{text-decoration: underline;color: #24b;cursor: pointer;font-size: 12px;}
+.advanced-report-right a.apply{background: #ffffff;background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5));background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );border: 1px solid #bdbdbd;color: #666;padding: 4px 13px;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;text-decoration: none;float: left;
+margin-right: 5px;}
+.advanced_report_wrapper .chart-button-options{float: right;
+background: #fefefe; /* Old browsers */
+background: -moz-linear-gradient(top,  #fefefe 0%, #f3f3f3 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#f3f3f3)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #fefefe 0%,#f3f3f3 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #fefefe 0%,#f3f3f3 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #fefefe 0%,#f3f3f3 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #fefefe 0%,#f3f3f3 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#f3f3f3',GradientType=0 ); /* IE6-9 */
+overflow: hidden;
+border: 1px solid #cbcbcb;
+
+
+
+}
+.advanced_report_wrapper .chart-button-options a.active{background-color: #dfdfdf;
+background-image: -webkit-linear-gradient(top,#f0f0f0,#dfdfdf);
+background-image: -moz-linear-gradient(top,#f0f0f0,#dfdfdf);
+border-color: #ccc;
+box-shadow: inset 0px 1px 5px rgba(0,0,0,.3);
+color: #222;}
+.advanced_report_wrapper .chart-button-options a:hover{border-color: #ccc;
+box-shadow: inset 0px 1px 2px rgba(0,0,0,.2);}
+.advanced_report_wrapper .chart-button-options a#report_week_select{border: 1px solid #ccc;border-width: 0 1px;float: left;}
+.advanced_report_wrapper .chart-button-options a#product_report_week_select{border: 1px solid #ccc;border-width: 0 1px;float: left;}
+.advanced_report_wrapper .chart-button-options a#transactions_report_week_select{border: 1px solid #ccc;border-width: 0 1px;float: left;}
+.advanced_report_wrapper .chart-button-options a{padding: 8px 7px;float: left;display: inline-block;font: bold 11px Arial;color: #444; text-decoration: none;}
+.advanced_report_wrapper #timetopurchase_chart_div,
+.advanced_report_wrapper #sales_chart_div,
+.advanced_report_wrapper #product_chart_div,
+.advanced_report_wrapper #transactions_chart_div{clear: both;}
+.advanced_report_wrapper .total-transaction.timetopurchase{width: auto;
+float: left;
+padding: 5px 10px;border: 1px solid #e8e8e8;}
+.advanced_report_wrapper .total-transaction.timetopurchase p{display: inline;}
+.advanced_report_wrapper .total-transaction.timetopurchase p.number {}
+.advanced_report_wrapper .total-transaction.timetopurchase li{float: left; font-size: 12px; font-weight: bold;}
+.advanced_report_wrapper .total-transaction.timetopurchase li.number{color: #058dc7; padding-left: 5px;}
+.advanced_report_wrapper .total-revenue p.number,
+.advanced_report_wrapper .total-transaction p.number{color: #058dc7;font-weight: bold;}
+.advanced_report_wrapper .total-revenue p.text,
+.advanced_report_wrapper .total-transaction p.text{font-size: 12px;margin: 5px 0 0 0;font-weight: bold;}
+.advanced_report_wrapper .total-revenue p,
+.advanced_report_wrapper .total-transaction p{margin: 5px 0;}
+.total-revenue, .total-transaction{border: 1px solid #e8e8e8; float: right;text-align: center;font-size: 18px;padding: 0 10px;background: #fefefe;  background: -moz-linear-gradient(top, #fefefe 0%, #f3f3f3 100%);  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#f3f3f3));  background: -webkit-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);  background: -o-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);  background: -ms-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);  background: linear-gradient(to bottom, #fefefe 0%,#f3f3f3 100%);  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#f3f3f3',GradientType=0 );}
+.advanced_report_wrapper .total-revenue{
+    border-right: 0;
+}
+.advanced_report_wrapper .total-transaction{
+    border-right: 0;
+}
+.advanced_report_wrapper  .product_rev_bottom .total-revenue{-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px; border-right-width: 1px;}
+.advanced_report_wrapper .sales.total-transaction{border: 1px solid #e8e8e8;}
+.advanced_report_wrapper .sales.total-transaction .number{}
+
+.advanced_report_wrapper #timetopurchase-advanced-report-table{clear: both;margin-top: 15px;}
+
+.advanced_report_wrapper #transactions-advanced-report-table,
+.advanced_report_wrapper #timetopurchase-advanced-report-table,
+.advanced_report_wrapper #product-advanced-report-table,
+.advanced_report_wrapper #advanced-report-table {border: 1px solid #e5e5e5;border-bottom-width: 0;width: 100%;table-layout: fixed;}
+.advanced_report_wrapper #timetopurchase-advanced-report-table th,
+.advanced_report_wrapper #transactions-advanced-report-table th,
+.advanced_report_wrapper #product-advanced-report-table th,
+.advanced_report_wrapper #advanced-report-table th,
+.advanced_report_wrapper #product-advanced-report-table th{background-color: #e9e9e9;height: 16px;padding: 8px 10px;border-right: 1px solid #ccc;font-size: 11px;font-family: Arial,Helvetica,Geneva,sans-serif;position: relative;vertical-align: middle;}
+.advanced_report_wrapper #timetopurchase-advanced-report-table th.last_td{border-right:0;}
+.advanced_report_wrapper #transactions-report-table .text_center,
+.advanced_report_wrapper #timetopurchase-report-table .text_center,
+.advanced_report_wrapper #advanced-report-table .text_center,
+.advanced_report_wrapper #product-advanced-report-table .text_center{text-align: center;}
+.advanced_report_wrapper #product-advanced-report-table .text_left,
+.advanced_report_wrapper #transactions-advanced-report-table .text_left,
+.advanced_report_wrapper #advanced-report-table .text_left{text-align: left;}
+.advanced_report_wrapper #product-advanced-report-table .border,
+.advanced_report_wrapper #advanced-report-table .text_left.border{border-right-width: 0;}
+.advanced_report_wrapper #advanced-report-table .text_right,
+.advanced_report_wrapper #product-advanced-report-table .text_right{text-align: right;}
+.advanced_report_wrapper #product-advanced-report-table td,
+.advanced_report_wrapper #transactions-advanced-report-table td,
+.advanced_report_wrapper #timetopurchase-advanced-report-table td,
+.advanced_report_wrapper #advanced-report-table td{height: 17px;border-bottom: 1px solid #e5e5e5;font-family: Arial,Helvetica,Geneva,sans-serif;font-size: 13px;color:#000;padding: 8px 10px 8px;position: relative;vertical-align: middle;}
+.advanced_report_wrapper #product-advanced-report-table td.percentage,
+.advanced_report_wrapper #advanced-report-table td.percentage{border-right-width: 0;}
+.advanced_report_wrapper #product-advanced-report-table td.revenue_amt,
+.advanced_report_wrapper #transactions-advanced-report-table td.revenue_amt,
+.advanced_report_wrapper #timetopurchase-advanced-report-table td.transactions,
+.advanced_report_wrapper #advanced-report-table td.revenue_amt{font-weight: bold;background-color: #fafafa;}
+.advanced_report_wrapper .advanced-report-even td{/*background: #f5f5f5;*/}
+.advanced_report_wrapper #tablePagination{padding: 10px 0 0;text-align: right;-webkit-border-radius: 0px 0px 4px 4px;-moz-border-radius: 0px 0px 4px 4px;border-radius: 0px 0px 4px 4px;}
+.advanced_report_wrapper #tablePagination_rowsPerPage{margin-right: 20px;}
+.advanced_report_wrapper #tablePagination_totalPages{padding: 0 15px 0 0;}
+.advanced_report_wrapper #tablePagination_currPage{vertical-align: initial;background: #fff;
+border-top: 1px solid #a3a3a3;
+border-left: 1px solid #a3a3a3;
+border-bottom: 1px solid #ccc;
+border-right: 1px solid #ccc;
+box-shadow: inset 0 1px 0 #d6d6d6;
+-webkit-box-shadow: inset 0 1px 0 #d6d6d6;
+-moz-box-shadow: inset 0 1px 0 #d6d6d6;
+color: #000;
+font: normal 12px Arial;
+height: 20px;
+margin: 0;
+padding-left: 5px;
+width: 25px;}
+.advanced_report_wrapper .page_arrow{background: #ffffff;background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5));background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );border: 1px solid #bbb;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;height: 19px;display: inline-block;vertical-align: top;}
+.advanced_report_wrapper .page_arrow span{cursor: pointer;padding: 1px 8px 0; font-weight: bold; font-size: 16px;color: #000;border-right: 1px solid #bbb;border-left: 1px solid #fefefe;height: 20px;display: inline-block;}
+.advanced_report_wrapper #tablePagination_firstPage{border-left-width: 0px;}
+.advanced_report_wrapper #tablePagination_prevPage{}
+.advanced_report_wrapper #tablePagination_nextPage{}
+.advanced_report_wrapper #tablePagination_lastPage{border-right-width: 0px;}
+.advanced_report_wrapper .advanced_progress_wrap{width: 245px;display: inline-block;float: left;margin-right: 10px;}
+.advanced_report_wrapper .advanced_progress_bar{height: 12px;background: #1a86d3; margin-right: 3px; display: inline-block; max-width: 72%;vertical-align: middle;}
+.advanced_report_wrapper .advanced-percentage{width: 50px;display: inline-block;}
+.advanced_report_wrapper .revenue_transaction{float: left;width: 645px;}
+.advanced_report_wrapper .revenue_transaction.product_rev_bottom{float: left;width: auto;margin-bottom: 10px;}
+.advanced_report_wrapper .timetopurchaserevenue_transaction{float: left;width: 500px;}
+
+.advancedreports-adminhtml-advancedreports-edit .content-header{display: none;}
+.advancedreports-adminhtml-advancedreports-edit #advancedreports_tabs_sales_section_content .content-header,
+.advancedreports-adminhtml-advancedreports-edit .advanced_report_wrapper .content-header{display: block;}
+
+.advanced_report_wrapper #timetopurchaseexport a.excel,
+.advanced_report_wrapper #salesexport a.excel,
+.advanced_report_wrapper #transactionsexport a.excel,
+.advanced_report_wrapper #export a.excel{text-decoration: none;
+text-decoration: none;
+width: 25px;
+display: block;
+float: left;
+height: 24px;
+background: url(../images/export_xml.png) 50% 50% no-repeat;
+}
+
+.advanced_report_wrapper #timetopurchaseexport span,
+.advanced_report_wrapper #salesexport span,
+.advanced_report_wrapper #transactionsexport span,
+.advanced_report_wrapper #export span{float: left;padding-top: 4px;font-weight: bold;}
+
+.advanced_report_wrapper #timetopurchaseexport a.csv,
+.advanced_report_wrapper #salesexport a.csv,
+.advanced_report_wrapper #transactionsexport a.csv,
+.advanced_report_wrapper #export a.csv{text-decoration: none;
+text-decoration: none;
+width: 25px;
+display: block;
+float: left;
+height: 24px;margin: 0 10px;
+background: url(../images/export_csv.png) 50% 50% no-repeat;
+}
+
+
+.advanced_report_wrapper #timetopurchaseexport,
+.advanced_report_wrapper #salesexport,
+.advanced_report_wrapper #transactionsexport,
+.advanced_report_wrapper #export{float: right; position: relative;margin-top: 4px;cursor: default;}
+
+.advanced_report_wrapper #timetopurchaseexport li span,
+.advanced_report_wrapper #salesexport li span,
+.advanced_report_wrapper #transactionsexport li span,
+.advanced_report_wrapper #export li span{background: none repeat scroll 0 0 #f5f5f5;
+padding: 7px 10px 2px;
+margin: 0px 20px 0 0;
+display: block;
+border: 1px solid #bdbdbd;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+height: 22px;}
+
+.advanced_report_wrapper #timetopurchaseexport ul,
+.advanced_report_wrapper #salesexport ul,
+.advanced_report_wrapper #transactionsexport ul,
+.advanced_report_wrapper #export ul{display: none;}
+
+.advanced_report_wrapper #timetopurchaseexport li:hover ul,
+.advanced_report_wrapper #salesexport li:hover ul,
+.advanced_report_wrapper #transactionsexport li:hover ul,
+.advanced_report_wrapper #export li:hover ul{display: block; width: 140px;
+border: 1px solid #aeaeae;
+background: #fff;
+box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+font: normal 13px Arial;
+margin: 0;
+text-align: left;
+position: absolute;left:0;
+z-index: 50; padding: 5px;}
+.advanced_report_wrapper #timetopurchaseexport li:hover ul a,
+.advanced_report_wrapper #salesexport li:hover ul a,
+.advanced_report_wrapper #transactionsexport li:hover ul a,
+.advanced_report_wrapper #export li:hover ul a{color: #000;text-decoration: none;}
+
+.advanced_report_wrapper #timetopurchaseexport li:hover ul li,
+.advanced_report_wrapper #salesexport li:hover ul li,
+.advanced_report_wrapper #transactionsexport li:hover ul li,
+.advanced_report_wrapper #export li:hover ul li{padding: 5px 10px;text-align: left;}
+
+.advanced_report_wrapper #timetopurchaseexport li:hover ul li:hover,
+.advanced_report_wrapper #salesexport li:hover ul li:hover,
+.advanced_report_wrapper #transactionsexport li:hover ul li:hover,
+.advanced_report_wrapper #export li:hover ul li:hover{background-color: #e9f1f5;}
+.advanced_report_wrapper .third_child{
+    border-right: 1px solid #e8e8e8;
+}
+.advanced_report_wrapper .revenue_transaction_report{float: left; width: 675px;}
+#nav ul{z-index: 1002;}
+
+.shipping-tax-options{}
+.shipping-tax-options ul{
+}
+.shipping-tax-options ul li{float: left;}
+.shipping-tax-options ul li span.spantxt{line-height: 29px;padding-right: 10px;font-weight: bold;color: #058dc7;font-size: 13px;}
+.shipping-tax-options ul li a{display: block;text-decoration: none;background: #fefefe;  background: -moz-linear-gradient(top, #fefefe 0%, #f3f3f3 100%);  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#f3f3f3));  background: -webkit-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);  background: -o-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);  background: -ms-linear-gradient(top, #fefefe 0%,#f3f3f3 100%);  background: linear-gradient(to bottom, #fefefe 0%,#f3f3f3 100%);    overflow: hidden;  border: 1px solid #cbcbcb;padding: 5px 10px;color: #222;font-size: 12px;font-weight: bold;}
+.shipping-tax-options ul li a:hover{box-shadow: inset 0px 1px 2px rgba(0,0,0,.2);}
+.shipping-tax-options ul li a.first_child{border-right: 0;}
+.shipping-tax-options ul li.active{}
+.shipping-tax-options ul li.active a{background-color: #dfdfdf;background-image: -webkit-linear-gradient(top,#f0f0f0,#dfdfdf);background-image: -moz-linear-gradient(top,#f0f0f0,#dfdfdf);border-color: #ccc;box-shadow: inset 0px 1px 5px rgba(0,0,0,.3);color: #222;cursor: default; filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dfdfdf', endColorstr='#dfdfdf',GradientType=0 ) !important;}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<playlist autoplay="false" random="false">
+<mainvideo
+         video_url="http://jqueryvideolightbox.com/data/images/happyfit2.mp4"
+         video_hdpath=""
+         video_id="110"
+         thumb_image="http://www.interativafm.net/media/uploads/images/Happy-Feet-Two-wallpaper-4(1).jpg"
+         preview_image="http://www.interativafm.net/media/uploads/images/Happy-Feet-Two-wallpaper-4(1).jpg"
+         allow_preroll="true"
+         allow_midroll="true"
+         allow_postroll="false"
+         allow_ima="true"
+         preroll_id ="4"
+         postroll_id =""
+         allow_download="true"
+         copylink=""
+         streamer_path=""
+         video_isLive="" >
+         <title><![CDATA[happy feet 2]]></title>
+         <!--Optional-->
+         <tagline targeturl="http://www.youtube.com/watch?v=1cRuA64m_lY"><![CDATA[<span class='heading'></span>Monsters University Official Trailer 3 2013]]></tagline>
+</mainvideo>
+<mainvideo
+         video_url="http://www.youtube.com/watch?v=DaYx4XmWEoI"
+         video_hdpath=""
+         video_id="101"
+         thumb_image=""
+         preview_image=""
+         allow_preroll="true"
+         allow_midroll="true"
+         allow_postroll="false"
+         allow_ima="true"
+         preroll_id ="3"
+         postroll_id =""
+         allow_download="false"
+         copylink=""
+         streamer_path=""
+         video_isLive="" >
+         <title><![CDATA[Landscapes: Volume 2]]></title>
+         <!--Optional-->
+         <tagline targeturl="http://www.wechat.com/en/"><![CDATA[<span class='heading'></span>Mad trailer of great Franch.]]></tagline>
+</mainvideo>
+<mainvideo
+         video_url="http://www.youtube.com/watch?v=cwTGL0oOtSQ"
+         video_hdpath=""
+         video_id="110"
+         thumb_image=""
+         preview_image=""
+         allow_preroll="true"
+         allow_midroll="true"
+         allow_postroll="false"
+         allow_ima="true"
+         preroll_id ="4"
+         postroll_id =""
+         allow_download="false"
+         copylink=""
+         streamer_path=""
+         video_isLive="" >
+         <title><![CDATA[Endless Summer Journey]]></title>
+         <!--Optional-->
+         <tagline targeturl="http://travelalberta.com/"></tagline>
+</mainvideo>
+<mainvideo
+         video_url="http://www.youtube.com/watch?v=ey0aA3YY0Mo"
+         video_hdpath=""
+         video_id="124"
+         thumb_image=""
+         preview_image=""
+         allow_preroll="true"
+         allow_midroll="false"
+         allow_postroll="false"
+         allow_ima="true"
+         preroll_id ="1"
+         postroll_id ="2"
+         allow_download="true"
+         copylink=""
+         streamer_path=""
+         video_isLive="false" >
+         <title><![CDATA[The Twilight Saga Breaking Dawn]]></title>
+         <!--Optional-->
+         <tagline targeturl="http://trailers.apple.com/trailers/disney/oceans/"><![CDATA[<span class='heading'></span>Ocean Brands is renowned for its high quality seafood products.]]></tagline>
+</mainvideo>
+
+</playlist>

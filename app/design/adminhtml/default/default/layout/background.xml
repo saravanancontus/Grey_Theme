@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>color/jscolor.js</script></action>
+        </reference>
+    </default>
+    <background_adminhtml_background_index>
+        <reference name="content">
+            <block type="background/adminhtml_background" name="background" />
+        </reference>
+    </background_adminhtml_background_index>
+</layout>

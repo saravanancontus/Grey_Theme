@@ -1,0 +1,157 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<?php
+$select = "";
+$cities = array();
+$attributeId = Mage::getResourceModel('eav/entity_attribute')->getIdByCode('catalog_product', 'dealcity');
+$attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', $attributeId); // get the cities attribute id 548
+//print_r($attribute);
+// to get the multiple cities in pages(drop down)
+foreach ($attribute->getSource()->getAllOptions(true, true) as $option) {
+    $value = $option['value'];
+
+    if ($value != '') {
+        $cities[$value] = $option['label'];
+        $select .= "<option value='" . $option['value'] . "'>" . $option['label'] . "</option>";
+        $cityUrl = Mage::getModel('deal/deal')->getCityUrl($value);
+        $city[$option['label']] = $cityUrl;
+    }
+}
+$final = array_unique($cities);
+Mage::getSingleton('core/session')->setTotalCities($final);
+Mage::getSingleton('core/session')->setCitydropdown($select);
+if (Mage::getSingleton('core/session')->getBackground() == 'no') {
+    $style = "";
+} else {
+    $style = "background:none;";
+}
+$page = $_SERVER['REQUEST_URI'];
+$page = explode('/', $page);
+$pageUrl = $page;
+?>
+<!--MORE CITIES TOP MENU STARTS HERE-->
+<div class="mailDiv" id="mail_drawer" style="display: none;">
+    <div class="subscribe_panel">
+        <a onclick="Effect.toggle('mail_drawer', 'blind',{  duration: 0.1 }); return false;"  class="hide"><?php echo $this->__('hide'); ?></a>
+        <form action="<?php echo $this->getUrl('newsletter/subscriber/new') ?>" method="post" id="newsletter-validate-detail">
+
+            <div class="searchinput" >
+                <label><?php echo $this->__('Get the Daily Deal for:'); ?></label>
+<?php if (!Mage::helper('customer')->isLoggedIn()) { ?>
+                    <div class="floatleft top_search"> <input name="email" type="text" id="newsletter1" class="searchinput1 validate-email required-entry" value="<?php echo $this->__('Enter your email address here...'); ?>" onfocus="if (this.value == '<?php echo $this->__('Enter your email address here...'); ?>') {this.value = '';this.style.color ='black';}" onblur="if (this.value == '') {this.style.color ='black';this.value = '<?php echo $this->__('Enter your email address here...'); ?>';}"  /></div>
+                <?php
+                } else {
+                    $cusSession = Mage::getSingleton('customer/session')->getCustomer();
+                    $email = $cusSession->getEmail();
+                    ?>
+                    <input type="hidden" name="email" value="<?php echo $email; ?>" />
+                <?php } ?>
+            </div>
+            <div class="selectcity"><select id="city" name="city"  class="fix-me select select input-text required-entry">
+                    <option value=""><?php echo $this->__('Select your City'); ?></option>
+                    <?php echo $select; ?>               </select>
+            </div>
+            <input type="submit"   value="<?php echo $this->__('Subscribe'); ?>" class="mailing_button"/>                    
+        </form>
+        <script type="text/javascript">
+            //<![CDATA[
+            var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+            //]]>
+        </script>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="header-container header_bg" >
+    <div class="header_inner">
+        <h1 class="logo"><strong></strong>
+            <a onclick="location.href='<?php echo $this->getUrl('', array('_secure' => true)) ?>'"> <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" id="logo-image"/></a>
+        </h1><!-- .logo section -->
+ <?php echo $this->getChildHtml('topSearch') ?>
+        <?php echo $this->getChildHtml('store_switcher') ?>
+        <?php //echo $this->getChildHtml('currency') ?>
+        <ul class="floginul" id="login_section">
+            <?php $loggedIn = $this->helper("customer")->isLoggedIn(); ?>
+            <?php if ($loggedIn) { ?>
+                <li class="first_label"><a class="header_font" href="<?php echo Mage::getBaseUrl() . "customer/account/" ?>"  title="My Account"><?php echo $this->__('My Account'); ?></a></li>
+                <li><a class="header_font" href="<?php echo Mage::getBaseUrl() . "customer/account/logout/" ?>"  title="Log Out"><?php echo $this->__('Log Out'); ?></a></li>
+            <?php } else { ?>
+                <li class="first_label"><a class="header_font" href="<?php echo Mage::getBaseUrl() . "customer/account/login/" ?>"  title="Sign In"><?php echo $this->__('Sign In'); ?></a></li>
+                <li><a class="header_font signup" id="signup" href="<?php echo Mage::getBaseUrl() . "customer/account/create/" ?>"  title="Sign Up"><?php echo $this->__('Sign Up'); ?></a></li>
+<?php } ?>                            
+        </ul>          
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="menu_middlebg" class="clearfix">
+            <ul class="clsmenuul clearfix">
+                <?php //if (Mage::getStoreConfig('deal/active/as_active') == 1) { ?>
+                    <li <?php
+                    if (in_array('alldeals', $pageUrl))
+                        echo 'class="active header_first"';
+                    ?>><a href="<?php echo Mage::getBaseUrl() ?>deal/index/alldeals" class="nav_first" ><?php echo $this->__('All Deals') ?></a>
+                    </li>
+                <?php //} ?>
+               
+                <?php if (Mage::getStoreConfig('deal/getaways/as_getaways') == 1) { ?>
+                     <li class="nav_separator">|</li>
+                    <li <?php
+                if (in_array('getaways.html', $pageUrl))
+                    echo 'class="active header_font_active"';
+                ?>><a href="<?php echo Mage::getUrl('', array('_secure' => true)) ?>getaways.html" ><?php echo $this->__('Getaways') ?></a>
+                    </li>
+                <?php } ?>
+                
+                <?php if (Mage::getStoreConfig('deal/goods/as_goods') == 1) { ?>
+                    <li class="nav_separator">|</li>
+                    <li <?php
+                    if (in_array('goods.html', $pageUrl))
+                        echo 'class="active header_font_active"';
+                    ?>><a href="<?php echo Mage::getUrl('', array('_secure' => true)) ?>goods.html" ><?php echo $this->__('Goods') ?></a>
+                    </li>
+                <?php } ?>
+                
+                <?php if (Mage::getStoreConfig('deal/groupclone_4/as_groupclone_4') == 1) { ?>
+                    <li class="nav_separator">|</li>
+                    <li <?php
+                if (in_array('occasions', $pageUrl))
+                    echo 'class="active header_font_active"';
+                ?>><a href="<?php echo Mage::getBaseUrl() ?>deal/index/occasions" class="nav_last"><?php echo $this->__('Groupclone-4') ?></a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+<?php
+$citySession = $final[Mage::getSingleton('core/session')->getCity()];
+if ($citySession == '') {
+    $citySession = array_shift(array_values($final));
+}
+?>
+<div class="clear"></div>
+<!-- Menu Navigation -->

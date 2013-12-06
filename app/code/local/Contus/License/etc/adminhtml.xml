@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * Contus Support Pvt Ltd.
+ * 
+ * sathishkumar@contus.in
+ * In xml used to integrate the license config to system configuration.
+ */
+-->
+<config>
+   
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <license translate="title" module="license">
+                                        <title>License Key</title>
+                                    </license>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

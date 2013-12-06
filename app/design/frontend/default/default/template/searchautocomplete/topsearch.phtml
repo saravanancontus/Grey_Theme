@@ -1,0 +1,62 @@
+<?php
+
+$select = "";
+$cities = array();
+$attributeId = Mage::getResourceModel('eav/entity_attribute')->getIdByCode('catalog_product', 'dealcity');
+$attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', $attributeId); // get the cities attribute id 548
+
+//print_r($attribute);
+// to get the multiple cities in pages(drop down)
+foreach ($attribute->getSource()->getAllOptions(true, true) as $option) {
+    $value = $option['value'];
+
+    if($value !='') {
+        $cities[$value] = $option['label'];
+        $select .= "<option value='".$option['value']."'>". $option['label']."</option>";
+        $cityUrl=Mage::getModel('deal/deal')->getCityUrl($value);
+        $city[$option['label']] = $cityUrl;
+    }
+}
+$final=array_unique($cities);
+
+
+
+Mage::getSingleton('core/session')->setTotalCities($final);
+Mage::getSingleton('core/session')->setCitydropdown($select);
+
+$citySession = $final[Mage::getSingleton('core/session')->getCity()];
+
+if($citySession == '')
+{
+	
+     $citySession = array_shift(array_values($final));
+}
+?>
+<form id="search_mini_form" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
+   <ul class="search_function">              
+        <li class="category_search">               
+           <img src="<?php echo $this->getSkinUrl('images/search_icon.png') ?>" alt="search icon" />
+           <input id="search" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>"  class="input-text" />
+        </li>
+        <li id="search_autocomplete" class="search-autocomplete"></li>
+
+        <li class="location_search">
+            <img src="<?php echo $this->getSkinUrl('images/header_location.png') ?>" alt="location icon" />
+            <input id="search_city" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>"  class="input-text" />
+        </li>
+        <li id="city_search_autocomplete" class="search-autocomplete"></li>            
+    </ul>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search entire store here...') ?>');
+    searchForm.initAutocomplete('<?php echo $this->helper('searchautocomplete')->getSuggestUrl() ?>', 'search_autocomplete');
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+    var searchForm = new Varien.searchForm('search_mini_form', 'search_city', '<?php echo $citySession ?>');
+    searchForm.initAutocomplete('<?php echo $this->helper('searchautocomplete')->getSuggestCity() ?>', 'city_search_autocomplete');
+//]]>
+</script>
+<?php echo Mage::helper('searchautocomplete')->getStyle(); ?>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+ <default>
+        <reference name="head">
+           <action method="addCss"><script>advancedreports/css/style.css</script></action>
+            <action method="addJs">
+            	<script>advancedreports/jquery-1.9.1.js</script>
+            </action>
+            <action method="addJs">
+            	<script>advancedreports/jquery-ui.js</script>
+            </action>
+           
+            <action method="addJs">
+            	<script>advancedreports/reportpagination.js</script>
+            </action>
+
+            <action method="addJs">
+            	<script>advancedreports/noconflictjquery.js</script>
+            </action>
+         
+        </reference>
+        </default>
+
+    <advancedreports_adminhtml_advancedreports_index>       
+
+        <reference name="content">
+        <block type="advancedreports/adminhtml_advancedreports" name="advancedreports" />
+        </reference>
+        
+    </advancedreports_adminhtml_advancedreports_index>
+
+</layout>

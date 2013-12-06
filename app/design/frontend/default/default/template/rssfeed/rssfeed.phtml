@@ -1,0 +1,21 @@
+<?php
+/*
+ * Contus Support Interactive
+ * Author @ Sathish kumar
+ */
+$isEnabled = Mage::getStoreConfig('rssfeed/rssfeed/enabled');
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <div class="clearfix"><h1><?php echo $this->__('RSS Feeds') ?></h1></div>
+</div>
+<div>
+    <?php
+    if ($isEnabled != 0) {
+        echo $this->getChildHtml('rssfeed.active');
+        echo $this->getChildHtml('rssfeed.goods');
+        echo $this->getChildHtml('rssfeed.getaways');
+        echo $this->getChildHtml('rssfeed.upcoming');        
+    }
+    ?>
+</div>

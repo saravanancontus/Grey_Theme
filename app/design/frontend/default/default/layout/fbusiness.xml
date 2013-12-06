@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <fbusiness_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+       <reference name="right">
+            <block type="deal/sidedeal_view" name="right.sidedeal" template="deal/sidedeal/view.phtml" before="-" />
+        </reference>
+        <reference name="content">
+            <block type="fbusiness/fbusiness" name="fbusiness" template="fbusiness/form.phtml" />
+        </reference>
+    </fbusiness_index_index>
+</layout> 

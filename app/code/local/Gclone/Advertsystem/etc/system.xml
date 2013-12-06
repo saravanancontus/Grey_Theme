@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<advertsystem translate="label" module="advertsystem">
+			<label>Advertsystem</label>
+			<tab>gclone_all</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>100</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<invite translate="label">
+					<label>AdvertConfiguration</label>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<sort_order>10</sort_order>
+					<fields>
+						<enabled_module translate="label">
+							<label>Enable Advertsystem</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled_module>
+						<enabled translate="label">
+							<label>Allow invite</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+					</fields>
+				</invite>
+			</groups>
+		</advertsystem>
+	</sections>
+</config>

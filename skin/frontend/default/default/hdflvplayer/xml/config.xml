@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    
+    <stagecolor>0x000000</stagecolor> <!--(stage background color)-->
+
+    <autoplay>false</autoplay>
+
+    <buffer>3</buffer>
+
+    <volume>80</volume>
+
+    <normalscale>2</normalscale><!--(Aspect ratio=0 ,Original=1  ,Fit to screen=2)-->
+
+    <fullscreenscale>2</fullscreenscale><!--(Aspect ratio=0 ,Original=1  ,Fit to screen=2)-->
+
+    <license>License key provided by us for the commercial Version.</license>
+
+    <logopath></logopath>
+
+    <logoalpha>80</logoalpha>
+
+    <logoalign>BL</logoalign>
+
+    <logo_target>http://www.hdflvplayer.net/</logo_target>
+
+
+    <!--(share pannel color settings)-->
+    <sharepanel_up_BgColor></sharepanel_up_BgColor>
+
+    <sharepanel_down_BgColor></sharepanel_down_BgColor>
+
+    <sharepaneltextColor>0x1d1d1d</sharepaneltextColor>
+
+    <sendButtonColor>0x1d1d1d</sendButtonColor>
+
+    <sendButtonTextColor>0xFFFFFF</sendButtonTextColor>
+
+    <!--(Text color)-->
+    <textColor></textColor>
+
+    <!--(skin color settings)-->
+    <skinBgColor></skinBgColor>
+
+    <seek_barColor></seek_barColor>
+
+    <buffer_barColor></buffer_barColor>
+
+    <skinIconColor></skinIconColor>
+
+    <pro_BgColor></pro_BgColor>
+
+    <!--(play button color settings)-->
+    <playButtonColor></playButtonColor>
+    
+    <playButtonBgColor></playButtonBgColor>
+
+    <playerButtonColor>0xFFFFFF</playerButtonColor>
+
+    <playerButtonBgColor></playerButtonBgColor>
+    
+    <!--(relatedVideo panel color settings)-->
+    <relatedVideoBgColor></relatedVideoBgColor>
+
+    <scroll_barColor></scroll_barColor>
+
+    <scroll_BgColor></scroll_BgColor>
+
+    
+    <skin>skin/skin_hdflv_white.swf</skin>
+
+    <skin_autohide>true</skin_autohide>
+
+    <languageXML>xml/language.xml</languageXML>
+
+    <playlistXML>xml/playlist.xml</playlistXML>
+
+    <playlist_open>true</playlist_open>
+
+    <showPlaylist>true</showPlaylist>
+
+    <HD_default>true</HD_default>
+
+    <adXML>xml/ads.xml</adXML>
+
+    <preroll_ads>false</preroll_ads>
+
+    <postroll_ads>false</postroll_ads>
+
+    <midrollXML>xml/midroll.xml</midrollXML>
+
+    <midroll_ads>false</midroll_ads>
+
+    <shareURL>email.php</shareURL>
+
+    <embed_visible>true</embed_visible>
+
+    <Download>true</Download>
+
+    <downloadUrl>download.php</downloadUrl>
+
+    <adsSkip>true</adsSkip>
+
+    <adsSkipDuration>5</adsSkipDuration>
+
+    <relatedVideoView>side</relatedVideoView><!--(Center of the player 'center')--><!--(Right of the player 'side')-->
+
+    <imaAds>false</imaAds>
+
+    <imaAdsXML>xml/ima.xml</imaAdsXML>
+
+    <trackCode>UA-36364589-1</trackCode>
+
+    <showTag>true</showTag>
+
+    <timer>true</timer>
+
+    <zoomIcon>true</zoomIcon>
+
+    <email>true</email>
+
+    <shareIcon>true</shareIcon>
+
+    <fullscreen>true</fullscreen>
+
+    <volumecontrol>true</volumecontrol>
+
+    <playlist_auto>true</playlist_auto>
+
+    <imageDefault>true</imageDefault>
+
+</config>

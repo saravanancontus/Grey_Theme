@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+		<reference name="head">
+			<action method="addjs">
+				<name>adddeals/adddeals.js</name>
+			</action>
+			<action method="addcss">
+				<name>adddeals/adddeals.css</name>
+			</action>
+		</reference>
+	</default>
+	<adddeals_adminhtml_adddeals_index>
+		<reference name="content">
+			<block type="adddeals/adminhtml_adddeals" name="adddeals" />
+		</reference>
+	</adddeals_adminhtml_adddeals_index>
+</layout>

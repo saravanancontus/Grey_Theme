@@ -1,0 +1,204 @@
+<?php
+$upcomingEnabled=Mage::getStoreConfig('deal/upcoming/as_upcoming');
+$products = array();
+$currentTime = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+$i = 1;
+//get upcoming deals
+$_productCollection = $this->getTransaction();
+foreach ($_productCollection as $rows){
+    $storeId = Mage::app()->getStore()->getId();
+    $products[] = Mage::getModel('catalog/product')->setStoreId($storeId)->load($rows->getId());
+}
+?>
+<script type="text/javascript">
+        <!--
+        var j =1;
+        if (typeof(DisplayFormat)=="undefined")
+            DisplayFormat = " Will active in <span class='hour'>%%D%%</span>";
+        if (typeof(CountActive)=="undefined")
+            CountActive = true;
+        if (typeof(FinishMessage)=="undefined")
+            FinishMessage = "";
+        if (typeof(CountStepper)!="number")
+            CountStepper = -1;
+        if (typeof(LeadingZero)=="undefined")
+            LeadingZero = true;
+        CountStepper = Math.ceil(CountStepper);
+        if (CountStepper == 0)
+            CountActive = false;
+        var SetTimeOutPeriod = (Math.abs(CountStepper)-1)*1000 + 990;
+        function calcage(secs, num1, num2) {
+            if(num1==3600){s = ((Math.floor(secs/num1)) - (num2 * 24)).toString();}
+            else{s = ((Math.floor(secs/num1)%num2)).toString();}
+            if (LeadingZero && s.length < 2)
+                s = "0" + s;
+            return s;
+        }
+        function CountBack5(secs,iid,j) {            
+            var days = calcage(secs,86400,100000);
+            if(days == 00) {
+                DisplayStr = DisplayFormat.replace(/%%D%%/g, 'Today');
+            } else {
+                DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs,86400,100000)+' days');
+            }
+            DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs,3600, days));
+            DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs,60,60));
+            DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs,1,60));
+            document.getElementById(iid).innerHTML = DisplayStr;
+            if (CountActive)
+                setTimeout(function(){CountBack5((secs+CountStepper),iid,j)}, SetTimeOutPeriod);
+        }
+        //-->
+</script>
+<div class="page-title no-margin"><h1 class="recenttitle"><?php echo $this->__('Upcoming Deals'); ?> :</h1></div>
+<span class="results"><?php echo count($products);?> <strong><?php echo $this->__('Results'); ?></strong> </span>
+<?php
+if (count($products) > 0 && $upcomingEnabled == 1) {
+    foreach ($products as $_product) {
+        //code to check if the deal is current or not, if deal is current, deal will not be displayed, elseif the deal time is over then deal will be displayed
+        $startTime = $_product->getstarttime();
+        $customersite = $_product->getcustomersite();
+            $ProductToDate = $_product->getResource()->formatDate($_product->getspecial_to_date(), false);
+            $ProductFromDate = $_product->getResource()->formatDate($_product->getspecial_from_date(), false);
+            $Fromtime = strtotime($ProductFromDate. ' ' . $startTime);
+             if ($Fromtime > strtotime($currentTime)) {
+             $URL = $_product->getProductUrl();;
+?>
+<?php
+                if (!$_product->isGrouped()) {
+                    if($i==1){
+
+?>
+<div id="browse-deals" class="clearfix">
+                        <div  class="floatleft">
+                            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image'); ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" class="dealimg"/>
+                             </div>
+                            <div class="alldeal_content">
+                            <?php
+                            $productName = $this->htmlEscape($_product->getName());
+                            $pnameLength = strlen($productName);
+                            if($pnameLength > 110){
+                                $productName = substr($this->htmlEscape($_product->getName()), 0, 110).'..';
+                            }else{
+                                $productName = $productName;
+                            }
+                            ?>
+                            <h1><?php echo $productName;?></h1>
+                            <?php
+                            $pnameLength = strlen($_product->getSubtitle());
+                            if($pnameLength > 175){
+                                $subtitle = substr($this->htmlEscape($_product->getSubtitle()), 0, 175).'..';
+                             }else{
+                                $subtitle = $_product->getSubtitle();
+                             }
+                            ?>
+                            <p><?php echo $subtitle; ?></p>
+                             <div class="purchase_info">
+                                <div class="price_info">
+                                    <?php if($_product->getSpecialPrice()) { ?>
+                                    <span class="original"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                    <span> <?php echo Mage::helper('core')->currency($_product->getSpecialPrice(), true, false) ?></span>
+                                    <?php } else { ?>
+                                    <span> <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                    <?php } ?>
+                                </div>
+        </div>
+                    <!--Time box-->
+            <?php       $todayDate = Mage::getModel('catalog/product')->getResource()->formatDate($_product->getSpecialFromDate(), false);
+                        $expirydate = $todayDate . ' ' . $_product->getStarttime();
+            ?>
+                             <div class="timerbox">
+                                <span class="timer_icon"></span>
+                                <div class="viraiterbg">
+                                    <div id="upcomcountbox_<?php echo $i; ?>" class="cntdwn"></div>
+                                </div>
+                             </div>
+                         <!--End of Time box-->
+                            <div class="clear"></div>
+                            </div>
+
+
+</div>
+<?php } else {
+      if(($i%3) == 1)
+     {
+         $style = 'remove-margin';
+     }
+     else
+     {
+         $style = '';
+     }
+
+     ?>
+<div class="clsrecentbox <?php echo $style;?>">
+ <div class="clsbord">
+                            <div>
+                            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>" width="291" height="182" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" class="deal_list_img"/>
+                            </div>
+                            <?php
+                            $productName = $this->htmlEscape($_product->getName());
+                            $pnameLength = strlen($productName);
+                            if($pnameLength > 80){
+                                $productName = substr($this->htmlEscape($_product->getName()), 0, 80).'..' ;
+                            }else{
+                                $productName = $productName;
+                            }
+                            ?>
+                            <span class="primary_name"><?php echo $productName;?></span>
+                            <div class="grid_box clearfix">
+                                <div class="grid_layer">                                
+                             <!--Time box-->
+                            <?php $todayDate = Mage::getModel('catalog/product')->getResource()->formatDate($_product->getSpecialFromDate(), false);
+                                  $expirydate = $todayDate . ' ' . $_product->getStarttime();
+                            ?>
+                                 <div class="child_timerbox goods_child_timer upcoming_timer_child">
+                                    <span class="timer_icon_small"></span>
+                                    <div class="viraiterbg">
+                                        <div id="upcomcountbox_<?php echo $i; ?>" class="cntdwn"></div>
+                                    </div>
+                                 </div>
+                            <div class="clsgrid clearfix">
+
+                                 <?php if($_product->getSpecialPrice()) { ?>
+                                    <span class="original"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                    <span> <?php echo Mage::helper('core')->currency($_product->getSpecialPrice(), true, false) ?></span>
+                                    <?php } else { ?>
+                                    <span> <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                 <?php } ?>
+
+                            </div>
+                            </div>
+                 </div>  <div class="clear"></div>
+
+</div>
+    </div>
+     <?php }?>
+<script type="text/javascript">
+                            <!--
+
+                            var dthen<?php echo $i; ?> = new Date("<?php echo Date("m/d/y h:i:s A", strtotime($expirydate)); ?>");
+                            start = "<?php echo Date("m/d/y h:i:s A", strtotime($currentTime)); ?>";
+                            start_date = Date.parse(start);
+                            var dnow<?php echo $i; ?> = new Date(start_date);
+                            if(CountStepper>0)
+                                ddiff= new Date((dnow<?php echo $i; ?>)-(dthen<?php echo $i; ?>));
+                            else
+                                ddiff = new Date((dthen<?php echo $i; ?>)-(dnow<?php echo $i; ?>));
+                            gsecs<?php echo $i; ?> = Math.floor(ddiff.valueOf()/1000);
+
+                            var iid<?php echo $i; ?> = "upcomcountbox_<?php echo $i; ?>";
+                            CountBack5(gsecs<?php echo $i; ?>,"upcomcountbox_"+j, j);
+                            j++;
+                            //-->
+</script>
+<?php
+                        }
+                        $i = $i + 1;
+
+                }
+            }
+        } if(count($products)==0) {
+            echo "<h1 class='recenttitle' style='color:#333;text-align:center;padding: 10px 0px 0px;'>No Upcoming Deals!</h1>";
+        }
+?>
+<?php echo $this->getToolbarHtml()?>

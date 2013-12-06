@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * Contus Support Pvt Ltd.
+ * In xml used to integrate the All Contus modules config to system configuration.
+ */
+-->
+<config>
+     <tabs>
+        <gclone_all translate="label" module="all">
+            <label>Group Buying Settings</label>
+            <sort_order>198</sort_order>
+        </gclone_all>
+    </tabs>
+</config>

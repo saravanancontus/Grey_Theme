@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gclone_Dealcoupon>
+            <version>0.1.0</version>
+        </Gclone_Dealcoupon>
+    </modules>
+    <frontend>
+        <routers>
+            <dealcoupon>
+                <use>standard</use>
+                <args>
+                    <module>Gclone_Dealcoupon</module>
+                    <frontName>dealcoupon</frontName>
+                </args>
+            </dealcoupon>
+        </routers>
+        <layout>
+            <updates>
+                <dealcoupon>
+                    <file>dealcoupon.xml</file>
+                </dealcoupon>
+            </updates>
+        </layout>
+        
+        <events>
+			<sales_order_save_after>
+				<observers>
+					<dealcoupon>
+						<type>singleton</type>
+						<class>Gclone_Dealcoupon_Model_Observer</class>
+						<method>sendCouponProduct</method>
+					</dealcoupon>
+				</observers>
+			</sales_order_save_after>
+		</events>
+    </frontend>
+    <admin>
+        <routers>
+            <dealcoupon>
+                <use>admin</use>
+                <args>
+                    <module>Gclone_Dealcoupon</module>
+                    <frontName>dealcoupon</frontName>
+                </args>
+            </dealcoupon>
+        </routers>
+    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Gclone_Dealcoupon>
+                            <title>Dealcoupon Module</title>
+                            <sort_order>10</sort_order>
+                        </Gclone_Dealcoupon>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <dealcoupon>
+                    <file>dealcoupon.xml</file>
+                </dealcoupon>
+            </updates>
+        </layout>
+
+                
+        
+    </adminhtml>
+    <global>
+        <resources>
+            <dealcoupon_setup>
+                <setup>
+                    <module>Gclone_Dealcoupon</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </dealcoupon_setup>
+            <dealcoupon_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </dealcoupon_write>
+            <dealcoupon_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </dealcoupon_read>
+        </resources>
+        <models>
+            <dealcoupon>
+                <class>Gclone_Dealcoupon_Model</class>
+                <resourceModel>dealcoupon_mysql4</resourceModel>
+            </dealcoupon>
+            <dealcoupon_mysql4>
+                <class>Gclone_Dealcoupon_Model_Mysql4</class>
+                <entities>
+                    <dealcoupon>
+                        <table>dealcoupon</table>
+                    </dealcoupon>
+                </entities>
+            </dealcoupon_mysql4>
+        </models>
+        <template>
+            <email>
+                <dealcoupon_email_coupon_template translate="label" module="dealcoupon">
+                    <label>Deal Coupon Template</label>
+                    <file>deal_coupon.html</file>
+                    <type>html</type>
+                </dealcoupon_email_coupon_template>
+            </email>
+            <email>
+                <dealcoupon_email_email_template translate="label" module="dealcoupon">
+                    <label>Deal not Achived Template</label>
+                    <file>deal_not_achieved.html</file>
+                    <type>html</type>
+                </dealcoupon_email_email_template>
+            </email>
+            <email>
+                <dealcoupon_email_owner_template translate="label" module="dealcoupon">
+                    <label>Deal Owner List Template</label>
+                    <file>deal_owner_list.html</file>
+                    <type>html</type>
+                </dealcoupon_email_owner_template>
+            </email>
+        </template>
+        <blocks>
+            <dealcoupon>
+                <class>Gclone_Dealcoupon_Block</class>
+            </dealcoupon>
+        </blocks>
+        <helpers>
+            <dealcoupon>
+                <class>Gclone_Dealcoupon_Helper</class>
+            </dealcoupon>
+        </helpers>
+       
+        
+        
+    </global>
+    <default>
+        <dealcoupon>
+            <email>
+                <enabled>1</enabled>
+                <template>dealcoupon_email_coupon_template</template>                
+                <allow_b_link>1</allow_b_link>
+            </email>
+        </dealcoupon>
+        <dealcoupon>
+            <email>
+                <enabled>1</enabled>
+                <template>dealcoupon_email_email_template</template>
+                <allow_b_link>1</allow_b_link>
+            </email>
+        </dealcoupon>
+        <dealcoupon>
+            <email>
+                <enabled>1</enabled>
+                <template>dealcoupon_email_owner_template</template>
+                <allow_b_link>1</allow_b_link>
+            </email>
+        </dealcoupon>
+    </default>
+</config>

@@ -1,0 +1,619 @@
+<?php
+/**
+ * Contus Support
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@Contus Supportcommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Contus Support to newer
+ * versions in the future. If you wish to customize Contus Support for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_blank
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+$this->license = Mage::registry('license1');
+if($this->license == '')
+{
+     Mage::register('license1', Mage::getModel('deal/deal')->isLicense());
+     $this->license = Mage::registry('license1');
+}
+if ($this->license  === true) {
+$productIds = Mage::getSingleton('core/session')->getProductIds();
+}
+// Check the products is available or not
+if (empty($productIds)) {
+?>
+    <div class="contpad clearfix">
+        <div class="nodealtext clearfix ">  <?php echo "<h1>" . $this->__('No Deal Available') . "</h1>" ?></div>
+    </div>
+<?php
+} else {
+?>
+    <script type="text/javascript">
+        <!--
+        var j =1;
+        if (typeof(BackColor)=="undefined")
+            BackColor = "white";
+        if (typeof(ForeColor)=="undefined")
+            ForeColor= "black";
+        if (typeof(DisplayFormat)=="undefined")
+            DisplayFormat = "<span class='timer_icon'></span> <span class='time_item day'>%%D%%</span> <span class='time_item hour'>%%H%%</span> <span class='spacer_time'>:</span> <span class='time_item min'>%%M%%</span> <span class='spacer_time'>:</span> <span class='time_item sec'>%%S%%</span>";
+        if (typeof(CountActive)=="undefined")
+            CountActive = true;
+        if (typeof(FinishMessage)=="undefined")
+            FinishMessage = "";
+        if (typeof(CountStepper)!="number")
+            CountStepper = -1;
+        if (typeof(LeadingZero)=="undefined")
+            LeadingZero = true;
+        CountStepper = Math.ceil(CountStepper);
+        if (CountStepper == 0)
+            CountActive = false;
+        var SetTimeOutPeriod = (Math.abs(CountStepper)-1)*1000 + 990;
+        function calcage(secs, num1, num2) {
+            if(num1==3600){s = ((Math.floor(secs/num1)) - (num2 * 24)).toString();}
+            else{s = ((Math.floor(secs/num1)%num2)).toString();}
+            if (LeadingZero && s.length < 2)
+                s = "0" + s;
+            return s;
+        }
+        function CountBack(secs,iid,j) {
+            if (secs < 0) {
+                document.getElementById(iid).innerHTML = FinishMessage;
+                var dealimage = "<?php echo $this->getSkinUrl('images/8.png') ?>";
+                var buynowreplace = "<?php echo $this->getSkinUrl('images/deal-closed.png') ?>";
+                document.getElementById('deal_status-'+j).innerHTML ='<img src="'+dealimage+'"  alt="Rate" title="Rate"/><div class="clsstatus">Deal closed !</div> ';
+                document.getElementById('deal_statusnew').style.display = "none";
+                document.getElementById('scriptbuynow-'+j).innerHTML ='<img src="'+buynowreplace+'"  alt="deal closed" title="deal closed"/>';
+                document.getElementById('scriptbuynow-'+j).setAttribute('href', '#!');
+                document.getElementById('scriptbuynow-'+j).setAttribute('onclick', '#');
+                document.getElementById('script_gift_box'+j).style.display = "none";            
+
+                document.getElementById('price_value-'+j).innerHTML ='<?php echo $this->__('Closed'); ?>';
+                return;
+            }
+            var days = calcage(secs,86400,100000);
+
+            if(days == 00) {
+                DisplayStr = DisplayFormat.replace(/%%D%%/g, '<span class="nodays"></span>');
+            } else {
+                DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs,86400,100000)+' days');
+            }
+            DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs,3600, days));
+            DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs,60,60));
+            DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs,1,60));
+            document.getElementById(iid).innerHTML = DisplayStr;
+            if (CountActive)
+                setTimeout(function(){CountBack((secs+CountStepper),iid,j)}, SetTimeOutPeriod);
+        }
+        //-->
+    </script>
+<?php
+    $count = 1;
+    //foreach ($productIds as $item) {
+        $productId = $productIds[0];
+         $productQuantiy = (int) Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getQty();
+?>
+        <div class="col-main" style="position: relative;">
+            <div class="page-title">
+                <?php               
+                $model = Mage::getModel('catalog/product'); //getting product model
+                $_product = $model->load($productId);   
+                             
+                $dealstatus = $_product->getDealStatus();
+                $product = $this->getProduct();
+    
+                
+                
+                /** @var $coreResource Mage_Core_Model_Resource */
+$coreResource = Mage::getSingleton('core/resource');
+ 
+/** @var $conn Varien_Db_Adapter_Pdo_Mysql */
+$conn = $coreResource->getConnection('core_read');
+ 
+/** @var $select Varien_Db_Select */
+$select = $conn->select()
+    ->from(array('p' => $coreResource->getTableName('videoupload')), new Zend_Db_Expr('entity_id,thumname,videoupload_id'))
+    
+    ->where('p.status = ?',1)
+    ->where('p.entity_id = ?',$productId);
+ 
+    $videoDetails = $conn->fetchALL($select);
+                $videoId = ''; 
+                foreach ($videoDetails as $videoDetail)
+                {
+                	 $thumbName = $videoDetail['thumname'];
+                     $productId = $videoDetail['entity_id'];
+                     $videoId = $videoDetail['videoupload_id'];            	
+                }
+               
+               
+                ?>
+                <div class="top_heading">
+                <h1><?php echo $this->htmlEscape($_product->getName()) ?></h1>
+                <span class="sub_tittle"><?php echo $this->htmlEscape($_product->getSubtitle()) ?></span>
+                </div>
+        <fieldset class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+        </fieldset>
+        <div class="left_column">
+            <div class="buy_pin" >
+                <div class="buy_value" id="price_div" >
+                    <small><?php echo $this->__('from'); ?></small>
+                        <?php
+                        if($_product->getSpecialPrice()) {
+                            $sp_price = $_product->getSpecialPrice();
+                        } else {
+                            $sp_price = $_product->getPrice();
+                        }?>
+                   <b id="price_value-<?php echo $count; ?>"> <?php echo Mage::helper('core')->currency($sp_price, true);  ?> </b>
+                </div>
+                <div class="buy_edge">
+                                   <?php   if($productQuantiy!=  '' || $productQuantiy != 0) { ?>
+                            <?php if($_product->getOptions()) { ?>                                
+                                    <a onclick="showCustomoptions();" href='JavaScript:void(0);' id="scriptbuynow-<?php echo $count; ?>" class="buynowbtn see_option"><?php echo $this->__("See Options") ?></a>                                
+                            <?php } else {?>                                
+                                    <a href='<?php echo $this->helper('checkout/cart')->getAddUrl($_product); ?>' id="scriptbuynow-<?php echo $count; ?>" class="buynowbtn"><?php echo $this->__("Buy!") ?><span class="buy_arrow"></span></a>
+                            <?php } ?>
+                    <?php } else { ?>
+                    <span class="sold_out">Sold Out</span>
+                    <?php } ?>
+                </div>               
+<!--                <div class="buy_tag" id="buynow_edge"></div>                -->
+<!--                <script type="text/javascript">
+                    price_width=document.getElementById('price_value-<?php echo $count; ?>').offsetWidth;
+                    document.getElementById("price_div").style.width=price_width+"px";
+                    document.getElementById("buynow_edge").style.right=164+price_width+"px";
+                </script>-->
+                <script type="text/javascript">
+                    function showCustomoptions() {
+                        document.getElementById('custom_options').style.display = "block";
+                        document.getElementById('bg_fade_gc').style.display = "block";                          
+                    }
+                    function hideCustomoptions() {
+                        document.getElementById('custom_options').style.display = "none";
+                        document.getElementById('bg_fade_gc').style.display = "none";
+                    }
+                </script>
+                
+                          
+
+                <div id="bg_fade_gc" onclick="hideCustomoptions();" style="opacity: 0.3; "></div>
+                <div class="clear"></div>
+            </div>
+            <div class="leftbox-gclone">                    
+<?php
+                $_gallery = $_product->getMediaGalleryImages();
+                $currentUrl = $this->helper('core/url')->getCurrentUrl();
+                $content = '&amp;';
+                //$map =   $_product->getsitemap();
+                $customersite = $_product->getcustomersite();
+                $highlight = $_product->gethightlight();
+                $fineprint = $_product->getFineprint();
+                $website = $_product->getCustomerWebsite();
+                $map = $_product->getsitemap();
+                $phone = $_product->getQuestions();
+                $_description = $_product->getdescription();
+                $renderDescription = $this->helper('catalog/output')->productAttribute($_product, $_description, 'description');
+                if (!$_product->isGrouped()) {
+                    if($_product->getSpecialPrice()) {
+                    $discount_price = $_product->getPrice() - $_product->getSpecialPrice();
+                    $discount = ($discount_price * 100) / $_product->getPrice();
+                    $discount = round($discount);
+                    } else {
+                        $discount_price = 0;
+                        $discount = 0;
+                    }
+?>
+                    <div class="discount-boxes clearfix" >                       
+                        <div class="clsdiscount_prices" id="value_box">
+                            <h3><?php echo $this->__('Value'); ?></h3>
+                            <span id="value_box_span"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, true) ?></span>
+                        </div>
+                        <div class="clsdiscount_prices" id="discount_box">
+                            <h3><?php echo $this->__('Discount'); ?></h3>
+                            <span><?php echo $discount . '%'; ?></span>
+                        </div>
+                        <div class="clsdiscount_prices" id="save_box">
+                            <h3><?php echo $this->__('Save'); ?></h3>
+                            <span id="save_box_span"><?php echo Mage::helper('core')->currency($discount_price, true, true); ?></span>
+                        </div>
+                        
+                        <!-- Value box will disappear when digits exceed 7 -->                         
+                        <script type="text/javascript">
+                            value_width=document.getElementById('value_box_span').offsetWidth;
+                            save_width=document.getElementById('save_box_span').offsetWidth;
+                            if( (save_width>73)||(value_width>73) ){
+                               document.getElementById('value_box').style.display='none';
+                               document.getElementById('discount_box').style.width = "40%";
+                               document.getElementById('save_box').style.width = "60%";
+                            }
+                        </script>                     
+                        </div>
+                            <?php //if($_product->isSaleable()){ ?>
+                            <div class="clear"></div>
+                            <?php if(!$_product->getOptions()) { ?>
+                            <div class="gift_box clearfix" id ="script_gift_box<?php echo $count; ?>">
+                                <i></i>
+                                <div class="buy_friend">
+                                    <?php
+                                    if (!Mage::getSingleton('customer/session')->isLoggedIn()) {  // if not logged in
+                                            Mage::getSingleton('customer/session')->setBeforeAuthUrl($this->helper('checkout/cart')->getAddUrl($_product));
+                                            //redirect to login page
+                                            $url = Mage::getBaseUrl() . "customer/account/login/";
+                                            ?>
+                                    <a href="<?php echo $url; ?>" class="clsbuyfriend" ><?php echo $this->__('Give as a gift'); ?></a>
+                                    <?php } else { ?>
+                                    <form name="gift<?php echo $count; ?>" method="post" action="<?php echo $this->helper('checkout/cart')->getAddUrl($_product); ?>">
+                                        <fieldset>
+                                            <input type="hidden" name="giftoption" value="gift" />                                           
+                                            <a onclick="javascript:document.gift<?php echo $count; ?>.submit()" class="clsbuyfriend" ><?php echo $this->__('Give as a gift'); ?></a>
+                                        </fieldset> 
+                                    </form>
+                                    <?php } ?>
+                                </div>
+                            </div>
+<?php                       }                     
+                        }
+?>
+                 </div>                     
+            <?php 
+                            //Adding the products cartUrl,specialprice,identifier to the session
+                            Mage::getSingleton('core/session')->setSpecialPrice($_product->getSpecialPrice());
+                            Mage::getSingleton('core/session')->setAddtocart($this->getAddToCartUrl($_product));
+                            //End of Adding the products cartUrl,specialprice,identifier to the session
+            ?>
+                            <!--Time box-->
+            <?php
+                            //product's regular Price
+                            $todayDate = Mage::getModel('catalog/product')->getResource()->formatDate($_product->getspecial_to_date(), false);
+                            $expirydate = $todayDate . ' ' . $_product->gettime();
+            ?>
+
+            <?php  if($productQuantiy != '' || $productQuantiy != 0) { ?> 
+                            <div class="timerbg_middle clearfix">
+                                <span class="corner_img"></span>
+                                <div class="deal_statusnew" >
+                                    <h4><?php echo $this->__('Limited Time Only!'); ?></h4>
+                                    <div class="timerbox" >
+                                        <div class="viraiterbg">
+                                            <div id="countbox_<?php echo $count; ?>" class="cntdwn"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            <?php } ?>
+                            <!-- Deal Bought-->
+            <?php
+                            if (!$_product->isGrouped()) {
+                                $resultQuantity = $this->getQuantityPurchase($_product);
+                            }
+                            if($productQuantiy != '' || $productQuantiy != 0) { ?>
+                                <div class="dealstatus">
+                                    <h4><?php echo $this->__('Limited quantity available'); ?></h4>
+                                    <div class="totalcount"><span class="bought_icon"></span> <?php  if($_product->gettarget_number() != 0) { if($resultQuantity[0] > $_product->gettarget_number()) echo $this->__('Over'); } ?> <?php echo $resultQuantity[0]; ?> <?php echo $this->__('bought'); ?></div>
+<!--                                    <div class="deal_status" id ="deal_status-<?php echo $count; ?>">
+                                    <?php  // if($_product->gettarget_number() != 0) { ?>
+                                            <img src="<?php echo $this->getSkinUrl('images/' . $resultQuantity[1] . '.png') ?>"  width="180" height="16" alt="Rate" title="Rate"  class="statusimg"/>
+                                        <div class="clsstatus"><?php echo $this->__($resultQuantity[2]); ?></div>
+                                        <?php // } ?>
+                                    </div>-->
+                                </div>
+                            <?php } else { ?>
+                                <div class="dealstatus deal_status_out">
+                                    <h4><?php echo $this->__('Limited quantity available'); ?></h4>
+                                    <div class="totalcount"><span class="bought_icon"></span> <?php echo $this->__('Deal Sold Out'); ?></div>
+<!--                                    <div class="deal_status" id ="deal_status-<?php echo $count; ?>">
+                                            <img src="<?php echo $this->getSkinUrl('images/8.png') ?>"  width="180" height="16" alt="Rate" title="Rate"  class="statusimg"/>
+                                        <div class="clsstatus"><?php echo $this->__('Better luck next time'); ?></div>
+                                    </div>-->
+                                </div>
+                            <?php } ?>
+                            <!-- Deal Bought-->
+                           <?php if(!$resultQuantity[0] == 0) { ;?>
+                                <div class="check_mark clearfix">
+                                    <i class="deal_on"></i> 
+                                    <span><?php echo $this->__('The deal is on!'); ?> </span>
+                                </div>
+                            <?php }
+                           ?>
+                            <div class="bottom-general clearfix">
+                                    <div class="spread clearfix">                                        
+                    <?php
+                                // Prepare URL for the facebook dialog feed.
+                                $appId = Mage::getStoreConfig('customer/facebook/api_id');
+                                $productUrl = $_product->getProductUrl();
+                                $redirectUrl = Mage::getBaseUrl();
+                                $productImage = $this->helper('catalog/image')->init($_product, 'image');
+                                $productName = urlencode($_product->getName());
+                                $productDescription = urlencode(strip_tags($_description));
+                                $fbUrl = 'http://www.facebook.com/dialog/feed?app_id=' . $appId . '&amp;description=' . $productDescription . '&amp;picture=' . $productImage . '&amp;name=' . $productName . '&amp;message=&amp;redirect_uri=' . $redirectUrl . '&amp;link=' . $productUrl;
+                                 $twitterurl = 'http://twitter.com/share?text='.$productName.'&amp;redirecturl=' .  $redirectUrl;
+                    ?>
+                                <span class="sharelinks">
+                                    
+                                <script type="text/javascript">
+                             $j('.popup').click(function(event) {
+                                var width  = 575,
+                                    height = 400,
+                                    left   = ($(window).width()  - width)  / 2,
+                                    top    = ($(window).height() - height) / 2,
+                                    url    = this.href,
+                                    opts   = 'status=1' +
+                                             ',width='  + width  +
+                                             ',height=' + height +
+                                             ',top='    + top    +
+                                             ',left='   + left;
+
+                                window.open(url, 'twitte', opts);
+
+                                return false;
+                              });</script>
+                        <?php
+                                $baseUrl = Mage::getBaseUrl();
+                                $mailBody = $_description . '<br/> Url : ' . $productUrl;
+                                $mail = "mailto:?body=" . htmlspecialchars(strip_tags($mailBody)) . " &amp;subject=" . $_product->getName();
+                        ?>
+                                 <a class="social_link mail_link" title="Share with email" href="<?php echo $mail; ?>" ></a>
+                                 <a class="social_link facebook_link" title="Share with facebook" href="<?php echo $fbUrl; ?>" target="_blank"></a>
+                                 <a class="social_link twitter_link"  title="Share with twitter" href="<?php echo $twitterurl; ?>" target="_blank"></a>
+                                 <a class="social_link pin-it-button"  title="Pinterest Share" href="http://pinterest.com/pin/create/button/?url=<?php echo $productUrl; ?>&amp;media=<?php echo $productImage;?>&amp;description=<?php echo $_product->getName(); ?>"  target="_blank"> </a>                                 
+                            </span>
+                        </div>
+                    <!--Video and image switch code starts here-->
+                                 <?php // if ($videoId != '') { ?>
+<!--                            <div class="switch">
+                                <input class="change" type="button" value="<?php echo $this->__('Image'); ?>" id="switchImage-<?php echo $count; ?>" style="<?php
+                                    if ($productVideo == 'video') {
+                                        echo "display:block;";
+                                    } else {
+                                        echo "display:none;";
+                                } ?>" onclick="switchImage(<?php echo $count; ?>)" />
+                                <input class="change" type="button" value="<?php echo $this->__('Video');?>" id="switchVideo-<?php echo $count; ?>" style="<?php
+                                    if ($productVideo == 'image') {
+                                        echo "display:block;";
+                                    } else {
+                                        echo "display:none;";
+                                    }
+                        ?>" onclick="switchVideo(<?php echo $count; ?>)" />
+                                    </div>-->
+                        <?php // } ?>
+                <!--Video and image switch code starts here-->
+                                </div>
+                        </div>
+                        <script type="text/javascript">
+                            <!--
+
+                            var dthen<?php echo $count; ?> = new Date("<?php echo Date("m/d/y h:i:s A", strtotime($expirydate)); ?>");
+                            start = "<?php echo Date("m/d/y h:i:s A", strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'))); ?>";
+                            start_date = Date.parse(start);
+                            var dnow<?php echo $count; ?> = new Date(start_date);
+                            if(CountStepper>0)
+                                ddiff= new Date((dnow<?php echo $count; ?>)-(dthen<?php echo $count; ?>));
+                            else
+                                ddiff = new Date((dthen<?php echo $count; ?>)-(dnow<?php echo $count; ?>));
+                            gsecs<?php echo $count; ?> = Math.floor(ddiff.valueOf()/1000);
+
+                            var iid<?php echo $count; ?> = "countbox_<?php echo $count; ?>";
+                            CountBack(gsecs<?php echo $count; ?>,"countbox_"+j, j);
+                            j++;
+                            //-->
+                        </script>
+                        <!--End of Time box-->
+                        <!--Fine Print and Highlights-->
+                        <div class="right_column">                           
+           <?php
+                            /* get video collection and display hdflvplayer. */
+                                       if ($videoId != '') {
+                                $productVideo = Mage::getStoreConfig('videoupload/frontend/default');
+                                if ($productVideo == 'video') {
+                                    $displayVideo = 'display:block;';
+                                    $displayImage = 'style="display:none"';
+                                } else if ($productVideo == 'image') {
+                                    $displayVideo = 'display:none;';
+                                    $displayImage = 'style="display:block;width: 460px; height: 279px;"';
+                                }
+                            } else {
+                                $displayVideo = 'display:none;';
+                                $displayImage = 'style="display:block;width: 460px; height: 279px;"';
+                            }
+                              if($videoId != '')
+                        {
+                            ?>
+               <div class="banner_middle " style="width: 460px; height: 279px; <?php echo $displayVideo; ?>" id='video-<?php echo $count; ?>'>
+                <div class='mediaspace'>
+                    <object id="player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="460" height="279">
+                        <param name="movie" value="<?php echo $this->getSkinUrl('hdflvplayer/hdplayer.swf'); ?>"/>
+                        <param name="flashvars" value="baserefM=<?php echo Mage::getBaseUrl(); ?>&amp;id=<?php echo $videoId; ?>&amp;pid=<?php echo $productId; ?>"/>
+                        <param name="allowFullScreen" value="true"/>
+                        <param name="wmode" value="transparent"/>
+                        <param name="allowscriptaccess" value="always"/>
+                        <param name="quality" value="high"/>                      
+
+                        <embed src="<?php echo $this->getSkinUrl('hdflvplayer/hdplayer.swf'); ?>" flashvars="baserefM=<?php echo Mage::getBaseUrl(); ?>&amp;id=<?php echo $videoId; ?>&amp;pid=<?php echo $productId; ?>" quality="high" allowfullscreen="true" allowscriptaccess="always" type="application/x-shockwave-flash" wmode="transparent" />                        
+                    </object>
+                </div>
+            </div>
+<?php
+                        }
+                        ?>
+            <div id="featured-<?php echo $count; ?>" <?php echo $displayImage; ?> >
+                <div class="banner_middle"  id='image-<?php echo $count; ?>'>
+                <?php if (count($_gallery) > 1) {
+                    foreach ($_gallery as $_image): ?>
+                                <?php $imageSrc = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>
+                                <img src="<?php echo $imageSrc ?>" width="460" height="279" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>"  />
+                    <?php endforeach; ?>
+
+                <?php } else { ?>
+                                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" width="460" height="279" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>"  />
+                <?php } ?>
+                </div>
+            </div>                            
+            <?php if (count($_gallery) > 1) { ?>
+                    <script type="text/javascript">
+                        <!--
+                        $j('#featured-<?php echo $count; ?>').orbit({
+                            'bullets': true,
+                            'bulletid': <?php echo $count; ?>,
+                            'timer' : true,
+                            'animation' : 'fade',
+                            'captions' : false,
+                            'directionalNav' : false
+                        });
+                        //-->
+                    </script>
+            <?php } ?>
+                        <div class="clear"></div>
+                        <div class="highlights">
+                            <h3><?php echo $this->__('In a Nutshell'); ?></h3>
+                            <?php echo $highlight; ?>
+                        </div>
+                        <div class="clsfineprint">
+                            <h3><?php echo $this->__('The Fine Print'); ?></h3>
+                            <span><?php echo $fineprint; ?></span>
+                        </div>                        
+                        <!--end of Fine Print and Highlights-->                                
+                        </div>                
+                    </div>
+                </div>
+                <!--left content-->
+                <div class="clear"></div>
+                <!--contpad-->
+                <div class="reviewbox" id="review-<?php echo $count; ?>">
+                                <div class="col-main col-pad-bottom">
+                        <?php if ($renderDescription) : ?>
+                            <div class="bottomleftbox ">
+                                <div class="description-reviews" >
+                                    <h3><?php echo $this->__('Description') ?></h3>
+                                    <div class="clsdescription"><?php echo $renderDescription; ?></div>
+                                </div>
+
+                                <div style="padding:10px 0;width:460px;">
+                                <script type="text/javascript">/* <![CDATA[ */
+                                document.write('<fb:comments  width="460"  num_posts="10"  xid="<?php echo $_product->getId(); ?>" href="<?php echo $URL = $_product->getProductUrl(); ?>"></fb:comments>')
+                                /* ]]> */</script>
+                                </div>
+                            </div>
+                            <div class="bottomrightbox">
+                                <div class="company-details">
+                                    <h5>Company name</h5>
+                                    <?php if (!empty($website)) {?>
+                                        <a href="<?php echo 'http://'.$website; ?>" target="_blank" class="website"> <?php echo $website; ?></a>
+                                    <?php } ?>
+                                     <?php if (!empty($map)) { ?>
+                                        <div class="map_grid"><?php echo $map; ?></div>
+                                    <?php } ?>
+                                    <strong><?php echo $this->__('The Company'); ?></strong>
+                                    <address><?php echo $customersite; ?></address>
+                                    <?php if (!empty($phone)) { ?>
+                                    <p class="company_phone"><?php echo $phone; ?></p>
+                                    <?php } ?>                                                                    
+                                                                   
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                            </div>
+                        </div>
+
+            <div id="custom_options" style="display: none;">
+                    <div id="custom_options_top">
+                        <h3><?php echo $this->__('Choose your deal:'); ?></h3>
+                            <?php
+                            $attVal = $_product->getOptions();
+                            if (sizeof($attVal)) {
+                                foreach ($attVal as $optionVal) {
+                                    echo '<h4>'. $optionVal->getTitle() . '</h4>'; ?>
+                        <div class="left_anchore"></div>
+                        <ul class="deal_options" id="subdeal_content">
+                            <?php $options_count=0; ?>
+                            <?php foreach ($optionVal->getValues() as $valuesKey => $valuesVal) { ?>
+                            <li class="<?php if(!($options_count%2==0)){ echo 'shade_option';} ?>" >
+                                <form action="<?php echo Mage::getBaseUrl(); ?>checkout/cart/add/" method="post" id="product_addtocart_form_<?php echo $valuesVal->getId() ?>"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                                    <fieldset class="no-display">
+                                        <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                                        <input type="hidden" name="related_product" id="related-products-field" value="" />
+                                    </fieldset>
+                                    <div class="clearfix">
+                                        <div class="description" style="display: block;"><a href="javascript:void(0)" onclick="productAddToCartForm<?php echo $valuesVal->getId() ?>.submit()"><?php echo $valuesVal->getTitle(); ?></a></div>
+                                    <?php
+                                    // get individual bought for custom options
+                                    $qty = $this->getCustomoptionqty($_product,$valuesVal);
+                                    ?>
+                                    <div class="status"><?php if($_product->gettarget_number() != 0) { if($qty > $_product->gettarget_number()) echo $this->__('Over'); } ?> <?php echo $qty; ?> <?php echo $this->__('Bought'); ?></div>
+                                    <input type="hidden" name="options[<?php echo $optionVal->getId(); ?>]" value="<?php echo $valuesVal->getId() ?>" />
+                                    <input name="qty" type="hidden" id="qty" maxlength="12" value="<?php echo $this->getMinimalQty($_product) == null ? 1 : $this->getMinimalQty($_product) ?>"/>
+                                    <?php
+                                    if($_product->getSpecialPrice()) {
+                                        $customPrice = $_product->getSpecialPrice();
+                                    } else {
+                                        $customPrice = $_product->getPrice();
+                                    }
+                                    if($valuesVal->getPriceType() == 'fixed') {
+                                        $price = $customPrice + $valuesVal->getPrice();
+                                    } else {
+                                        $percent = $customPrice * ($valuesVal->getPrice()/100);
+                                        $price = $customPrice + $percent;
+                                    }
+                                    ?>
+                                    <button id="price_button" type="button" class="price_btn" style="width: auto;" onclick="productAddToCartForm<?php echo $valuesVal->getId() ?>.submit()"><?php echo Mage::helper('core')->currency($price, true, true); ?></button>
+                                    <div class="clear"></div>
+                                    </div>
+                                </form>
+                                        <script type="text/javascript">
+                                            var productAddToCartForm<?php echo $valuesVal->getId() ?> = new VarienForm('product_addtocart_form_<?php echo $valuesVal->getId() ?>');
+                                            productAddToCartForm<?php echo $valuesVal->getId() ?>.submit = function(){
+                                                if (this.validator.validate()) {
+                                                    this.form.submit();
+                                                }
+                                            }.bind(productAddToCartForm<?php echo $valuesVal->getId() ?>);
+                                        </script>
+                         </li>
+                         <?php $options_count++; ?>
+                                    <?php
+                                    } ?>
+                                </ul>
+                               <?php  }
+                            }
+                            ?>
+                            </div>
+                        </div> 
+<?php //}
+}
+?>
+<script type="text/javascript">
+function switchImage(cnt){
+                document.getElementById('video-'+cnt).style.display="none";
+                document.getElementById('image-'+cnt).style.display="block";
+                document.getElementById('switchVideo-'+cnt).style.display="block";
+                document.getElementById('switchImage-'+cnt).style.display="none";
+                document.getElementById('featured-'+cnt).style.display="block";
+                document.getElementById('featured-'+cnt).style.width="460px";
+                document.getElementById('featured-'+cnt).style.height="279px";
+            }
+function switchVideo(cnt){
+                document.getElementById('featured-'+cnt).style.display="none";
+                document.getElementById('video-'+cnt).style.display="block";
+                document.getElementById('switchVideo-'+cnt).style.display="none";
+                document.getElementById('switchImage-'+cnt).style.display="block";               
+            }
+            function getFlashMovie(movieName)
+            {
+                var isIE = navigator.appName.indexOf("Microsoft") != -1;
+                return (isIE) ? window[movieName] : document[movieName];
+            }
+</script>

@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<config>
+   <modules>
+      <Gclone_Constantcontact>
+         <version>0.0.1</version>
+      </Gclone_Constantcontact>
+   </modules>
+
+	<global>
+		<rewrite>
+			<gclone_constantcontact_account_edit>
+		            <from><![CDATA[#^/customer/account/edit/(.*)#]]></from>
+		            <to>constantcontact/account/edit</to>
+			</gclone_constantcontact_account_edit>
+			<gclone_constantcontact_account_confirm>
+		            <from><![CDATA[#^/customer/account/confirm/(.*)#]]></from>
+		            <to>constantcontact/account/confirm</to>
+			</gclone_constantcontact_account_confirm>
+		</rewrite>
+
+		<blocks>
+			<adminhtml>
+				<rewrite>
+					<newsletter_subscriber>Gclone_Constantcontact_Block_Adminhtml_Newsletter_Subscriber</newsletter_subscriber>
+				</rewrite>
+			</adminhtml>
+		</blocks>
+
+		<models>
+			<constantcontact>
+					<class>Gclone_Constantcontact_Model_Constantcontact</class>
+					<listids>Gclone_Constantcontact_Model_Constantcontact_listids</listids>
+					
+			</constantcontact>
+<!--                        <newsletter>
+				<rewrite>
+					<subscriber>Gclone_Constantcontact_Model_Newsletter_Subscriber1</subscriber>
+				</rewrite>
+			</newsletter>-->
+ 
+                </models>
+
+
+		<helpers>
+            <Constantcontact><class>Gclone_Constantcontact_Helper</class></Constantcontact>
+	    	<constantcontact>
+	    		<rewrite>
+			          <data>Gclone_Constantcontact_Helper_Data</data>
+			    </rewrite>
+	    	</constantcontact>
+	  	</helpers>
+
+      <resources>
+         <Constantcontact_setup>
+            <setup>
+               <module>Gclone_Constantcontact</module>
+            </setup>
+            <connection>
+               <use>core_setup</use>
+            </connection>
+         </Constantcontact_setup>
+
+         <Constantcontact_write>
+            <connection>
+               <use>core_write</use>
+            </connection>
+         </Constantcontact_write>
+
+         <Constantcontact_read>
+            <connection>
+               <use>core_read</use>
+            </connection>
+         </Constantcontact_read>
+
+      </resources>
+
+   </global>
+
+	<adminhtml>
+	    <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <constantcontact translate="title" module="constantcontact">
+                                            <title>Constantcontact Section</title>
+                                            <sort_order>50</sort_order>
+                                        </constantcontact>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+
+	</adminhtml>
+
+	<admin>
+    	<routers>
+            <constantcontact>
+                <use>admin</use>
+                <args>
+                    <module>Gclone_Constantcontact</module>
+                    <frontName>constantcontact</frontName>
+                </args>
+            </constantcontact>
+        </routers>
+	</admin>
+
+	
+
+</config>

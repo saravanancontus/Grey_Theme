@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * Contus Support Pvt Ltd.
+ * created by Vasanth on nov 04 2010.
+ * vasanth@contus.in
+ * In xml used to config this module to magento.
+ */
+-->
+<config>
+    <modules>
+        <Contus_Videoupload>
+            <version>0.1.0</version>
+        </Contus_Videoupload>
+    </modules>
+    <frontend>
+        <routers>
+            <videoupload>
+                <use>standard</use>
+                <args>
+                    <module>Contus_Videoupload</module>
+                    <frontName>videoupload</frontName>
+                </args>
+            </videoupload>
+        </routers>
+        <layout>
+            <updates>
+                <videoupload>
+                    <file>videoupload.xml</file>
+                </videoupload>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <videoupload>
+                <use>admin</use>
+                <args>
+                    <module>Contus_Videoupload</module>
+                    <frontName>videoupload</frontName>
+                </args>
+
+            </videoupload>
+        </routers>
+    </admin>
+    <adminhtml>
+<!--        <menu>
+            <videoupload module="videoupload">
+                <title>Product Videos</title>
+                <sort_order>71</sort_order>
+                <children>
+                    <items translate="title">
+                        <title>Manage Items</title>
+                        <sort_order>0</sort_order>
+                        <action>videoupload/adminhtml_videoupload</action>
+                    </items>
+                    <config translate="title">
+                        <title>Configuration</title>
+                        <sort_order>1</sort_order>
+                        <action>adminhtml/system_config/edit/section/videoupload</action>
+                    </config>
+                </children>
+            </videoupload>
+        </menu>-->
+<!--        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Contus_Videoupload>
+                            <title>Videoupload Module</title>
+                            <sort_order>10</sort_order>
+                        </Contus_Videoupload>
+                    </children>
+                </admin>
+            </resources>
+        </acl>-->
+        <layout>
+            <updates>
+                <videoupload>
+                    <file>videoupload.xml</file>
+                </videoupload>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <videoupload>
+                <class>Contus_Videoupload_Model</class>
+                <resourceModel>videoupload_mysql4</resourceModel>
+            </videoupload>
+            <videoupload_mysql4>
+                <class>Contus_Videoupload_Model_Mysql4</class>
+                <entities>
+                    <videoupload>
+                        <table>videoupload</table>
+                    </videoupload>
+                </entities>
+            </videoupload_mysql4>
+        </models>
+        <resources>
+            <videoupload_setup>
+                <setup>
+                    <module>Contus_Videoupload</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </videoupload_setup>
+            <videoupload_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </videoupload_write>
+            <videoupload_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </videoupload_read>
+        </resources>
+        <blocks>
+            <videoupload>
+                <class>Contus_Videoupload_Block</class>
+            </videoupload>
+        </blocks>
+        <helpers>
+            <videoupload>
+                <class>Contus_Videoupload_Helper</class>
+            </videoupload>
+        </helpers>
+    </global>
+</config>

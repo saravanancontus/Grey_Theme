@@ -1,0 +1,60 @@
+<?php
+/*
+ * Contus Support Pvt Ltd.
+ * created by Vasanth on nov 02 2010.
+ * vasanth@contus.in
+ * In this page we can include the hdflv player in frontend.
+ */
+?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery-1.3.2.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/thickbox.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/swfobject.js') ?>"></script>
+<link rel='stylesheet' id='thickbox-css'  href='<?php echo $this->getSkinUrl('css/thickbox.css') ?>' type='text/css' media='all' />
+<script type="text/javascript">
+    tb_pathToImage = '<?php Mage::getBaseURL('media').'/loadingAnimation.gif'?>';
+    tb_closeImage = '<?php Mage::getBaseURL('media').'/tb-close.png';?>';
+</script>
+ <ul>
+<?php
+/*Retrive video Details from videoupload table*/
+$_videoDetails = Mage::getBlockSingleton('videoupload/videoupload')->getVideoupload();
+$random_products = array();
+$number_of_products = sizeof($_videoDetails);
+?>
+<div class="related-videos">
+<h2>Related videos</h2>
+<?php
+foreach($_videoDetails as $videoDetails)
+{
+$displayed_products[] = $videoDetails;
+}
+if (sizeof($_videoDetails) > 1) {
+$random_products = array_rand($displayed_products, $number_of_products);
+} else {
+$random_products = array('0');
+}
+for ($i=0; $i < $number_of_products; $i++)
+{
+/*Retrive uploaded videos from media*/
+    $thumbPath = Mage::getBaseURL('media');
+    $thumbName = $displayed_products[$random_products[$i]]->getThumname();
+    $productId = $displayed_products[$random_products[$i]]->getentityId();
+    $videoId = $displayed_products[$random_products[$i]]->getvideouploadId();
+    
+/*Minimum 3 thumnails for product media*/
+    if($i <= '3')
+    {
+      
+        ?>
+<li style="float:left;padding-right:5px;">
+    <a href="#TB_inline?height=<?php echo Mage::getStoreConfig('videoupload/videoupload/height'); ?>&amp;width=<?php echo Mage::getStoreConfig('videoupload/videoupload/width') ?>&amp;playerpath=<?php echo $this->getSkinUrl('hdflvplayer/hdplayer.swf');?>&amp;baseurl=<?php echo Mage::getBaseUrl();?>&amp;id=<?php echo $productId;?>&amp;pid=<?php echo $videoId;?>&amp;inlineId=ilc_flvbox_content" class="thickbox flvbox" id="1632991159"><img src="<?php echo $thumbPath.$thumbName;?>"  width="60" height="60" style="border: 2px solid #DDD;"></a>
+</li>
+<?php } }?>
+ </ul>
+</div>
+<div id="ilc_flvbox_content" style="display: none;">
+    <div name='mediaspace' id='mediaspace' class="flvbox_inline">
+        </div>
+</div>
+
+

@@ -1,0 +1,32 @@
+<?php
+$results=$this->getSuggestProducts();
+$suggests=Mage::helper('catalogsearch')->getSuggestCollection();
+$city = Mage::getSingleton('core/session')->getCityUrl();
+
+?>
+<ul class="ajaxsearch" ><li style="display:none"></li>
+<?php
+if($this->enabledSuggest())
+foreach($suggests as $_suggest)
+{
+  //echo "<li class=\"suggest\" >{$_suggest->getQueryText()} <span class=\"amount\">{$_suggest->getNumResults()}</span></li>";
+}
+
+if(count($results)&&$this->enabledPreview())
+  foreach($results as $key => $item)
+  {
+    //$pro=Mage::getModel('catalog/product')->load($pro->getId());
+    if ($item != ""):
+    echo "<li class=\"preview\" ><a href=\"{$city[$item]}\">";
+    
+    if($this->isShowName()) echo "{$item} ";
+
+ 
+   
+    echo "</a></li>";
+     endif;
+  }
+
+?>
+</ul>
+

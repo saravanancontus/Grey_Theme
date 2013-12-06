@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Contus_License>
+            <version>0.1.0</version>
+        </Contus_License>
+    </modules>  
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+
+                                <license translate="title">
+                                    <title>New Module Section</title>
+                                    <sort_order>136</sort_order>
+                                </license>
+
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+
+        <layout>
+            <updates>
+                <license>
+                    <file>license.xml</file>
+                </license>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <license>
+                <class>Contus_License_Model</class>
+            </license>
+        </models>
+        <helpers>
+            <license>
+                <class>Contus_License_Helper</class>
+            </license>
+        </helpers>
+    </global>
+</config>

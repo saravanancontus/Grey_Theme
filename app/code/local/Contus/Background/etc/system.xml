@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * Contus Support Pvt Ltd.
+ *
+ * sathishkumar@contus.in
+ * In xml used to integrate the license Key to system configuration.
+ */
+-->
+<config>
+     <tabs>
+        <background translate="label" module="background">
+            <label>Custom Design</label>
+            <sort_order>198</sort_order>
+        </background>
+    </tabs>
+    <sections>
+        <background translate="label" module="background">
+            <label>Custom Design</label>
+            <tab>gclone_all</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>                
+                <activate translate="label" module="background">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>11</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <custom_design translate="label">
+                            <label>Enable Custom Design</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Activate Custom Design</comment>
+                        </custom_design>
+                    </fields>
+                </activate>
+                <header_color translate="label" module="background">
+                    <label>Header Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>12</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <background translate="label">
+                            <label>Header Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 000000 )</comment>
+                            
+                        </background>
+
+                        <heading_text_color translate="label">
+                            <label>Header Font Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : C0C0C0 )</comment>
+                        </heading_text_color>
+
+                    </fields>
+                </header_color>
+                <menu_color translate="label" module="background">
+                    <label>Menu Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>13</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <background translate="label">
+                            <label>Menu Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 699737 )</comment>
+                        </background>
+
+                        <menu_text_color translate="label">
+                            <label>Menu Font Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : ffffff )</comment>
+                        </menu_text_color>
+
+                        <menu_text_active translate="label">
+                            <label>Menu Font Active Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 598724 )</comment>
+                        </menu_text_active>
+                    </fields>
+                </menu_color>
+                <site_color translate="label" module="background">
+                    <label>Site Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>14</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <background translate="label">
+                            <label>Site Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 9CC25D )</comment>
+                        </background>
+                        <city_text_color translate="label">
+                            <label>City and Subscription Font</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : ffffff )</comment>
+                        </city_text_color>
+                        <city_icon translate="label">
+                            <label>City and Subscription Icon</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Contus_Background_Model_Colors</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select the color from above list </comment>
+                        </city_icon>
+                    </fields>
+                </site_color>
+                <refer_friend translate="label" module="background">
+                    <label>Refer a Friend Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <background translate="label">
+                            <label>Refer a Friend Background Color </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 78A04B )</comment>
+                        </background>
+                        <refer_text_color translate="label">
+                            <label>Refer a Friend Font Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : ffffff )</comment>
+                        </refer_text_color>
+                        
+                    </fields>
+                </refer_friend>
+                <deal_info translate="label" module="background">
+                    <label>Deal Information Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>16</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <price_box translate="label">
+                            <label>Price Box Background Color</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Contus_Background_Model_Colors</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select the color from above list </comment>
+                        </price_box>
+                         
+                        <buyit_friend_bg translate="label">
+                            <label>Buy it for a friend Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : AEDFEA )</comment>
+                        </buyit_friend_bg>
+                        <buyit_friend_font translate="label">
+                            <label>Buy it for a friend Font Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 00657B )</comment>
+                        </buyit_friend_font>
+
+                    </fields>
+                </deal_info>
+                <great_deal translate="label" module="background">
+                    <label>More Great Deals Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>17</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <great_font translate="label">
+                            <label>More great Deals Font Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 0981BE )</comment>
+                        </great_font>
+
+                    </fields>
+                </great_deal>
+                <footer translate="label" module="background">
+                    <label>Footer Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>18</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <footer_border translate="label">
+                            <label>Footer Border Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 05C4E7 )</comment>
+                        </footer_border>
+                        <footer_font translate="label">
+                            <label>Footer Font Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please Click the text box to select color ( Default color value : 05C4E7 )</comment>
+                        </footer_font>
+                    </fields>
+                </footer>
+            </groups>
+        </background>
+    </sections>
+</config>

@@ -1,0 +1,99 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<title><?php echo $this->getTitle() ?></title>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css' />
+<?php if(Mage::getStoreConfig('background/activate/custom_design') == 1) { ?>
+    <style type="text/css">
+        /* header styles*/
+        .header-container{ background-color:<?php echo '#'.Mage::getStoreConfig('background/header_color/background');?> !important;  }
+        .header_font{ color:<?php echo '#'.Mage::getStoreConfig('background/header_color/heading_text_color');?> !important; }
+        .header_font:hover{ color:<?php echo '#'.Mage::getStoreConfig('background/header_color/heading_text_hover');?> !important; }
+        .header_font_active a{ background-image: none !important; background-color: <?php echo '#'.Mage::getStoreConfig('background/menu_color/background');?> !important; color:<?php echo '#'.Mage::getStoreConfig('background/menu_color/menu_text_color');?> !important;}
+
+         /* menu styles*/
+        .nav-container { background-color: <?php echo '#'.Mage::getStoreConfig('background/menu_color/background');?> !important; }
+        #nav li a{ color:<?php echo '#'.Mage::getStoreConfig('background/menu_color/menu_text_color');?> !important; }
+        #nav li.active a { background-color:<?php echo '#'.Mage::getStoreConfig('background/menu_color/menu_text_active');?> !important; }
+
+        /* site styles*/
+        body{ background-color: <?php echo '#'.Mage::getStoreConfig('background/site_color/background');?> !important; }
+        #cities h4 a, #cities .mailtoggle a{ color:<?php echo '#'.Mage::getStoreConfig('background/site_color/city_text_color');?> !important;}
+        <?php $arrow=Mage::getStoreConfig('background/site_color/city_icon'); if($arrow!='default'){ ?>
+            #cities h4 a {background-image: url('<?php echo $this->getSkinUrl("images/color/$arrow/arrow.png") ?>') !important;}
+            #cities .mailtoggle a {background-image: url('<?php echo $this->getSkinUrl("images/color/$arrow/mail.png") ?>') !important;}
+        <?php } ?>
+
+        #cities .refer_cta{ background-color: <?php echo '#'.Mage::getStoreConfig('background/refer_friend/background');?> !important; }
+        #cities .refer_cta a{ color:<?php echo '#'.Mage::getStoreConfig('background/refer_friend/refer_text_color')?> !important; }
+
+        <?php $buynow_bg = Mage::getStoreConfig('background/deal_info/price_box'); ?>
+        .buy_tag{ background-image: url('<?php echo $this->getSkinUrl("images/color/$buynow_bg/left.png") ?>') !important; }
+        .buy_value{ background-image: url('<?php echo $this->getSkinUrl("images/color/$buynow_bg/repeat.png") ?>') !important; }
+        .buy_edge{ background-image: url('<?php echo $this->getSkinUrl("images/color/$buynow_bg/right.png") ?>') !important; }
+        <?php if($buynow_bg=='yellow'||$buynow_bg=='gray'){ ?>
+            .buy_pin .buy_value small,.buy_pin .buy_value b { color: #000000 !important; }
+        <?php } ?>
+
+        .gift_box { background: <?php echo '#'.Mage::getStoreConfig('background/deal_info/buyit_friend_bg');?>!important; border-top:1px solid #fff !important; }
+        .dealstatus{ border-top:1px solid #fff !important; }
+        .clsbuyfriend { color: <?php echo '#'.Mage::getStoreConfig('background/deal_info/buyit_friend_font');?>!important; }
+        .timerbg_middle{border-top: 1px solid #fff !important; border-bottom: 1px solid #fff !important;}
+        /*.buy_friend_icon { background: url(<?php echo Mage::getStoreConfig('background/deal_info/friend_icon')?>); }*/
+
+        .deal_content a,.deal_content_even a { color: <?php echo '#'.Mage::getStoreConfig('background/great_deal/great_font')?>!important; }
+        .more_great_deals_button{ background: url(<?php echo Mage::getStoreConfig('background/great_deal/refer_icon')?>)!important; }
+
+        .footer-top { border-top: 3px solid <?php echo '#'.Mage::getStoreConfig('background/footer/footer_border')?>!important;}
+        .footer-content .top .follow-us dt,.footer_font{ color: <?php echo '#'.Mage::getStoreConfig('background/footer/footer_font')?> !important; }
+        
+    </style>
+<?php } ?>
+<!--[if lt IE 7]>
+<script type="text/javascript">
+//<![CDATA[
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+<![endif]-->
+<?php echo $this->getCssJsHtml() ?>
+
+
+<script type="text/javascript">
+    //<![CDATA[
+    var $j = jQuery.noConflict();
+    //]]>
+</script>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>

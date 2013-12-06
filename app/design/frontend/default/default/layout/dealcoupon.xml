@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <dealcoupon_index_index>
+        <reference name="content">
+            <block type="dealcoupon/dealcoupon" name="dealcoupon" template="dealcoupon/dealcoupon.phtml" />
+        </reference>
+    </dealcoupon_index_index>
+     <dealcoupon_coupon_index>
+         <remove name="header"/>
+         <remove name="footer"/>
+         <remove name="right"/>
+         <remove name="left"/>
+        <reference name="content">
+            <block type="dealcoupon/coupon" name="dealcoupon_coupon" template="dealcoupon/coupon.phtml" />
+        </reference>
+    </dealcoupon_coupon_index>
+</layout> 

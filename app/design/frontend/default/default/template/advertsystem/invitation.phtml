@@ -1,0 +1,23 @@
+<?php
+/**
+ */
+?>
+<div class="dashboard">
+    <div class="page-title page-head">
+		<?php $tag = version_compare(Mage::getVersion(),'1.4.0.1','>=')?'h1':'h3'; ?>
+        <<?php echo $tag?>><?php echo $this->__('My Invitations') ?></<?php echo $tag?>>
+    </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php echo $this->getPagerHtml(); ?>
+    <div class="box-account box-info account-box ad-account-info">
+        
+       <?php echo $this->getChildHtml('invite_history')?>
+        <?php $isEnabled=Mage::getStoreConfig('advertsystem/invite/enabled');
+        if($isEnabled == 1){
+        ?>
+        <?php echo $this->getChildHtml('invite_form');?>
+        <?php }?>
+    </div>
+
+</div>

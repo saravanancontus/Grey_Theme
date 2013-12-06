@@ -1,0 +1,10 @@
+<?php
+$sharelinks = Gclone_Deal_Block_Deal::getsharelinks();
+$facebookfans = $sharelinks['facebookfans'];
+if (!empty($facebookfans)) {
+?>
+    <div class="fb-fanbox">
+        <iframe src="http://www.facebook.com/plugins/likebox.php?id=<?php echo $facebookfans; ?>&amp;width=205&amp;connections=10&amp;stream=false&amp;header=true&amp;height=360" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:205px; height:360px; background: #FFF;">
+        </iframe>
+    </div>
+<?php } ?>

@@ -1,0 +1,190 @@
+<div style="margin: auto; padding: 10px; width: 720px;">
+    
+    <table width="720" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td>
+          <p style="margin: 0px; text-align: center; font-size: 11px; font-family: Helvetica,Arial,sans-serif; color: rgb(146, 146, 146);">
+            Your Daily
+            {{var deallist.product_city}}
+            {{var store.getFrontendName()}}   
+                          
+          </p>
+          <p style="margin: 0px; text-align: center; font-size: 11px; font-family: Helvetica,Arial,sans-serif; color: rgb(146, 146, 146);">
+            Be sure to add
+            <a target="_blank" title="{{var store.getFrontendName()}} Email" style="color: rgb(9, 129, 190);" href="{{config path='trans_email/ident_support/email'}}">{{config path='trans_email/ident_support/email'}}</a>
+            to your address book or safe sender list so our emails get to your inbox.
+            <a target="_blank" title="White List {{var store.getFrontendName()}}" style="color: rgb(9, 129, 190);" href="{{store url=''}}">Learn how</a>
+          </p>
+        </td>
+      </tr>
+    </tbody></table>
+    <div style="border: 5px solid rgb(222, 237, 204); margin: 5px 0pt; padding: 20px; width: 670px; background-color: rgb(134, 173, 83); background-repeat: no-repeat;">
+      <table width="100%" cellspacing="0" cellpadding="0" style="background-color: rgb(255, 255, 255);">
+        
+        <tbody><tr>
+          <td colspan="2"><div style="border-bottom: 4px solid rgb(75, 139, 155); margin: 0pt; min-height: 104px;">
+              <table height="104" width="670" cellspacing="0" cellpadding="0" bgcolor="#313131">
+                <tbody><tr>
+                  <td valign="top" style="padding: 18px 0pt 0pt 15px; width: 110px; min-height: 37px;"><a href="{{store url=""}}" target="_blank" style="color:#1E7EC8;"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="{{var store.getFrontendName()}}" border="0"/></a></td>
+                  <td valign="top" style="padding-left: 15px; width: 250px; padding-top: 16px;">
+                    <table>
+                      <tbody><tr>
+                        <td style="margin: 0pt; color: rgb(255, 255, 255); font-size: 12px; font-weight: 700; font-family: Helvetica,Arial,sans-serif;">
+                          The Daily Deal for
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="margin: 0pt; padding: 5px 0pt 0pt; color: rgb(255, 255, 255); font-size: 20px; font-weight: 700; font-family: Helvetica,Arial,sans-serif;">
+                         {{var deallist.product_city}}
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </td>
+                  <td valign="top" align="right" style="padding-right: 20px; padding-top: 21px;">
+                    <table width="225" cellspacing="0" cellpadding="0">
+                      <tbody><tr>
+                        <td align="right" style="margin: 0pt; color: rgb(255, 255, 255); font-size: 12px; font-family: Helvetica,Arial,sans-serif;">
+                          {{var deallist.deal_date}}
+                        </td>
+                      </tr>
+                 
+                    </tbody></table>
+                  </td>
+                </tr>
+              </tbody></table>
+            </div></td>
+        </tr>
+        
+        <tr>
+          <td valign="top" style="border-top: 10px solid rgb(75, 193, 222); padding: 20px 0pt 25px;">
+            <table width="100%" cellspacing="0" cellpadding="0">
+              
+              <tbody><tr>
+                <td colspan="2">
+                  <h1 style="margin: 0pt; padding: 0pt 20px 20px;"><a href="{{store url=''}}" target="_blank" style="color:#1E7EC8;"> {{var deallist.Productname}}</a></h1>
+                </td>
+              </tr>
+              
+              <tr>
+                <td valign="top" style="
+background:#E4E6E5 none repeat scroll 0 0;
+border:1px solid #CCCCCC;
+margin:0 0 0 10px;
+padding:10px 0 0 10px;
+width:238px;">
+                  <table height="60" width="262" cellspacing="0" cellpadding="0" bgcolor="#4bc1dd" background="{{skin url='images/buynowbg.jpg' _area='frontend'}}">
+                    <tbody><tr>
+                      <td style="padding-left: 35px; font-size: 28px; color: rgb(255, 255, 255); font-family: Helvetica,Arial,sans-serif;">
+                        <div>
+                          {{var deallist.product_price }}
+                        </div>
+                      </td>
+                      <td style="padding-top: 5px;">
+                        <a target="_blank" title="{{var deallist.Productname}}" href="{{store url=''}}"><img  style="border: medium none ;" src="{{skin url='images/buynow_btn.jpg' _area='frontend'}}" alt="See Today's Groupon Deal"/></a>
+                      </td>
+                      <td style="padding-top: 5px;">
+                        <a target="_blank" title="{{var deallist.Productname}}" href="{{store url=''}}"><img height="35" width="40" style="border: medium none ;" src="{{skin url='images/buynow-arrow.jpg' _area='frontend'}}" alt="See Today's Groupon Deal"/></a>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                  <div >
+                    <table width="262" cellspacing="0" cellpadding="0">
+                      <tbody><tr style="background-color: rgb(208, 238, 246);">
+                        <td width="33%" align="center" style="border-left: 1px solid rgb(75, 193, 221); margin: 0pt; padding: 10px 0pt 5px; font-size: 15px; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;font-weight:bold;">
+                          worth
+                        </td>
+                        <td width="33%" align="center" style="margin: 0pt; padding: 10px 0pt 5px; font-size: 15px;font-weight:bold; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                          discount
+                        </td>
+                        <td width="33%" align="center" style="border-right: 1px solid rgb(75, 193, 221); margin: 0pt; padding: 10px 0pt 5px; font-size: 15px; font-weight:bold;color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                          savings
+                        </td>
+                      </tr>
+                      <tr style="background-color: rgb(208, 238, 246);">
+                        <td width="33%" align="center" style="border-left: 1px solid rgb(75, 193, 221); border-bottom: 1px solid rgb(75, 193, 221); margin: 0pt; padding: 0pt 0pt 5px; font-size: 20px; font-weight: 700; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                         {{var deallist.product_worth}}
+                        </td>
+                        <td width="33%" align="center" style="border-bottom: 1px solid rgb(75, 193, 221); margin: 0pt; padding: 0pt 0pt 5px; font-size: 20px; font-weight: 700; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                          {{var deallist.discount}}%
+                        </td>
+                        <td width="33%" align="center" style="border-right: 1px solid rgb(75, 193, 221); border-bottom: 1px solid rgb(75, 193, 221); margin: 0pt; padding: 0pt 0pt 5px; font-size: 20px; font-weight: 700; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                          {{var deallist.product_saveprice}} 
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+                  <div style="padding: 8px 0pt 0pt 0px;">
+                    <table width="262" cellspacing="0" cellpadding="0">
+                      <tbody><tr>
+                        <td style="border: 1px solid rgb(232, 232, 232); padding: 0pt 5px 10px 0px; width: 217px; min-height: 116px;">
+                          <table cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                              <td style="margin: 0pt; padding: 10px 0pt 7px; font-weight: 700; font-size: 15px; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                                Company Information:
+                              </td>
+                            </tr>
+                            <tr>
+                               <td style="margin: 0pt; padding: 0pt; font-size: 12px; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                               {{var deallist.company_address}}                              </td>
+                            </tr>
+                            <tr>
+                              <td style="margin: 0pt; padding: 0pt; font-size: 13px; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                                <a target="_blank" title="{{var deallist.companywebsite }}" style="color: rgb(9, 129, 190);" href="{{var deallist.companywebsite }}"> {{var deallist.companywebsite }}</a>
+                              </td>
+                            </tr>
+                            
+                           
+                          </tbody></table>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+                </td>
+                <td valign="top">
+                <a href="{{store url=""}}" target="_blank" style="color:#1E7EC8;"> <img src="{{var deallist.Productimage}}"  border="0"></a>
+                </td>
+              </tr>
+              
+              <tr>
+                <td colspan="2">
+                  <table width="100%" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                      <td valign="top" style="margin: 0pt; padding: 10px 0pt 0pt 20px; line-height: 15px; font-size: 12px; color: rgb(0, 0, 0); font-family: Helvetica,Arial,sans-serif;">
+                         {{var deallist.product_description}} 
+                          <a href="{{store url=''}}" target="_blank" style="color:#1E7EC8;">Read More...</a>
+                        </p>
+                       
+                      </td>
+                   
+                    </tr>
+                  </tbody></table>
+                </td>
+              </tr>
+            </tbody></table>
+          </td>
+        </tr>
+      </tbody></table>
+      <table width="100%" style="background-color: rgb(222, 237, 204); margin-top: 2px;">
+        <tbody><tr>
+          <td style="padding: 10px; font-family: Helvetica,Arial,sans-serif; color: rgb(84, 84, 84); font-weight: 700; font-size: 12px; text-align: center; line-height: 16px;">
+            Need help? Have feedback? Feel free to
+          <a href="mailto:{{config path='trans_email/ident_support/email'}}"><font face="Arial" color="#0099CC" size="1">{{config path='trans_email/ident_support/email'}}</font></a>       </td>
+        </tr>
+      </tbody></table>
+    </div>
+    <table width="720" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td align="center">
+         
+          <p style="border-top: 1px solid rgb(206, 206, 206); margin: 3px; font-size: 11px; font-family: Helvetica,Arial,sans-serif; color: rgb(146, 146, 146); padding-top: 10px;">
+            Delivered by
+            <a target="_blank" style="color: rgb(9, 129, 190);" href="{{store url=''}}">{{var store.getFrontendName()}}</a>
+            Call us: {{config path='general/store_information/phone'}}
+          </p>
+          <p style="margin: 3px; font-size: 10px; font-family: Helvetica,Arial,sans-serif; color: rgb(204, 204, 204); padding-top: 5px;">
+            To purchase the {{var store.getFrontendName()}} voucher described in today's deal, you must press the Buy! Button and follow the instructions.  Once you make the purchase, you will receive the voucher via e-mail.  This e-mail is not a valid {{var store.getFrontendName()}} voucher, even if you buy today's deal - the only valid voucher is the voucher you receive via e-mail from {{var store.getFrontendName()}} after your purchase.
+          </p>
+        </td>
+      </tr>
+    </tbody></table>
+  </div>

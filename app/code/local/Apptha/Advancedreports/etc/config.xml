@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Apptha_Advancedreports>
+            <version>0.1.0</version>
+        </Apptha_Advancedreports>
+    </modules>
+    <frontend>
+        <routers>
+            <advancedreports>
+                <use>standard</use>
+                <args>
+                    <module>Apptha_Advancedreports</module>
+                    <frontName>advancedreports</frontName>
+                </args>
+            </advancedreports>
+        </routers>
+        <layout>
+            <updates>
+                <advancedreports>
+                    <file>advancedreports.xml</file>
+                </advancedreports>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<advancedreports>
+				<use>admin</use>
+				<args>
+					<module>Apptha_Advancedreports</module>
+					<frontName>advancedreports</frontName>
+				</args>
+			</advancedreports>
+        </routers>
+    </admin>
+    <adminhtml>
+
+            <translate>
+            <modules>
+            <translations>
+	    <files>
+	    <default>Apptha_Advancedreports.csv</default>
+	    </files>
+	    </translations>
+	    </modules>
+	    </translate>
+
+		<menu>
+
+                    <report>
+                <children>
+                    	<advancedreports module="advancedreports">
+				<title>Advanced Reports</title>
+				<sort_order>1</sort_order>
+                                <action>advancedreports/adminhtml_advancedreports/new</action>
+
+			</advancedreports>
+                    
+                </children>
+            </report>
+
+
+		
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Apptha_Advancedreports>
+							<title>Advancedreports Module</title>
+							<sort_order>10</sort_order>
+						</Apptha_Advancedreports>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<advancedreports>
+					<file>advancedreports.xml</file>
+				</advancedreports>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <advancedreports>
+                <class>Apptha_Advancedreports_Model</class>
+                <resourceModel>advancedreports_mysql4</resourceModel>
+            </advancedreports>
+            <advancedreports_mysql4>
+                <class>Apptha_Advancedreports_Model_Mysql4</class>
+                <entities>
+                    <advancedreports>
+                        <table>advancedreports</table>
+                    </advancedreports>
+                </entities>
+            </advancedreports_mysql4>
+        </models>
+        <resources>
+            <advancedreports_setup>
+                <setup>
+                    <module>Apptha_Advancedreports</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </advancedreports_setup>
+            <advancedreports_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </advancedreports_write>
+            <advancedreports_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </advancedreports_read>
+        </resources>
+        <blocks>
+            <advancedreports>
+                <class>Apptha_Advancedreports_Block</class>
+            </advancedreports>
+        </blocks>
+        <helpers>
+            <advancedreports>
+                <class>Apptha_Advancedreports_Helper</class>
+            </advancedreports>
+        </helpers>
+    </global>
+</config>

@@ -1,0 +1,128 @@
+<!--@subject {{var deallist.subjectname}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{var deallist.message}}
+
+<table style="border:5px solid #000" width="740" cellpadding="0" cellspacing="0" rules="groups" >
+    <tr>
+        <td><table bgcolor="#8C8C8C" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="20">&nbsp;</td>
+                    <td><a href="{{store url=''}}" style="color:#1E7EC8;"><img src="{{skin url='images/logo_email.png' _area='frontend'}}" alt="{{var store.getFrontendName()}}" border="0"/></a></td>
+                    <td align="right" style="padding-top:10px;"><font face="Arial, Helvetica, sans-serif" size="5" color="#FFFFFF"><strong>#{{var deallist.realorderid}}</strong></font></td>
+                    <td width="20">&nbsp;</td>
+                </tr>
+        </table></td>
+    </tr>
+    <tr>
+        <td><table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="20"></td>
+                    <td><table cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td><font size="5" face="Arial, Helvetica, sans-serif" color="#393939"><strong> </strong></font><br/>
+                                <font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> {{var deallist.productname}}</strong></font> </td>
+                            </tr>
+                            <tr>
+                                <td><font size="5" face="Arial, Helvetica, sans-serif" color="#393939"><strong> </strong></font><br/>
+                                <font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><strong> {{var deallist.customtitle}}</strong></font> </td>
+                            </tr>
+                            <tr>
+                                <td><font size="5" face="Arial, Helvetica, sans-serif" color="#393939"><strong> </strong></font><br/>
+                                <font size="3" face="Arial, Helvetica, sans-serif" color="#181818">{{var deallist.customoptiontitle}}</font> </td>
+                            </tr>
+                            <tr>
+                                <td height="30">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td><table cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td width="50%" valign="top"><table cellpadding="0" cellspacing="0" width="100%">
+                                                    <tr>
+                                                        <td><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Recipient:</strong></font><br/>
+                                                        <font size="3" face="Arial, Helvetica, sans-serif" color="#181818">{{var deallist.Customer_name}}</font></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="10"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Expires On:</strong></font><br/>
+                                                        <font size="3" face="Arial, Helvetica, sans-serif" color="#181818">{{var deallist.Couponvalid}}</font></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="10"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Fine Print:</strong></font><br/>
+                                                        <font size="3" face="Arial, Helvetica, sans-serif" color="#181818">{{var deallist.Fineprint}}</font></td>
+                                                    </tr>
+                                                    
+                                            </table></td>
+                                            <td width="10%">&nbsp;</td>
+                                            <td width="40%">
+                                                <table cellpadding="0" cellspacing="0" width="100%">
+                                                    <tr>
+                                                        <td width="50" valign="top"><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Redeem at:</strong> </font><br/>
+                                                        <font size="3" face="Arial, Helvetica, sans-serif" color="#181818">{{var deallist.Company_address}}</font><br/><font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><?php echo $Companywebsite;?></font></td>
+                                                    </tr>
+                                                    <tr><td height="10"></td></tr>
+
+                                                    <tr>
+                                                        <td valign="top"><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Worth</strong> </font><br/>
+                                                        <font size="6" face="Arial, Helvetica, sans-serif" color="#181818">{{var deallist.currency_symbol}}{{var deallist.product_worth}}</font> </td>
+                                                    </tr>
+                                                    <tr><td height="10">&nbsp;</td></tr>
+                                                    <tr>
+                                                        <td valign="top"><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong>Coupon Code</strong> </font><br/>
+                                                        <font size="6" face="Arial, Helvetica, sans-serif" color="#181818">{{var deallist.couponcode}}</font> </td>
+                                                    </tr>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                </table></td>
+                            </tr>
+                            <tr>
+                                <td height="20">&nbsp;</td>
+                            </tr>
+                    </table></td>
+                </tr>
+        </table></td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0"  width="750">
+    <tr>
+        <td  height="30">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0"><tr>
+
+                    <td width="50%">
+                    {{block id='coupon-use'}} </td></tr></table></td>
+    </tr>
+    <tr>
+        <td  height="30">&nbsp;</td>
+    </tr>
+    <tr>
+        <td >{{block id='coupon-footer'}}</td>
+    </tr>
+    <tr>
+        <td  height="30">&nbsp;</td>
+    </tr>
+    <tr>
+        <td  ><hr size="1"/></td>
+    </tr>
+    <tr>
+        <td  height="10">&nbsp;</td>
+    </tr>
+    <tr>
+
+    </tr>
+</table>

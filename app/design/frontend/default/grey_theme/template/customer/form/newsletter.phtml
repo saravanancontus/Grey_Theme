@@ -1,0 +1,99 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+//echo $loggedIn = $this->helper("customer")->isLoggedIn();
+$subscriptionData = Gclone_Deal_Block_Newsletter::getCustomerSubscription();
+$baseurl = Mage::getBaseUrl();
+
+ $attributeId = Mage::getResourceModel('eav/entity_attribute')->getIdByCode('catalog_product', 'dealcity');
+        $attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', $attributeId); // get the cities attribute id 548
+        // to get the multiple cities in pages(drop down)
+        foreach ($attribute->getSource()->getAllOptions(true, true) as $option) {
+           if($option['value']== $subscriptionData[0]['subscriber_city']){
+                 $citySubscribed = $option['label'];
+           }
+        }
+$citySelect = Gclone_Deal_Block_Newsletter::getCityToSubscribe($subscriptionData[0]['subscriber_city']);
+$citySelect1 = Gclone_Deal_Block_Newsletter::getCityToSubscribe('');
+$email = Gclone_Deal_Block_Newsletter::getCustomerEmail();
+
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Newsletter Subscription') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('form_before')?>
+<form action="<?php echo $this->getAction() ?>" method="post" id="form-validate">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>        
+        <ul class="form-list">
+            <input type="hidden" name="email" value="<?php echo $email[0]['email']; ?>"/>
+            <li class="control cleafix"><input  style=" float:left" type="hidden" name="is_subscribed" id="subscription" value="1" title="<?php echo $this->__('General Subscription') ?>"<?php if ($this->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" /><label for="subscription"><?php //echo $this->__('General Subscription') ?></label></li>
+            <?php if(count($subscriptionData)!= 0){ ?>
+            <?php if ($this->getIsSubscribed()){ ?>
+            <li class="control cleafix" style="padding:10px 0;"> <div class="floatleft"><?php echo $this->__('You are currently subscribed to newsletter for the city') ?> <strong>" <?php echo $citySubscribed; ?> "</strong></div></li>
+
+                <li class="control cleafix" style="padding:10px 0;"> <div class="floatleft"><?php echo $this->__('If you need to change the subscription, please select a city') ?></div>
+                    <div class="selectcity floatleft" style="padding:0 10px;">
+                        <select id="city" name="city"  class="select input-text required-entry" style="border:1px solid">
+                            <option value=""><?php echo $this->__('Select the city') ;?></option>
+                                 <?php echo $citySelect; ?>
+                        </select>
+                    </div>
+            </li>
+            <li class="control cleafix" style="padding:10px 0px;"> <div class="floatleft"><?php echo $this->__('To unsubscribe') ?><a  style="padding: 0px 0px 0px 5px;" href="<?php echo $baseurl;?>newsletter/subscriber/unsubscribe/id/<?php echo $subscriptionData[0]['subscriber_id']; ?>/code/<?php echo $subscriptionData[0]['subscriber_confirm_code']; ?>">Click here</a></div>
+
+            </li><?php } else{?>
+             <li class="control cleafix" style="padding:10px 0;"> <div class="floatleft"><?php echo $this->__('If you need to subscribe, please select a city') ?></div>
+                    <div class="selectcity floatleft" style="padding:0 10px;">
+                        <select id="city" name="city"  class="select input-text required-entry" style="border:1px solid">
+                            <option value=""><?php echo $this->__('Select the city') ;?></option>
+                                 <?php echo $citySelect1; ?>
+                        </select>
+                    </div>
+            </li>
+            <?php } } else{?>
+            <li class="control cleafix" style="padding:10px 0;"> <div class="floatleft"><?php echo $this->__('If you need to subscribe for our Daily Newsletter, please select a city') ?></div>
+                    <div class="selectcity floatleft" style="padding:0 10px;">
+                        <select id="city" name="city"  class="select" style="border:1px solid">
+                            <option value=""><?php echo $this->__('') ;?></option>
+                                 <?php echo $citySelect; ?>
+                        </select>
+                    </div>
+            </li>
+            <?php } ?>
+
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+//]]>
+</script>

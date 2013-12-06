@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * Contus Support Pvt Ltd.
+ * created by Vasanth on nov 04 2010.
+ * vasanth@contus.in
+ * In xml used to integrate the video upload config to system configuration.
+ */
+-->
+<config>
+    <sections>
+        <videoupload translate="label" module="videoupload">
+            <label>HD Flv Player</label>
+            <tab>gclone_all</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+
+                <frontend translate="label">
+                    <label>Frontend Config</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <default translate="label">
+                             <label>Default Product Banner</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Product</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default>
+                    </fields>
+                </frontend>
+              <!--  <logo translate="label">
+                    <label>Logo Config</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <logo_src translate="label">
+                            <label>Logo Image Src</label>
+                            <frontend_type>text</frontend_type>
+                             <comment>Logo link</comment>
+                                       <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo_src>
+                        <logo_align translate="label">
+                            <label>Logo Align</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Align</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo_align>
+                        <logo_alpha translate="label">
+                            <label>Logo Alpha</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Controls transparency of shadow overlay (0 - 100)</comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo_alpha>
+                        <logo_target translate="label">
+                            <label>Logo Target</label>
+                            <frontend_type>text</frontend_type>
+                             <comment>Target page link</comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo_target>
+                    </fields>
+                </logo> -->
+                <videoupload translate="label">
+                    <label>Player Config</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                      <!--  <skin translate="label">
+                            <label>Player Skin</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Skin</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </skin>-->
+                         <email translate="label">
+                            <label>Share Video</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email>
+                        <playlist_open translate="label">
+                            <label>Playlist Open</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </playlist_open>
+                        <skin_autohide translate="label">
+                            <label>Skin Autohide</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </skin_autohide>
+                        <download translate="label">
+                            <label>Download Button</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </download>
+                    <!--    <width translate="label">
+                            <label>Width</label>
+                            <frontend_type>text</frontend_type>
+                              <comment>Size in pixels width. (Default 365). </comment>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+                        <height translate="label">
+                            <label>Height</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Size in pixels height. (Default 270). </comment>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>-->
+                        <normal_scale translate="label">
+                            <label>NormalScale</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Scale</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </normal_scale>
+                        <full_scale translate="label">
+                            <label>FullScale</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Scale</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </full_scale>
+                        <autoplay translate="label">
+                            <label>AutoPlay</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </autoplay>
+                        <volume translate="label">
+                            <label>Volume</label>
+                            <frontend_type>text</frontend_type>
+                             <comment>Volume limit. (Default 1 to 100). </comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </volume>
+                        <empeded translate="label">
+                            <label>Embeded</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </empeded>
+                        <zoom translate="label">
+                            <label>Zoom</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zoom>
+                        <timer translate="label">
+                            <label>Timer</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </timer>
+                        <full_screen translate="label">
+                            <label>Full Screen</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_Truefalse</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </full_screen>
+                    </fields>
+                </videoupload>
+                
+            </groups>
+        </videoupload>
+    </sections>
+</config>

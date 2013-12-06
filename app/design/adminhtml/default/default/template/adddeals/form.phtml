@@ -1,0 +1,1343 @@
+<?php
+
+$cityAttributeId = Mage::getResourceModel('eav/entity_attribute')->getIdByCode('catalog_product', 'dealcity');
+
+$city_attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', $cityAttributeId);
+$getProductCities = $city_attribute->getSource()->getAllOptions(true, true);
+
+$id = $this->getRequest()->getParam('id');
+	$changeStatus = "display:none";
+	$customoption = '';
+	$changeFunction = "return showCustomOptions();";
+if (isset($id)) {
+
+	$getVideos = Mage::getModel('adddeals/adddeals')->getVideoProduct($id);
+	
+
+    $model = Mage::getModel('catalog/product')->load($id);
+    $id = $model->getId();
+    $name = $model->getName();
+    $productDescription = $model->getDescription();
+    $productSubTitle = $model->getSubtitle();
+    $productPrice =  number_format($model->getPrice(),2);
+    $productSpecialPrice =  number_format($model->getSpecialPrice(),2);
+    $productSku = $model->getSku();
+    $productStatus = $model->getStatus();
+    $productStartDate = $model->getSpecialFromDate();
+    $productEndDate = $model->getSpecialToDate();
+   $productStartTime = $model->getStarttime();
+    $productEndTime = $model->getTime();
+    $dealTarget = $model->getTargetNumber();
+    $couponvalidTill = $model->getEnjoyby();
+    $dealFinePrints = $model->getFineprint();
+    $highlights = $model->getHightlight();
+    $merchatEmail = $model->getCustomeremail();
+    $weight = $model->getWeight();
+    $companyAddress = $model->getCustomersite();
+    $merchantPhone = $model->getQuestions();
+    $map = $model->getSitemap();
+    $featuredDeal = $model->getFeatureddeal();
+    $travelDeal = $model->getTravel();
+    $tax_class_id = $model->getTaxClassId();
+    $website = $model->getCustomerWebsite();
+    $getcities = $model->getDealcity();
+    $getcitie_hide = $model->getDealcity();
+    $getcities = explode(',', "$getcities");
+    
+    
+    $_gallery = $model->getMediaGalleryImages();
+    $productQuantiy = (int) Mage::getModel('cataloginventory/stock_item')->loadByProduct($id)->getQty();
+    $categoryIds = $model->getCategoryIds();
+    $category_hide = implode(",", $categoryIds);
+$toDateFormat = 'm/d/Y';
+
+
+$metaTitle = $model->getMetaTitle();
+$metaKeywords = $model->getMetaKeyword();
+$metaDescription = $model->getMetaDescription();
+
+ $formattedToDate =  Mage::app()->getLocale()->date(strtotime($productEndDate), null, null, false)->toString('MM/dd/yy');
+ $formattedFromDate =  Mage::app()->getLocale()->date(strtotime($productStartDate), null, null, false)->toString('MM/dd/yy');
+
+
+ 
+if( $model->getHasOptions() == 1)
+{
+$customoption = 1;
+$product_options = $model->getOptions();
+  foreach ($model->getOptions() as $value) {
+  $custom_title_edit = $value->getTitle();
+  $changeStatus = "display:block";
+  $changeFunction = "return hideCustom();";
+  }
+}
+ 
+
+if($couponvalidTill != '')
+{
+
+$couponvalidTill =  Mage::app()->getLocale()->date(strtotime($couponvalidTill), null, null, false)->toString('MM/dd/yy');
+}
+}else
+{
+
+    $name = "";
+    $productDescription = "";
+    $productSubTitle = "";
+    $productPrice = "";
+    $productSpecialPrice = "";
+    $productSku = "";
+    $productStatus = "";
+    $productStartDate = "";
+    $productEndDate = "";
+    $productStartTime = "";
+    $productEndTime = "";
+    $dealTarget = "";
+    $couponvalidTill = "";
+    $dealFinePrints = "";
+    $highlights = "";
+    $merchatEmail = "";
+    $weight = "";
+    $companyAddress = "";
+    $merchantPhone = "";
+    $map = "";
+    $featuredDeal = "";
+    $travelDeal = "";
+    $tax_class_id = "";
+    $website = "";
+    $getcities = "";
+    
+
+    $_gallery = "";
+
+    $productQuantiy = "";
+}
+
+
+?>
+
+
+
+<script
+    src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'js/adddeals/jquery-1-8.js' ?>"
+type="text/javascript"></script>
+
+<script
+    src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'js/adddeals/ajaxupload.js' ?>"
+type="text/javascript"></script>
+
+<div class="entry-edit">
+    <div class="fieldset">
+    <div class="hor-scroll">
+     <form id="dealform" name="dealform">
+         <div class="deal_grid">
+    <table cellspacing="0" class="form-list" id="deal_info">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+            <td  class="label"><label for="title"> <?php echo  $this->__('Deal Title'); ?> <span
+                        class="required">*</span><img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t1)"
+                        onMouseOver="showTooltip(t1, 'Enter a title for the deal', 'The text entered in this field will be displayed as the main title of the deal')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t1"></div> </label>
+            </td>
+            <td class="value"><textarea id="dealtitle" name="dealtitle" class="required-entry input-text"><?php echo $name; ?></textarea>
+            </td>
+
+        </tr>
+        <tr>
+            <td  class="label"><label for="dealsubtitle"> <?php echo  $this->__('Deal Subtitle'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t3)"
+                        onMouseOver="showTooltip(t3, 'Enter a subtitle for the deal', 'The text entered in this field will be displayed as the sub title of the deal')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t3"></div> </label>
+            </td>
+            <td class="value"><textarea id="dealsubtitle" name="dealsubtitle" class="required-entry input-text "><?php echo $productSubTitle; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="price"><?php echo  $this->__('Deal Regular Price'); ?>  <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t4)"
+                        onMouseOver="showTooltip(t4, 'Enter a regular price for the deal', 'Enter the actual price of the deal without discount')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t4"></div> </label>
+            </td>
+            <td class="value"><input id="price" name="price"
+                                     value="<?php echo $productPrice; ?>"
+                                     class="required-entry validate-zero-or-greater input-text required-entry" type="text"
+                                     autocomplete="off" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="specialprice"><?php echo  $this->__('Deal Special Price'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t5)"
+                        onMouseOver="showTooltip(t5, 'Enter a special price for the deal', 'Enter the discounted price of the deal')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t5"></div> </label>
+            </td>
+            <td class="value"><input id="specialprice" name="specialprice"
+                                     value="<?php echo $productSpecialPrice; ?>"
+                                     class="required-entry validate-zero-or-greater input-text required-entry"
+                                     type="text" autocomplete="off" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="productsku"> <?php echo  $this->__('Deal SKU'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t6)"
+                        onMouseOver="showTooltip(t6, 'Enter a stock-keeping unit  for the deal', 'The SKU is an identification, usually alphanumeric, of a particular product/deal that allows it to be tracked for inventory purposes. Examples: \'HTCA-41\' - For the mobile \'HTC Amaze with android 4.1\' so that the Admin can track the sales order and gather related data to this particular deal through the given SKU')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t6"></div> </label>
+            </td>
+            <td class="value"><input id="productsku" name="productsku"
+                                     value="<?php echo $productSku; ?>" class="required-entry input-text"
+                                     type="text" autocomplete="off" />
+                <div id="skuerror" style="display: none" class="validation-advice"
+                     id="advice-validate-ajax-sku" style=""><?php echo  $this->__('The value of attribute "SKU" must be unique'); ?></div>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="dealtarget"><?php echo  $this->__('Deal Target'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t7)"
+                        onMouseOver="showTooltip(t7, 'Enter the minimum purchase quantity for the deal to tip/achieve', 'The number entered in this field will be taken as the \'minimum numbers to be sold\' for the deal to tip/achieve.  For Example:  If we set the Deal Target as \'25\' then the deal will tip or will be achieved only after selling 25 quantities')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t7"></div> </label>
+            </td>
+            <td class="value"><input id="dealtarget" name="dealtarget"
+                                     value="<?php echo $dealTarget; ?>"
+                                     class="required-entry input-text validate-number" type="text"
+                                     autocomplete="off" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="startdate"> <?php echo  $this->__('Deal Start Date'); ?> <span
+                        class="required">*</span><img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t8)"
+                        onMouseOver="showTooltip(t8, 'Enter a start date for the deal', 'The date entered in this field will be the start date of the deal.  The deal will be automatically started on this date')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t8"></div> </label>
+            </td>
+            <td class="value"><input name="startdate" id="startdate"
+                                     value="<?php echo $formattedFromDate; ?>" type="text"
+                                     class=" required-entry validate-date input-text"
+                                     style="" autocomplete="off" /> <img
+                                     src="<?php echo $this->getSkinUrl('images/grid-cal.gif'); ?>" alt=""
+                                     class="v-middle" id="startdate_trig" title="Select Date" style="" />
+                <script type="text/javascript">
+                    //<![CDATA[
+                    Calendar.setup({
+                        inputField: "startdate",
+                        ifFormat: "%m/%e/%Y",
+                        //showsTime: true,
+                        button: "startdate_trig",
+                        align: "Bl",
+                        singleClick : true
+                    });
+                    //]]>
+                </script>
+            </td>
+        </tr>
+		 <tr>
+            <td  class="label"><label for="dealstarttime"> <?php echo  $this->__('Deal Start Time'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(tdealstarttime)"
+                        onMouseOver="showTooltip(tdealstarttime, 'Enter the available quantity in stock', 'If the stock is limited for a specified amount of quantity, then it should be specified in this field.  When the sales reaches the available quantity then \'Out of Stock\' notification will be displayed in the frontend of the website, and further sales will be stopped for this particular deal')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="tdealstarttime"></div> </label>
+            </td>
+            <td class="value"><input id="dealstarttime" name="dealstarttime" value="<?php if($productStartTime!="" ) { echo $productStartTime;} else { echo "11:59PM";} ?>"
+                                     class="required-entry input-text" type="text"
+                                     autocomplete="off" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="enddate"> <?php echo  $this->__('Deal End Date'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t9)"
+                        onMouseOver="showTooltip(t9, 'Enter a end date for the deal', 'The date entered in this field will be the end date of the deal.  The deal will be automatically ended on the specified date')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t9"></div> </label>
+            </td>
+            <td class="value"><input name="enddate" id="enddate"
+                                     value="<?php echo $formattedToDate; ?>" type="text"
+                                     class=" required-entry validate-date input-text"
+                                      autocomplete="off" /> <img
+                                     src="<?php echo $this->getSkinUrl('images/grid-cal.gif'); ?>" alt=""
+                class="v-middle" id="enddate_trig" title="Select Date" style="" /> <script
+                    type="text/javascript">
+                                            //<![CDATA[
+                                            Calendar.setup({
+                                                inputField: "enddate",
+                                                ifFormat: "%m/%e/%Y",
+                                                // showsTime: true,
+                                                button: "enddate_trig",
+                                                align: "Bl",
+                                                singleClick : true
+                                            });
+                                            //]]>
+                </script>
+            </td>
+        </tr>
+<tr>
+            <td  class="label"><label for="dealendtime"> <?php echo  $this->__('Deal End Time'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(tdealendtime)"
+                        onMouseOver="showTooltip(tdealendtime, 'Enter the available quantity in stock', 'If the stock is limited for a specified amount of quantity, then it should be specified in this field.  When the sales reaches the available quantity then \'Out of Stock\' notification will be displayed in the frontend of the website, and further sales will be stopped for this particular deal')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="tdealendtime"></div> </label>
+            </td>
+            <td class="value"><input id="dealendtime" name="dealendtime" value="<?php if($productEndTime!="" ) { echo $productEndTime;} else { echo "11:59PM";} ?>"
+                                     class="required-entry input-text" type="text"
+                                     autocomplete="off" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="couponvalidtil"> <?php echo  $this->__('Coupon Valid Till'); ?><img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t10)"
+                        onMouseOver="showTooltip(t10, 'Enter a date for coupon validity', 'The date entered in this field will appear in the deal coupon and the coupon should be redeemed within the validity period specified here.  If the coupon is not redeemed within the validity period, then the coupon could be disregarded by the merchant')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t10"></div> </label>
+            </td>
+            <td class="value"><input name="couponvalidtil" id="couponvalidtil"
+                                     value="<?php echo $couponvalidTill; ?>" type="text"
+                                     class="validate-date input-text" 
+                                     autocomplete="off" /> <img
+                                     src="<?php echo $this->getSkinUrl('images/grid-cal.gif'); ?>" alt=""
+                                     class="v-middle" id="couponvalidtil_trig" title="Select Date"
+                style="" /> <script type="text/javascript">
+                    //<![CDATA[
+                    Calendar.setup({
+                        inputField: "couponvalidtil",
+                        ifFormat: "%m/%e/%Y",
+                        // showsTime: true,
+                        button: "couponvalidtil_trig",
+                        align: "Bl",
+                        singleClick : true
+                    });
+                    //]]>
+                </script>
+            </td>
+        </tr>
+        
+        <tr>
+            <td  class="label"><label for="inventory">  <?php echo  $this->__('Deal Inventory'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t11)"
+                        onMouseOver="showTooltip(t11, 'Enter the available quantity in stock', 'If the stock is limited for a specified amount of quantity, then it should be specified in this field.  When the sales reaches the available quantity then \'Out of Stock\' notification will be displayed in the frontend of the website, and further sales will be stopped for this particular deal')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t11"></div> </label>
+            </td>
+            <td class="value"><input id="inventory" name="inventory" value="<?php echo $productQuantiy; ?>"
+                                     class="required-entry validate-number input-text" type="text"
+                                     autocomplete="off" />
+            </td>
+        </tr>
+       
+        
+        <tr>
+            <td  class="label"><label for="dealCategories"> <?php echo  $this->__('Categories'); ?><img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t31)"
+                        onMouseOver="showTooltip(t31, 'Choose the categories for the deal to be displayed', 'Select any one or multiple categories for the deal to be displayed.  For Example:  Let us imagine there are 5 categories, Food, Spa, Dress, Chocolate, and Electronics.  If you want to display the deal under Food and Chocolate, then just select Food and Chocolate so that the deal will be displayed under the Food and Chocolate categories')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t31"></div> </label>
+  
+              <td class="value">
+                <ul class="checkboxes" id = "product_categories_all">
+                    <?php
+                    $rootCategories = Mage::getModel('adddeals/adddeals')->getProductCategories();
+
+					foreach ($rootCategories as $rootCategory) {
+					
+					if($rootCategory['id'] != '')
+					{
+					$selected ='';
+					if( in_array($rootCategory['id'],$categoryIds ))
+					{
+					$selected = 'checked = "checked"';
+					}
+                        ?>
+                        <li><input id="<?php echo $rootCategory['id']; ?>" <?php echo $selected; ?> type="checkbox"
+                                    name="dealCategories" onClick ="saveCategory('<?php echo $rootCategory['id']; ?>');"
+                                   value="<?php echo $rootCategory['id']; ?>" /> <label
+                                   for="dealCategories_0"> <?php echo $rootCategory['name']; ?> </label>
+                                 <?php $subCategories = Mage::getModel('adddeals/adddeals')->getChildCategory($rootCategory['id'],$id,'0',true);
+			                              echo $subCategories;
+			                     ?>
+                                   
+                        </li>
+                        
+                            <div id="<?php echo 'deatcat' . $rootCategory['id']; ?>"></div> <?php } }
+                    ?> <input type="hidden" value="<?php echo $category_hide; ?>" id="dealCatIds" 
+                               name="dealCatIds" />
+
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="Select Deal City"> <?php echo  $this->__('Deal City'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t12)"
+                        onMouseOver="showTooltip(t12, 'Choose the city in which the deal should be displayed', 'You can place the deal in any one city or multiple cities of your choice')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t12"></div> </label>
+            </td>
+            <td class="value"><select id="dealcity" name="dealcity[]"
+                                      class="required-entry select multiselect" size="4"
+                                      multiple="multiple" >
+
+                    <?php
+                    foreach ($getProductCities as $getProductCity) {
+                        if ($getProductCity['value'] != '') {
+                            ?>
+
+                            <option  <?php if (in_array($getProductCity['value'], $getcities)) { echo "selected" ."=". "selected";
+                    } ?> value="<?php echo $getProductCity['value']; ?>">
+                                <?php echo $getProductCity['label']; ?>
+                            </option>
+
+                            <?php
+                        }
+                    }
+                    ?>
+                </select> <input type="hidden" value="<?php echo $getcitie_hide;?>" id="dealCityIds"
+                                 name="dealCityIds" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="image"> <?php echo  $this->__('Deal Image'); ?><img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t13)"
+                        onMouseOver="showTooltip(t13, 'Upload an image for the deal.', 'Please upload the image for the deal here. The uploaded image will be displayed in the frontend of the website.')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t13"></div> </label>
+            </td>
+            <td class="value">
+
+
+                <div id="deal_image" style="cursor: pointer;">
+                    <span><button id="upload_image" title="Uplaod Image" type="button"
+                                  class="scalable save" style="">
+                            <span><span><span><?php echo  $this->__('Upload'); ?></span> </span> </span>
+                        </button> </span>
+                </div>
+                  <div id="imagepreview">
+                <?php
+                $k = 1;
+              $image_thumb_status = "";
+              $image_small_status = "";
+              $image_status = "";
+               
+               if ( $id != '') {
+               
+                    if (count($_gallery) > 0 ) {
+                        foreach ($_gallery as $_image):
+                            ?>
+                            <?php 
+                            $imageSrc = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile());
+      
+
+                            if(isset($id))
+                           {
+                            	if(basename($model->getThumbnail()) ==  basename ($imageSrc) )
+                            	{
+                            	$image_thumb_status = "checked = checked";
+                            	$image_thumb = basename ($imageSrc);
+                            	}else {
+                            		  $image_thumb_status = "";
+                            	}
+                           if(basename($model->getSmallImage()) ==  basename ($imageSrc) )
+                            	{
+                            		$image_small_status = "checked = checked";
+                            		$image_small = basename ($imageSrc);
+                            	}else {
+                            		$image_small_status = "";
+                            	}
+                            if(basename($model->getImage()) ==  basename ($imageSrc) )
+                            	{
+                            		$image_status = "checked = checked";
+                            		$image_base = basename ($imageSrc);
+                            	}else {
+                            		$image_status ="";
+                            	}
+                            
+                           }
+                            
+                            ?>
+                            <div id="image_<?php echo $k; ?>" >
+                            <img src="<?php echo $imageSrc ?>" width="50px" height="50px"  name ="product_image"  id="product_image<?php echo $k; ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel($model, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($model, 'small_image')) ?>"  />
+                            <input type="radio"  name="base_1"  <?php echo $image_status ; ?> onclick = "return getBaseImage('<?php echo $k; ?>')"   value = "base"/> Base
+                            <input type="radio" name="small_1" <?php echo $image_small_status; ?> onclick = "return getSmallImage('<?php echo $k; ?>')" value = "small"/> Small 
+                            <input type="radio" name="thumb_1"  <?php echo $image_thumb_status; ?>  onclick = "return getThumbImage('<?php echo $k; ?>')"  value = "thumb"/> Thumb
+                            <span class="clear"></span>
+                            <button class="removethis scalable delete icon-btn delete-product-option" data-action="image_<?php echo $k ?>" count="'<?php echo $k ?> '">x</button>
+                            <input type = "hidden" value = "<?php echo $imageSrc; ?>" name = "field<?php echo $k; ?>" id =  "field<?php echo $k; ?>"  />
+                          </div>
+                        <?php   $k++; endforeach; 
+                    }
+                    }?>
+
+                    
+                
+              
+              
+                </div>
+                <span id="mestatus"></span>
+                
+               
+                
+                <input type="hidden" value="" id="field" name="field" />
+                <input type="hidden" value="<?php echo $image_base; ?>" id="base_image" name="base_image">
+                <input type="hidden" value="<?php echo $image_thumb; ?>" id="thumb_image" name="thumb_image">
+                <input type="hidden" value="<?php echo $image_small; ?>" id="small_image" name="small_image">
+            </td>
+        </tr>
+        
+        <tr>
+            <td  class="label"><label for="file"> <?php echo  $this->__('Deal Video'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t14)"
+                        onMouseOver="showTooltip(t14, 'Select the Video type','Please select the video type. If you want to upload the video, upload it by selecting youtube. If you want to add the youtube url, select the video url and paste the youtube url')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t14"></div> </label>
+            </td>
+             <?php 
+            $selected_video = "";
+            $selected_url = "";
+            $video_url = "";
+            $video_uploaded ="";
+            if(!empty($getVideos))
+                {
+                	
+                
+                	$video_status = $getVideos[0]['status'] ;
+                	if($getVideos[0]['video_type'] == 0)
+                	{
+                		$selected_video = "selected = selected";
+                		
+                		$video_uploaded = $getVideos[0]['videoname']; 
+                		
+                		
+                		
+                	}else if ($getVideos[0]['video_type'] == 1)
+                	{
+                		$selected_url = "selected = selected";
+                		$video_url = $getVideos[0]['videoname'];
+                		 
+                	}
+                }
+                ?>
+            <td class="value"><select id="videodetails" onChange ="return changeVideo();">
+                    <option value=""> <?php echo  $this->__('Please Select'); ?> </option>
+                    <option value="videourl" <?php echo $selected_url; ?> ><?php echo  $this->__('Video Url'); ?></option>
+                    <option value="uploadvideo" <?php echo $selected_video; ?> ><?php echo  $this->__('Upload video'); ?></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr style="display:none" id="uploadS">
+            <td  class="label"><label for="image"><?php echo  $this->__('Upload Video'); ?><img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t15)"
+                        onMouseOver="showTooltip(t15,'Upload a video for the deal.', 'Please upload the video of the deal here.  The uploaded video will be played in the frontend of the website')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t15"></div> </label>
+            </td>
+            
+            <td class="value">
+              <span id="mevideo" style="cursor: pointer;">
+                  <button id="upload_video" title="Uplaod Video" type="button" class="scalable save" style="">
+                            <span><span><span><?php echo  $this->__('Upload'); ?></span> </span> </span>
+                        </button> </span>
+                <span id="mestatusvideo"></span> <input type="hidden" value="<?php echo $video_uploaded;?>" id="videoname" name="videoname" />
+                <div id="videonamesuccess">
+                <?php echo basename($video_uploaded);?>
+                </div>
+                
+            </td>
+        </tr>
+      
+
+        <tr id="videoupload" style="display:none" >
+            <td  class="label"><label><?php echo  $this->__('Video Url'); ?><img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t17)"
+                                                   onMouseOver="showTooltip(t17, 'Enter the URL of the deal video', 'Instead of using video upload option, you can enter the youtube video URL here if your deal video is already hosted in youtube.com')"
+                                                   src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t17"></div> </label>
+            </td>
+            <td class="value"><input type="text" name="url_video" id="url_video" class="input-text" value = "<?php echo $video_url;?>"
+                                     autocomplete="off" /> <input type="hidden" value=""<?php echo $video_url;?>"" id="videotype"
+                                     name="videotype" />
+            </td>
+
+        </tr>
+        <tr id="videostatus">
+            <td  class="label"><label><?php echo  $this->__('Video Status'); ?><img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t32)"
+                        onMouseOver="showTooltip(t32, 'Enable or disable the deal video', 'This option allows you to enable or disable the deal video.')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t32"></div> </label>
+            </td>
+            <td class="value"><select id="video_status" name="video_status">
+                    <option value=""  <?php if($video_status == '') { echo " selected = selected "; } ?> ><?php echo  $this->__('-- Please Select --'); ?></option>
+                    <option value="0" <?php if($video_status == 1) { echo " selected = selected "; } ?> ><?php echo  $this->__('Enabled'); ?></option>
+                    <option value="1" <?php if($video_status == 0) { echo " selected = selected "; } ?> ><?php echo  $this->__('Disabled'); ?></option>
+                </select>
+            </td>
+
+        </tr>
+       
+                </table>
+            </td>
+            
+            <td>
+                <table>
+                     
+         <tr>
+            <td  class="label"><label for="status"><?php echo  $this->__('Deal Status'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t18)"
+                        onMouseOver="showTooltip(t18, 'Enable or disable the deal.', 'This option allows you to enable or disable the deal at any point of time')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) .'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t18"></div> </label>
+            </td>
+            <td class="value"><select id="status" name="status"
+                                      class=" required-entry validate-select ">
+                                      
+                    <option value="" <?php if( $productStatus == '' ){ echo 'selected="selected"'; } ?> ><?php echo  $this->__('Please Select'); ?></option>
+                    <option value="1" <?php if( $productStatus == 1 ) { echo 'selected="selected"'; } ?> ><?php echo  $this->__('Enabled'); ?></option>
+                    <option value="2" <?php if( $productStatus == 2 ) { echo 'selected="selected"'; } ?> ><?php echo  $this->__('Disabled'); ?></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td  class="label"><label for="dealdescription"><?php echo  $this->__('Deal Description'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t19)"
+                        onMouseOver="showTooltip(t19, 'Enter detailed deal description', 'Explain in detail about your deal/product/service and it\'s features and benefits.  The information entered in this field will be displayed in \'Description\' section in the frontend')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) .'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t19"></div> </label>
+            </td>
+            <td class="value"><textarea id="dealdescription" name="dealdescription" class="required-entry textarea" rows="2" cols="15"><?php echo $productDescription; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="fineprints"><?php echo $this->__('Fine Prints'); ?><img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t20)"
+                        onMouseOver="showTooltip(t20, 'Enter Fine Print for the deal', 'Explain full conditions and limitations of your deal.  The information entered in this field will be displayed in \'Fine Print\' section in the frontend and the deal  coupon')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t20"></div> </label>
+            </td>
+            <td class="value"><textarea id="fineprints" name="fineprints" class=" textarea"  rows="2" cols="15"><?php echo $dealFinePrints; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="highlights"><?php echo $this->__('Highlights'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t21)"
+                        onMouseOver="showTooltip(t21, 'Enter highlights for the deal', 'Enter the highlights or catchy points of the deal which will attract the visitors')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t21"></div> </label>
+            </td>
+            <td class="value"><textarea id="highlights" name="highlights" class="textarea"  rows="2" cols="15"><?php echo $highlights; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="map"><?php echo $this->__('Deal Location Map'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t22)"
+                        onMouseOver="showTooltip(t22, 'Copy & Paste i-frame code here to locate the deal in map', 'Go to Google Maps, and specify the address of the deal merchant and enter.  Then, click on the \'Link\' icon/button (the chain-like symbol).  Then, copy and paste the i-frame code and paste it here.  The map of the given address/location will be displayed in the front end.Change iframe width=186 and height=200 , To open map in new window use target blank code in view larger map anchor link.')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t22"></div> </label>
+            </td>
+            <td class="value"><textarea id="map" name="map" class="textarea" rows="2" cols="15"><?php echo $map; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="companyaddress"><?php echo $this->__('Company Address'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t23)"
+                        onMouseOver="showTooltip(t23, 'Enter the company address.', 'Please enter the address of the merchant (deal owner), where the coupons can be redeemed')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t23"></div> </label>
+            </td>
+            <td class="value"><textarea id="companyaddress" name="companyaddress" class="textarea"  rows="2" cols="15"><?php echo $companyAddress; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="website"><?php echo $this->__('Website'); ?>  <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t34)"
+                        onMouseOver="showTooltip(t34, 'Enter the website if the deal is associated', '')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                        <div style="display: none" id="t34"></div>
+                    </label>
+            </td>
+            <td class="value"><input id="website" name="website"
+                                     value="<?php echo $website; ?>"
+                                     class="input-text" type="text"
+                                     autocomplete="off" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="merchantemail"> <?php echo $this->__('Merchant Email'); ?> <span 
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t24)"
+                        onMouseOver="showTooltip(t24, 'Field for merchant\'s e-mail ID', 'Please enter the merchant\'s (deal owner) email ID.   The coupon report will be sent to the email ID specified here')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t24"></div> </label>
+            </td>
+            <td class="value"><input id="merchantemail" name="merchantemail"
+                                     value="<?php echo $merchatEmail; ?>"
+                                     class="required-entry input-text validate-email" type="text"
+                                     autocomplete="off" />
+            </td>
+        </tr>
+        <tr>
+            <td  class="label"><label for="merchantphone"> <?php echo $this->__('Merchant Phone'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t25)"
+                        onMouseOver="showTooltip(t25, 'Enter a valid phone number like (123) 456-7890 or 123-456-7890', 'Please enter the merchant\'s phone number here.  The specified phone number will be displayed in the front end and the purpose of displaying the phone number is to allow contact between the visitors and the merchant for clarification of queries')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t25"></div> </label>
+            </td>
+            <td class="value"><input id="merchantphone" name="merchantphone"
+                                     value="<?php echo $merchantPhone; ?>" type="text"
+                                     class=" input-text validate-phoneStrict" autocomplete="off" />
+            </td>
+        </tr>
+
+       <!-- <tr>
+            <td  class="label"><label for="featureddeal"><?php echo $this->__('Featured Deal'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t26)"
+                        onMouseOver="showTooltip(t26, 'Select If the Deal Should Be \'Featured\'', '')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t26"></div> </label>
+            </td>
+             
+            <td class="value"><select id="featureddeal" name="featureddeal">
+         
+                    
+                    <option value="0"  <?php if (isset($id)) { if( $featuredDeal == 1) { echo "selected = 'selected'"; } } ?> ><?php echo $this->__('Enabled'); ?></option>
+                    <option value="1" <?php if (isset($id)) { if( $featuredDeal == 0) { echo "selected = 'selected'"; } }  ?> > <?php echo $this->__('Disabled'); ?></option>
+                </select>
+            </td>
+        </tr>-->
+        <tr>
+            <td  class="label"><label for="traveldeal"><?php echo $this->__('Getaways Deal'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t27)"
+                        onMouseOver="showTooltip(t27, 'Select the deal to be displayed in \'Getaways\' ', '')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t27"></div> </label>
+            </td>
+            <td class="value"><select id="traveldeal" name="traveldeal"
+                                      onchange="">
+                  
+                    <option value="0" <?php if (isset($id)) { if( $travelDeal == 1) { echo "selected = 'selected'"; } } ?>><?php echo $this->__('Enabled'); ?></option>
+                    <option value="1" <?php if (isset($id)) { if( $travelDeal == 0) { echo "selected = 'selected'"; } } ?> ><?php echo $this->__('Disabled'); ?></option>
+                </select>
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td  class="label"><label for="weight"><?php echo $this->__('Weight'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t28)"
+                        onMouseOver="showTooltip(t28, 'Enter the weight of the product if applicable', '')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t28"></div> </label></td>
+            <td class="value"><input id="weight" name="weight"
+                                     value="<?php echo $weight; ?>"
+                                     class="validate-number validate-zero-or-greater validate-number-range number-range-0-99999999.9999 input-text "
+                                     type="text"></td>
+
+        </tr>
+        <tr>
+            <td  class="label"><label for="tax_class_id"><?php echo $this->__('Tax Class'); ?> <span
+                        class="required">*</span> <img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t29)"
+                        onMouseOver="showTooltip(t29, 'Select the tax class ', 'Tax classes are used to define Tax Rules. Tax Rules are defined as a combination of a Tax Rate with a Product Class and Customer Class')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t29"></div> </label></td>
+            <td class="value"><select id="tax_class_id" name="tax_class_id"
+                                      class="required-entry select">
+
+                    <option value="0" <?php if( $tax_class_id == 0 || tax_class_id == '') { echo 'selected="selected"'; } ?> ><?php echo $this->__('None'); ?></option>
+                    <option value="2" <?php if( $tax_class_id == '2') { echo 'selected="selected"'; } ?> ><?php echo $this->__('Taxable Goods'); ?></option>
+                    <option value="4" <?php if( $tax_class_id == '4') { echo 'selected="selected"'; } ?> ><?php echo $this->__('Shipping'); ?></option>
+                </select>
+            </td>
+        </tr>
+        
+        <tr>
+            <td  class="label"><label for="traveldeal"><?php echo $this->__('Add multiple offers'); ?> <img style="float:right;cursor:pointer;"
+                        onMouseOut="hideTooltip(t38)"
+                        onMouseOver="showTooltip(t38, 'Enter the multiple offer deals. If multiple offers is added , then this will be automatically added in  \'Getaways\' ', '')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t38"></div> </label>
+            </td>
+          
+            <td class="value"><select id="customoption1" name="traveldeal" onchange= "<?php echo $changeFunction; ?>">
+                    <option value="2" <?php   if( $customoption == '') { echo "selected = 'selected'"; }  ?>><?php echo $this->__('Please Select'); ?></option>
+                    <option value="0" <?php  if( $customoption == 1) { echo "selected = 'selected'"; }  ?>><?php echo $this->__('Enabled'); ?></option>
+                    <option value="1" <?php if( $customoption == 0 && $customoption != '' ) { echo "selected = 'selected'"; }  ?> ><?php echo $this->__('Disabled'); ?></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;
+            </td>
+            <td>
+                        <div id="showcustom" style="<?php echo $changeStatus; ?>">
+        <span class="clear"></span>
+        <label><?php echo $this->__('Custom Title :') ?></label><input type="text" name="custom_main_title" id="custom_main_title" class="custom_main_title" value="<?php echo $custom_title_edit; ?>" />
+        <input type="button" value="Add Custom Options" class="form-button" style="margin-top:12px;" id="customoption" />
+      
+        </div>
+            </td>
+        </tr>
+                </table>
+               
+                
+
+      
+   
+    <div id="dataTable1">
+     <table>
+     <?php 
+     if (isset($id)) {
+       if( $model->getHasOptions() == 1)
+{
+
+$product_options = $model->getOptions();
+  foreach ($model->getOptions() as $value) {
+     $i = 2;
+    foreach ($value->getValues() as $valuesKey => $valuesVal) { 
+       
+       ?>
+       
+       <tr id="TextBoxDiv<?php echo $i; ?>"><td><label>Title </label><input type="text" name="custom_title"  value="<?php echo $valuesVal->getTitle(); ?>" data='TextBoxDiv<?php echo $i; ?>' count='<?php echo $i ?>' / ></td> <td><label>Price </label><input type="text" name="customoptions"  value="<?php echo $valuesVal->getPrice(); ?>" data='custom_option<?php echo $i ?>' count='<?php echo $i; ?>' /></td><td><label>SKU </label><input type="text" name="prod_sku"  value="<?php echo $valuesVal->getSku(); ?>"  data="product_sku<?php echo $i ?>" count="<?php echo $i ?>" /></td><td style="vertical-align: bottom"> <button class="removethis scalable delete icon-btn delete-product-option" data-action="TextBoxDiv<?php echo $i ?>" count="<?php echo $i ?>">x</button></td></tr>
+       
+        <?php 
+    $i++;
+    } 
+  }
+}
+     }
+        ?>
+        </table>
+        </div>
+        
+            </td>
+        </tr>
+        
+       
+        
+
+    </table>
+    
+             <div class="bottom_div">
+                 <input type="button" value="Add Meta Information" id="addmeta" class="floatleft form-button"/>
+                 
+    <table id="meta-information" class="form-list">
+        <tr>
+            <td class="label">
+            <label for="meta_title"><?php echo $this->__('Meta Title'); ?><img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t35)"
+                        onMouseOver="showTooltip(t35, 'Enter the deal meta title ', 'The title is the first (usually click-able) phrase you see as a search result.')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t35">
+                    </div></label>
+            </td>
+            <td class="value">
+                <input id="meta_title" name="meta_title" value="<?php echo $metaTitle; ?>" class="input-text" type="text">
+                
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+            <label><?php echo $this->__('Meta Keywords'); ?><img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t36)"
+                        onMouseOver="showTooltip(t36, 'Enter the deal meta keywords ', 'The keywords are the most important words you use on/for specific page.')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t36">
+                    </div></label>
+            </td>
+            <td class="value">
+            <textarea id="meta_keywords" name="meta_keywords" class="textarea" rows="2" cols="15"><?php echo $metaKeywords; ?></textarea>
+            </td>
+         </tr>
+        <tr>
+            <td class="label">
+                <label><?php echo $this->__('Meta Description'); ?><img style="float:right;cursor:pointer;" onMouseOut="hideTooltip(t37)"
+                        onMouseOver="showTooltip(t37, 'Enter the deal meta description ', 'A description of your website in 3 of 4 sentences.')"
+                        src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/grey_theme/images/tooltip_icon.png'; ?>" />
+                    <div style="display: none" id="t37">
+                    </div></label>
+            </td>
+            <td class="value">
+                <textarea id="meta_description" name="meta_description" class="textarea"  rows="2" cols="15"><?php echo $metaDescription; ?></textarea>
+            </td>            
+        </tr>        
+</table>
+    
+    <span class="clear"></span>
+   
+    <input type ="hidden" value ="" name="custom_count" id ="custom_count" />   
+    <button type="button" title="Save" id="save" class="button floatright"
+            onclick="return customForm.submit();">
+        <span><span><?php echo $this->__('Submit'); ?></span> </span>
+    </button>
+    </div> </div>
+</form>
+</div>
+    </div>
+
+</div>
+<?php 
+if($i == 1 || !isset($i)){
+    $i = 2;
+}
+
+?>
+<SCRIPT language="javascript">
+
+var selected_option = jQuery('#videodetails option:selected');
+if(selected_option != null)
+{
+	if(selected_option[0].value == 'uploadvideo')
+	{
+		 document.getElementById('uploadS').style.display = "table-row";
+		  //  document.getElementById('uploadthumb').style.display = "table-row";
+		    document.getElementById('videoupload').style.display = "none";
+	}
+
+	if(selected_option[0].value == 'videourl')
+	{
+		 document.getElementById('uploadS').style.display = "none";
+		//    document.getElementById('uploadthumb').style.display = "none";
+		    document.getElementById('videoupload').style.display = "table-row";
+	}
+	
+}
+
+function showTooltip(div, title, desc)
+{
+
+	try
+	{
+		div.className = 'tooltipmsg';
+	    div.style.display = 'inline';
+	    div.innerHTML  = '<b>' + title + '</b><div>' + desc + '</div>';
+	}
+	catch(ex)
+	{
+	alert(ex.message); // never displayed
+	}
+    
+}
+
+function hideTooltip(div)
+{
+    div.style.display = 'none';
+}
+    function showCustomOptions()
+{
+
+
+document.getElementById("custom_main_title").className += " required-entry"
+    customvalue = document.getElementById('customoption1').value;
+    if(customvalue == 0 ){
+
+
+   document.getElementById('showcustom').style.display="block";
+    document.getElementById('customoption1').setAttribute("Onchange", "hideCustom();");
+    document.getElementById('dataTable1').style.display="block";
+}
+
+}
+function hideCustom()
+{
+    customvalue = document.getElementById('customoption1').value
+    if(customvalue == 1 || customvalue==2){
+        document.getElementById("custom_main_title").className += "custom_main_title"
+    
+    document.getElementById('showcustom').style.display="none";
+    document.getElementById('dataTable1').style.display="none";
+    document.getElementById('customoption1').setAttribute("Onchange", "showCustomOptions();");
+    }
+}
+
+                     var counter = <?php echo $i;?>;
+            $('customoption').observe('click', respondToClick);
+            function respondToClick(event) {
+            	 
+            var newTextBoxDiv = new Element('tr', {id: 'TextBoxDiv'+ counter});
+            
+
+                          newTextBoxDiv.update(
+                               
+                          '<td><label>Title </label><input type="text" name="custom_title"  value="" data="TextBoxDiv' + counter +'" count="' + counter +'"/ ></td>' + '<td><label>Price </label><input type="text" name="customoptions"  value="" data="custom_option' + counter +'" count="' + counter +'"/ ></td>' +
+
+                          '<td><label>SKU </label><input type="text" name="prod_sku"  value="" data="product_sku' + counter +'" count="' + counter +'"/ ></td>' +
+                         '<td> <button class="removethis scalable delete icon-btn delete-product-option" data-action="TextBoxDiv' + counter +'" count="'+ counter +'">x</button></td>'
+                  );
+
+			document.getElementById('dataTable1').appendChild(newTextBoxDiv);
+            document.getElementById('custom_count').value = counter;
+
+		    counter++;
+            }
+                document.observe('click', function(e) {
+                    if (e.findElement('.removethis')) {
+
+                       $(e.findElement('.removethis').readAttribute('data-action')).remove()
+                    }
+                });
+                           
+                           
+                     </SCRIPT>
+<script type="text/javascript">
+
+var confirm_text = "Newly typed data will be lost";
+    jQuery("#meta-information").hide();
+    jQuery("#addmeta").click(function () {
+        jQuery("#meta-information").slideToggle("fast");
+    });
+
+
+    function getSelectValues(select) {
+      	  var result = [];
+      	  var options = select && select.options;
+      	  var opt;
+
+      	  for (var i=0, iLen=options.length; i<iLen; i++) {
+      	    opt = options[i];
+
+      	    if (opt.selected) {
+      	      result.push(opt.value || opt.text);
+      	    }
+      	  }
+      	  return result;
+      	}
+
+
+
+
+    var customForm = new varienForm('dealform',true);
+    customForm.submit = function() {
+
+    	
+        var videodetails = document.getElementById('videodetails');
+        var videotype = videodetails.selectedIndex; 
+       
+        if (this.validator.validate()) {
+            var form = this.form;
+            var dealtitle =  document.getElementById('dealtitle').value;
+            var dealsubtitle = document.getElementById('dealsubtitle').value;
+            var price = document.getElementById('price').value;
+            var specialprice = document.getElementById('specialprice').value;
+            var startdate = document.getElementById('startdate').value;
+            var enddate = document.getElementById('enddate').value;
+            var couponvalidtil = document.getElementById('couponvalidtil').value;
+            var inventory = document.getElementById('inventory').value;
+            var status = document.getElementById('status').value;
+            if(status == '')
+            {
+            	status = 0;
+            }
+            el = document.getElementById('dealcity');
+            dealcity = getSelectValues(el);
+            dealcity = dealcity.join();
+            
+            
+            //var fieldimage = document.getElementById('field').value;
+            var videoname = document.getElementById('videoname').value;
+           // var thumname = document.getElementById('thumname').value;
+            var dealdescription = document.getElementById('dealdescription').value;
+            var fineprints = document.getElementById('fineprints').value;
+            var highlights = document.getElementById('highlights').value;
+            var companyaddress = document.getElementById('companyaddress').value;
+            var merchantemail = document.getElementById('merchantemail').value;
+            var map = document.getElementById('map').value;
+            var dealstarttime = document.getElementById('dealstarttime').value;
+        
+            var dealendtime = document.getElementById('dealendtime').value;
+            var merchantphone = document.getElementById('merchantphone').value;
+         	var dealwebsite = document.getElementById('website').value;
+            var productsku = document.getElementById('productsku').value;
+            var dealtarget = document.getElementById('dealtarget').value;
+//            var featureddeal = document.getElementById('featureddeal').value;
+            var traveldeal = document.getElementById('traveldeal').value;
+    	
+            var dealCatIds = document.getElementById('dealCatIds').value;
+            var url_video = document.getElementById('url_video').value;
+            var tax_class_id = document.getElementById('tax_class_id').value;
+            var weight = document.getElementById('weight').value;
+          
+            var base_image = document.getElementById('base_image').value;
+            var small_image = document.getElementById('small_image').value;
+            var thumb_image = document.getElementById('thumb_image').value;
+            var meta_title = document.getElementById('meta_title').value;
+            var meta_keywords = document.getElementById('meta_keywords').value;
+            var meta_description = document.getElementById('meta_description').value;
+            var video_status = document.getElementById('video_status').value;
+    	    var multiple_offers = 0;
+            var imageCount = document.getElementsByName('product_image').length;
+           
+            var imageProduct = new Array();
+            for( var i = 0; i < imageCount; i++ )
+            {
+                if(i == 0)
+                {
+                    var imagefield = document.getElementsByName('product_image')[i]['src']+',';
+	      
+                }else
+                {
+                    imagefield +=  document.getElementsByName('product_image')[i]['src']+',';
+				
+                }
+
+                
+	      
+            }
+           
+           var image_name = base_image+','+small_image+','+thumb_image;
+           var image_selected_array = image_name.split(',');
+         
+    var e = document.getElementById("customoption1");
+    var multiple_offers = e.options[e.selectedIndex].value;
+
+      var custom_title = new Array();
+      var customoptions = new Array();
+      var prod_sku = new Array();
+      if(multiple_offers == 0)
+      {
+
+    	  var  custom_count = document.getElementsByName('custom_title').length;
+    	    var customoption_main_title = document.getElementById('custom_main_title').value;
+        for(var opt = 0; opt < (custom_count); opt++  )
+            {
+               
+              if(opt == 0)
+                {
+                     custom_title = document.getElementsByName('custom_title')[opt].value+',';
+                     customoptions = document.getElementsByName('customoptions')[opt].value+',';
+                     prod_sku = document.getElementsByName('prod_sku')[opt].value+',';
+
+                }else
+                {
+                    custom_title += document.getElementsByName('custom_title')[opt].value+',';
+                    customoptions += document.getElementsByName('customoptions')[opt].value+',';
+                    prod_sku += document.getElementsByName('prod_sku')[opt].value+',';
+
+                }
+
+          }
+       
+}
+            var productEditId = "<?php echo $id; ?>";
+    	    var ajaxurl = "<?php echo Mage::getBaseUrl() . 'adddeals/adminhtml_adddeals/save/' ?>";
+    	    new Ajax.Request(ajaxurl,{
+                method: 'post',
+                parameters: {dealtitle:dealtitle,weight:weight,dealsubtitle:dealsubtitle,price:price,specialprice:specialprice,startdate:startdate,enddate:enddate,couponvalidtil:couponvalidtil,
+                    inventory:inventory,status:status,dealcity:dealcity,dealdescription:dealdescription,fineprints:fineprints,highlights:highlights,companyaddress:companyaddress,
+                    merchantemail:merchantemail,map:map,merchantphone:merchantphone,productsku:productsku,dealtarget:dealtarget,
+                    traveldeal:traveldeal,dealCatIds:dealCatIds,url_video:url_video,tax_class_id:tax_class_id,weight:weight,videoname:videoname,videotype:videotype,
+                    imagefield:imagefield,productEditId: productEditId,meta_description:meta_description,meta_title:meta_title,meta_keywords:meta_keywords,
+                    video_status:video_status,dealendtime:dealendtime,dealstarttime:dealstarttime,dealwebsite:dealwebsite,custom_title:custom_title,prod_sku:prod_sku,
+                    customoptions:customoptions,customoption_main_title:customoption_main_title,image_name:image_name,multiple_offers:multiple_offers },
+    	        	      
+                onSuccess: function(success) {
+                    
+                    if(success.responseText == 'SKU')
+                    {
+                        document.getElementById('skuerror').style.display='block';
+                        return false;
+                    }else if(success.responseText != '')
+                    {
+                    	window.location.href = '<?php echo Mage::helper("adminhtml")->getUrl("adddeals/adminhtml_adddeals/index/"); ?>';
+                    	var confirm_new_text;
+                    	confirm_text = confirm_new_text;
+                    }
+
+                    	
+                }
+    		           
+    	         
+            });
+        
+        }
+    }
+
+
+
+   
+
+
+
+  
+
+
+    var removeValue = function(list, value, separator) {
+        separator = separator || ",";
+        var values = list.split(separator);
+        for(var i = 0 ; i < values.length ; i++) {
+            if(values[i] == value) {
+                values.splice(i, 1);
+                return values.join(separator);
+            }
+        }
+        return list;
+    }
+	
+
+
+
+    jQuery(function(){
+        var imagepreview;
+        var btnUpload=jQuery('#deal_image');
+        var mestatus=jQuery('#mestatus');
+        var files=jQuery('#files');
+        var count = 1;
+        var target = document.getElementById("imagepreview");
+        var input;
+        new AjaxUpload(btnUpload, {
+            action: '<?php echo Mage::getBaseUrl() . 'adddeals/index/uploadfile/' ?>',
+            name: 'uploadfile',
+            onSubmit: function(file, ext){
+                if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){ 
+                    // extension is not allowed 
+                    mestatus.text('Only JPG, PNG or GIF files are allowed');
+                    return false;
+                }
+                mestatus.html('');
+            },
+            onComplete: function(file, response){
+                files.html('');
+                if(response!=""){
+
+                	var imageCount = document.getElementsByName('product_image').length;
+if(imageCount >= 1)
+{
+	count = imageCount + 1;
+}
+                    imagepreview = '<div id="image_' + count +'" ><img src ="'+response+'"  name ="product_image" id="product_image' + count +'"  height = "50px" width = "50px" /><input type="radio" onclick = "return getBaseImage('+count+')" name="base_1" value = "base"/> Base <input type="radio" name="small_1" onclick = "return getSmallImage('+count+')" value = "small"/> Small <input type="radio" name="thumb_1" onclick = "return getThumbImage('+count+')"  value = "thumb"/> Thumb <span class="clear"></span><button class="removethis scalable delete icon-btn delete-product-option" data-action="image_' + count +'" count="'+ counter +'">x</button><input type = "hidden" id="field' + count +'" name = "field' + count +'" value = "'+response+'" />  </div>';
+                    var input = document.createElement("input");
+                    document.getElementById('field').value = count;
+                    
+                    count++;
+                    jQuery('#imagepreview').append(imagepreview);   
+                } 
+            }
+        });
+
+    });
+
+ 
+
+
+function getBaseImage(fieldbase)
+{
+ 
+ var image_name = document.getElementById('product_image'+fieldbase).src;
+ document.getElementById('base_image').value = findBaseName(image_name);
+ 
+}
+
+function getThumbImage(fieldbase)
+{ 
+	var image_name = document.getElementById('product_image'+fieldbase).src;
+    document.getElementById('thumb_image').value = findBaseName(image_name);
+}
+
+function getSmallImage(fieldbase)
+{ 
+
+
+	var image_name = document.getElementById('product_image'+fieldbase).src;
+    document.getElementById('small_image').value = findBaseName(image_name);
+}
+function findBaseName(url) {
+	 return url.replace(/\\/g,'/').replace( /.*\//, '' );
+}
+
+
+       jQuery(function(){
+        var imagepreview;
+        var files=jQuery('#files');
+        var btnUpload=jQuery('#mevideo');
+        var mestatus=jQuery('#mestatusvideo');
+    
+        new AjaxUpload(btnUpload, {
+            action: '<?php echo Mage::getBaseUrl() . 'adddeals/index/uploadVideo/' ?>',
+            name: 'uploadVideo',
+            onSubmit: function(file, ext){
+                if (! (ext && /^(mp3|MP3|flv|FLV|mp4|MP4|m4v|M4V|M4A|m4a|MOV|mov|mp4v|Mp4v|F4V|f4v')$/.test(ext))){ 
+            
+                // extension is not allowed 
+                mestatus.text('Only video formats of MP3 FLV MP4 M4V M4A  MOV Mp4v F4V files are allowed');
+                
+                return false;
+            }
+            mestatus.html('');
+        },
+        onComplete: function(file, response){
+            
+            if(response != '' )
+            {
+                document.getElementById('videoname').value = response;
+                mestatus.text('Video Uploaded Successfully');
+            }
+            
+        }
+    });
+
+});
+
+
+
+	
+
+function selectTravelDeal(id)
+{
+    if( id == 1)
+    {	
+        document.getElementById('cusotmoptions_deal').style.display = "block";
+        document.getElementById('cusotmoptions_row').style.display = "block";
+
+    }else
+    {
+        document.getElementById('cusotmoptions_deal').style.display = "none";
+        document.getElementById('cusotmoptions_row').style.display = "none";
+    }
+}
+
+
+
+
+function changeVideo()
+{
+    var upload_video = document.getElementById('videodetails').selectedIndex;
+    if(upload_video == 2)
+        {
+    document.getElementById('uploadS').style.display = "table-row";
+   // document.getElementById('uploadthumb').style.display = "table-row";
+    document.getElementById('videoupload').style.display = "none";
+    
+        }
+        if(upload_video == 1)
+        {
+    document.getElementById('uploadS').style.display = "none";
+  //  document.getElementById('uploadthumb').style.display = "none";
+    document.getElementById('videoupload').style.display = "table-row";
+        }
+}
+
+function saveCategory(id)
+{
+	 if(document.getElementById(id).checked == true)
+     {
+
+         var dealCatIds = document.getElementById('dealCatIds').value;
+	
+         if(dealCatIds == '')
+         {	
+             document.getElementById('dealCatIds').value = id ;
+         }else
+         { 
+             document.getElementById('dealCatIds').value += ','+id ;
+         }
+     }
+
+
+	 if(document.getElementById(id).checked == false)
+	 {	
+
+	 	var newvalue = removeValue(document.getElementById('dealCatIds').value,id,',' );
+	 	document.getElementById('dealCatIds').value = newvalue; 
+
+	 }
+}
+
+
+
+</script>

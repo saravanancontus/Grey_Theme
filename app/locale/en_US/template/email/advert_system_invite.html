@@ -1,0 +1,36 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <table style="border:5px solid #000" width="740" cellpadding="10" cellspacing="0" rules="groups" >
+    <tr>
+        <td><table bgcolor="#8C8C8C" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="20">&nbsp;</td>
+                    <td><a href="{{store url=''}}" style="color:#1E7EC8;"><img src="{{skin url='images/logo_email.gif' _area='frontend' }}" alt="{{var store.getFrontendName()}}" border="0"/></a></td>
+                    <td align="right" style="padding-top:10px;"><font face="Arial, Helvetica, sans-serif" size="5" color="#FFFFFF"></font></td>
+                    <td width="20">&nbsp;</td>
+                </tr>
+        </table></td>
+    </tr>
+    <tr>
+        <td>
+	Dear {{var friend_name}},<br/><br />
+Your friend <b> {{var customer_name}}</b> has invited you to join with {{var store.getFrontendName()}}  for attractive offers.<br/><br />
+{{var msg}}<br />
+<a href="{{var invitation_link}}">Click here to signUp & get your offer</a><br /><br />
+With best regards, <br />
+{{var store.getFrontendName()}}
+</td>
+    </tr>
+</table>
+
+  </body>
+</html>

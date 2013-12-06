@@ -1,0 +1,44 @@
+Contus Support Interactive. EULA
+www.contussupport.com
+
+THIS LICENSE AGREEMENT (HEREINAFTER AGREEMENT) IS AN AGREEMENT BETWEEN YOU (THE
+PERSON OR COMPANY WHO IS BEING LICENSED TO USE THE SOFTWARE OR DOCUMENTATION)
+AND CONTUS SUPPORT INTERACTIVE. (HEREINAFTER WE/US/OUR). THE AGREEMENT APPLIES TO ALL
+PRODUCTS/SOFTWARE/SCRIPTS/SERVICES YOU PURCHASE FROM US.
+
+
+1. You shall not use any part of the code in whole or part in any other software
+  product or website.
+
+2. You shall not give, sell, distribute, sub-license, rent, lease or lend any
+   portion of the Software or Documentation to anyone. You may not place the
+   Software on a server so that it is accessible via a public network such as
+   the Internet for distribution purposes.
+
+3. You are bound to preserve the Copyright information intact, this includes the
+   text/link at bottom.
+
+4. We reserve the right to publish a selected list of users of our Software.
+
+5. We will not be liable to you for any damages (including any loss of
+   Profits/saving, or incidental or consequential) caused to you, your
+   information and your business arising out of the use or inability to use
+   this Software.
+
+6. We are not liable for prosecution arising from use of the Software against
+   law or for any illegal use.
+
+7. If you fail to use the Software in accordance with the terms and conditions
+   of this License Agreement, it constitutes a breach of the agreement, and
+   your license to use the program is revoked.
+
+8. CONTUS SUPPORT INTERACTIVE reserves the right to change this license agreement at any
+   time and impose its clauses at any given time without any prior notice to you.
+
+9. License agreement remains effective until terminated. We retain the right to
+   terminate your license to use the Software at any time, if in its sole
+   discretion, you are not abiding by the terms of the Agreement, including,
+   but not limited to, obscuring or removing any link or copyright notice as
+   specified in this agreement. You may terminate it at any time by destroying
+   all copies of the Software. Termination of this Agreement does not bind us
+   to return you the amount spent for purchase of the Software.

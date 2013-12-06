@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gclone_Constantcontact>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Gclone_Constantcontact>
+        
+    </modules>
+</config>

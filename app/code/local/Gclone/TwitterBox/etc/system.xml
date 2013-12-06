@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <twitterbox translate="label comment" module="twitterbox">
+            <tab>gclone_all</tab>
+            <label>Twitter Feed</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment" module="twitterbox">
+                    <comment><![CDATA[<a href="http://twitter.com/about/resources/widgets" target="_blank">]]>Get a Reference for Twitter Widgets<![CDATA[</a>]]></comment>
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Active:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Activate box and script including.</comment>
+                        </active>
+                        <widget translate="label">
+                            <label>Widget:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>twitterbox/widget</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Activate box and script including.</comment>
+                        </widget>
+                        <username translate="label">
+                            <label>Twitter Username:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Twitter user name only for profile,list and faves widgets.</comment>
+                        </username>
+                        <title translate="label">
+                            <label>Title:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Twitter title only for search,list and faves widgets.</comment>
+                        </title>
+                        <caption translate="label">
+                            <label>Caption:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Twitter title only for search,list and faves widgets.</comment>
+                        </caption>
+                         <list translate="label">
+                            <label>List:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Twitter list only for list widgets.</comment>
+                        </list>
+                        <search translate="label">
+                            <label>Search:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Twitter search only search widgets.</comment>
+                        </search>
+                    </fields>
+                </general>
+                <tweets translate="label comment" module="twitterbox">
+                    <label>Tweets</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <count translate="label">
+                            <label>Tweet Count:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Tweet count shown in frontend box. (default: 4)</comment>
+                        </count>
+                        <poll translate="label">
+                            <label>Polling:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Poll for new results? (default: yes)</comment>
+                        </poll>
+                        <behavior translate="label">
+                            <label>Behavior:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>twitterbox/behavior</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>(default: 'Load all tweets')</comment>
+                        </behavior>
+                        <interval translate="label">
+                            <label>Update Interval:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Tweet update intervall in seconds for timed behavior. (default: 2)</comment>
+                        </interval>
+                        <loop translate="label">
+                            <label>Loop Event:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Loop polling? (default: yes)</comment>
+                        </loop>
+                        <hashtag translate="label">
+                            <label>Show Hashtags:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show hashtags in tweets? (default: no)</comment>
+                        </hashtag>
+                        <timestamp translate="label">
+                            <label>Show Timestamps:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show timestamps in tweets? (default: no)</comment>
+                        </timestamp>
+                        <avatar translate="label">
+                            <label>Show Avatars:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show avatars in tweets? (default: no)</comment>
+                        </avatar>
+                        <toptweets translate="label">
+                            <label>Show Top Tweets:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show toptweets in tweets? (default: no)</comment>
+                        </toptweets>
+                    </fields>
+                </tweets>
+                <size translate="label comment" module="twitterbox">
+                    <label>Size</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <auto translate="label">
+                            <label>Auto Width:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>(default: no)</comment>
+                        </auto>
+                        <width translate="label">
+                            <label>Width:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Box width, if auto width is false. (default: 250)</comment>
+                        </width>
+                        <height translate="label">
+                            <label>Height:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Box height. (default: 350)</comment>
+                        </height>
+                        <scrollbar translate="label">
+                            <label>Include scrollbar:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>(default: no)</comment>
+                        </scrollbar>
+                    </fields>
+                </size>
+                <color translate="label comment" module="twitterbox">
+                    <label>Colors</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <shell translate="label">
+                            <label>Shell Text Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Shell text color. (default: #ffffff, format: start with '#' and 6 digits long)</comment>
+                        </shell>
+                        <tweet translate="label">
+                            <label>Tweet Text Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Tweet text color. (default: #ffffff, format: start with '#' and 6 digits long)</comment>
+                        </tweet>
+                        <link translate="label">
+                            <label>Link Text Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Link text color. (default: #4aed05, format: start with '#' and 6 digits long)</comment>
+                        </link>
+                        <shellbackground translate="label">
+                            <label>Shell Background Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Shell background color. (default: #333333, format: start with '#' and 6 digits long)</comment>
+                        </shellbackground>
+                        <tweetbackground translate="label">
+                            <label>Tweet Background Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Tweet background color. (default: #000000, format: start with '#' and 6 digits long)</comment>
+                        </tweetbackground>
+                    </fields>
+                </color>
+            </groups>
+        </twitterbox>
+    </sections>
+</config>

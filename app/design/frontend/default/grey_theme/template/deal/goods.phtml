@@ -1,0 +1,228 @@
+<?php
+$activeEnabled = Mage::getStoreConfig('deal/active/as_active');
+$products = array();
+$currentTime = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+$i = 1;
+//get active deal collection
+$_productCollection = $this->getTransaction();
+foreach ($_productCollection as $rows) {
+    $storeId = Mage::app()->getStore()->getId();
+    $products[] = Mage::getModel('catalog/product')->setStoreId($storeId)->load($rows->getId());
+}
+
+?>
+<?php
+$_helper = Mage::helper('catalog/category');
+$_categories = $_helper->getStoreCategories();
+$cat = Mage::getResourceModel('catalog/category_collection')->addFieldToFilter('name', 'Goods');
+$goodscategory = Mage::getModel('catalog/category')->load($cat->getFirstItem()->getEntityId());
+$dealsCity = Mage::getModel('deal/deal')->fetchCity();
+?>
+
+
+<div class="category_name">
+<h2><span class="clearfix"><?php echo $this->__('Explore') ?> <?php echo $goodscategory->getName();?></span></h2>
+<ul class="category_block">
+<?php
+     $goodscategory = Mage::getModel('catalog/category')->load($cat->getFirstItem()->getEntityId());
+     $children = Mage::getModel('catalog/category')->getCategories($cat->getFirstItem()->getEntityId());
+     if ($goodscategory->getChildrenCount() > 0) {
+    foreach ($children as $_category):
+        $products_sub = $this->getHomeDeals($dealsCity, $_category->getId());
+        $_category_sub = Mage::getModel('catalog/category')->load($_category->getId());
+        $c1 = $_category->getId();
+         $children2 = Mage::getModel('catalog/category')->getCategories($_category->getId());
+         ?>
+     <li class="<?php echo "name".$c1; ?>"><?php if($_category_sub->getChildrenCount()>0) { ?><i><img src="<?php echo $this->getSkinUrl('images/category.png') ?>" style="display:block;" id="showimg<?php echo $c1; ?>" onclick="viewsub(<?php echo $c1; ?>)" alt="" title=""/><img src="<?php echo $this->getSkinUrl('images/minus.png') ?>" id="hideimg<?php echo $c1; ?>" style="display:none;" onclick="hidesub(<?php echo $c1; ?>)" alt="" title=""/></i> <?php } ?><a href="<?php echo $_helper->getCategoryUrl($_category_sub) ?>">
+        <?php echo $_category_sub->getName(); ?>
+        <span>(<?php echo count($products_sub); ?>)</span></a>
+          <div class="sub_menu_chd1 <?php echo "name".$c2; ?>"  id="sub_menu_chd1_name<?php echo $c1; ?>"  style="display: none;">
+             <ul>
+          <?php   foreach ($children2 as $_category2):
+              $c2 = $_category2->getId();
+           $products_sub2 = $this->getHomeDeals($dealsCity, $_category2->getId());
+        $_category_sub2 = Mage::getModel('catalog/category')->load($_category2->getId());
+        $collection = $_category_sub2->getProductCollection()->addAttributeToSort('position');
+Mage::getModel('catalog/layer')->prepareProductCollection($collection);
+        ?>
+          <?php if(count($_category_sub2)>0) { ?>
+
+                 <li>
+         <a href="<?php echo $_helper->getCategoryUrl($_category_sub2) ?>">
+        <?php echo $_category_sub2->getName(); ?>
+        <span>(<?php echo count($collection); ?>)</span></a>
+                 </li>
+         
+          <?php } ?>
+       
+    <?php endforeach; ?>
+                     </ul>
+    </div>
+    </li>
+
+<script type="text/javascript">
+                 function viewsub(id)
+                 {
+                     document.getElementById('hideimg'+id).style.display="block";
+                     document.getElementById('showimg'+id).style.display="none";
+                     document.getElementById('sub_menu_chd1_name'+id).style.display="block";
+                 }
+                 function hidesub(id)
+                 {
+                 document.getElementById('hideimg'+id).style.display="none";
+                  document.getElementById('showimg'+id).style.display="block";
+                 document.getElementById('sub_menu_chd1_name'+id).style.display="none";
+
+                 }
+                 </script>  
+<?php endforeach; ?>
+        <?php } //endforeach; ?>
+</ul></div>
+<?php
+//echo count($products);
+if (count($products) > 0 && $activeEnabled == 1) {
+    foreach ($products as $_product) {
+        //code to check if the deal is current or not, if deal is current, deal will not be displayed, elseif the deal time is over then deal will be displayed
+        $startTime = $_product->getstarttime();
+        $customersite = $_product->getcustomersite();
+        $ProductToDate = $_product->getResource()->formatDate($_product->getspecial_to_date(), false);
+        $ProductFromDate = $_product->getResource()->formatDate($_product->getspecial_from_date(), false);
+        $Fromtime = strtotime($ProductFromDate . ' ' . $startTime);
+        if ($Fromtime < strtotime($currentTime)) {
+            if (strtotime($currentTime) < strtotime($ProductToDate . ' ' . $_product->getTime())) {
+                $URL = $_product->getProductUrl();
+                if (!$_product->isGrouped()) {
+                    if ($i == 1) {
+                        ?>
+<div id="all-browse-deals" class="clearfix">
+                            <a href="<?php echo $URL; ?>" style="text-decoration: none;" class="floatleft">
+                                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image'); ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" class="dealimg"/>
+                            </a>
+                            <div class="all_deal_content">
+                                <?php
+                                $productName = $this->htmlEscape($_product->getName());
+                                $pnameLength = strlen($productName);
+                                if ($pnameLength > 110) {
+                                    $productName = substr($this->htmlEscape($_product->getName()), 0, 110) . '..';
+                                } else {
+                                    $productName = $productName;
+                                }
+                                ?>
+                                <h2><a href="<?php echo $URL; ?>"><?php echo $productName; ?></a></h2>
+                                <?php
+//                                $pnameLength = strlen($_product->getSubtitle());
+//                                if ($pnameLength > 175) {
+//                                    $subtitle = substr($this->htmlEscape($_product->getSubtitle()), 0, 175) . '..';
+//                                } else {
+//                                    $subtitle = $_product->getSubtitle();
+//                                }
+                                ?>
+<!--                                <p><?php echo $subtitle; ?></p>-->                                
+                                <div class="purchase_info">
+<!--                                        <div class="alldeals_values">
+                                            <p><?php echo $this->__('Massage and Facial'); ?></p>
+                                            <p>|</p>
+                                            <p class="online_deal"><?php echo $this->__('On location'); ?></p>
+                                        </div>-->
+                                        <div class="price_info">
+                                            <?php if ($_product->getSpecialPrice()) { ?>
+                                                <span class="original"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                                <span> <?php echo Mage::helper('core')->currency($_product->getSpecialPrice(), true, false) ?></span>
+                                            <?php } else { ?>
+                                                <span> <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                        <div class="action_info">
+                                        <div class="clearfix">
+                                            <a href="<?php echo $URL; ?>" class="more_info"><?php echo $this->__('View deal'); ?></a>
+                                            <?php // if (!$_product->getOptions()) { ?>
+<!--                                                <a href="<?php echo $this->helper('checkout/cart')->getAddUrl($_product); ?>" class="buy-btn"><?php echo $this->__('Buy Now'); ?></a>-->
+                                            <?php // } ?>
+                                        </div>
+                                    </div>
+                                
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php
+                }
+                $i = $i + 1;
+            }
+        }
+    }
+} if (count($products) == 0) {
+    echo "<h1 class='recenttitle' style='color:#333;text-align:center;padding: 10px 0px 0px;'>No Deals!</h1>";
+}
+?>
+<div class="clear"></div>
+<?php
+      $goodscategory = Mage::getModel('catalog/category')->load($cat->getFirstItem()->getEntityId());
+      $children = Mage::getModel('catalog/category')->getCategories($cat->getFirstItem()->getEntityId());
+ if ($goodscategory->getChildrenCount() > 0) {
+    foreach ($children as $_category):
+        $products = $this->getHomeDeals($dealsCity, $_category->getId());
+        $_category1 = Mage::getModel('catalog/category')->load($_category->getId());
+        //if($_category1->getChildrenCount() > 0){
+          if (count($products) > 0 && $activeEnabled == 1) {
+        ?>
+        <a class="homepage_categories" href="<?php echo $_helper->getCategoryUrl($_category) ?>">
+        <label class="home_category_title"><?php echo $_category->getName()."(".count($products).")"; ?></label>
+       <?php if(count($products) > 3){ ?> <span class="home_seeall"> <?php echo $this->__('View all'); ?></span><?php } ?></a>
+        <ul class="clsrecentbox goods_grid">
+            <?php
+            
+                $style_count = 1;
+                foreach ($products as $product) {
+                    if($style_count<=3) {
+                   $_product = Mage::getModel('catalog/product')->load($product);
+                    if(($style_count%3) == 0)
+                         {
+                             $style = 'remove-margin';
+                         }
+                          else
+                         {
+                             $style = '';
+                         }
+                    ?>
+                    <li class="clsbord <?php echo $style;?>">
+                        <a href="<?php echo $URL; ?>" style="text-decoration: none;">
+                            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>" width="297" height="180" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" class="deal_list_img"/>
+                        </a>
+                        <?php
+                        $productName = $this->htmlEscape($_product->getName());
+                        $pnameLength = strlen($productName);
+                        if ($pnameLength > 40) {
+                            $productName = substr($this->htmlEscape($_product->getName()), 0, 40) . "..";
+                        } else {
+                            $productName = $productName;
+                        }
+                        ?>
+                        <div class="grid_box clearfix">
+                        <a class="primary_name" href="<?php echo $URL; ?>"><?php echo $productName; ?></a>
+<!--                        <a class="primary_deal" href="<?php echo $URL; ?>"><?php echo $this->__('Alpine Swiss Leather Wallets'); ?></a>
+                        <p class="online_deal">Online Deal</p>-->
+                                <div class="clsgrid clearfix">
+                                    <?php if ($_product->getSpecialPrice()) { ?>
+                                        <span class="sold_deals">230+ sold</span>
+                                        <span> <?php echo Mage::helper('core')->currency($_product->getSpecialPrice(), true, false) ?></span>
+                                        <span class="original"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                    <?php } else { ?>
+                                        <span class="sold_deals">230+ sold</span>
+                                        <span> <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                    <?php } ?>
+                                </div>                           
+                        </div>
+                    </li>
+                <?php $style_count++;
+                }}
+            
+            ?>
+        </ul>
+        <div class="clear"></div>
+        <?php }
+        endforeach; ?>
+<?php } ?>
+<?php //endforeach; ?>

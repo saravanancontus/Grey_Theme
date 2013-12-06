@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <share_adminhtml_share_index>
+        <reference name="content">
+            <block type="share/adminhtml_share" name="share" />
+        </reference>
+    </share_adminhtml_share_index>
+</layout>

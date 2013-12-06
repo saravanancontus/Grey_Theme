@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<jstranslator>    
+    <advancereports_showrows translate="message" module="advancedreports">
+    <message>Show rows</message>
+    </advancereports_showrows>
+    <advancereports_goto translate="message" module="advancedreports">
+    <message>Go to</message>
+    </advancereports_goto>
+</jstranslator>

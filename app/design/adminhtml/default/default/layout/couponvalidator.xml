@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <couponvalidator_adminhtml_couponvalidator_index>
+        <reference name="content">
+            <block type="couponvalidator/adminhtml_couponvalidator" name="couponvalidator" />
+        </reference>
+    </couponvalidator_adminhtml_couponvalidator_index>
+</layout>

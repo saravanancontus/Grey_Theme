@@ -1,0 +1,173 @@
+<!--@subject {{var store.getFrontendName()}} Newsletter @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<table cellpadding="0" cellspacing="0" border="1" style="border:13px solid #699737" width="750" rules="groups">
+  <tr>
+    <td ><table   cellspacing="0" bgcolor="#343434" width="100%">
+        <tr>
+          <td height="15"></td>
+        </tr>
+        <tr>
+          <td><table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="20"></td>
+                <td><a href="{{store url=''}}" target="_blank" style="color:#1E7EC8;"><img src="{{skin url='images/logo_email.png' _area='frontend'}}" alt="{{var store.getFrontendName()}}"/></a></td>
+                <td align="right"><font size="2" color="#CCCCCC" face="Arial, Helvetica, sans-serif">{{var deallist.deal_date}}</font></td>
+                <td width="20"></td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td><table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="20"></td>
+                <td><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">The Daily Deal For {{var deallist.product_city}}</font></td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="15"></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table cellpadding="0" cellspacing="0">
+            <tr><td colspan="3" height="10"></td></tr>
+        <tr>
+          <td width="20"></td>
+          <td><table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                  <td ><font style="font-size:26px;color:#699737;font-family:Helvetica; "><strong> {{var deallist.Productname}}</strong></font></td>
+              </tr>
+              <tr><td height="10"></td></tr>
+              <tr>
+                <td ><table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                      <td width="43%" valign="top" ><table cellpadding="0" cellspacing="0" border="0" width="100%"  >
+                          <tr>
+                            <td ><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#699737" >
+                                <tr>
+                                  <td height="5" colspan="4"></td>
+                                </tr>
+                                <tr>
+                                  <td width="3%"></td>
+                                  <td><font style="font-size:28px;font-family:Helvetica,Arial;color:#fff;"><strong>{{var deallist.currency_symbol}}{{var deallist.product_price}}</strong></font></td>
+                                  <td align="right"><a href="{{var deallist.product_url}}"><img src="{{skin url='images/buynow.png' _area='frontend'}}"/></a></td>
+                                  <td width="2%"></td>
+                                </tr>
+                                <tr>
+                                  <td height="5" colspan="4"></td>
+                                </tr>
+                              </table></td>
+                          </tr>
+                          <tr>
+                              <td bgcolor="#9cc25d"><table cellpadding="0" cellspacing="0" border="0" width="100%"  >
+                                <tr>
+                                  <td height="15" colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td width="33%" align="center" style="font-size:12px;color:#000;font-family:Helvetica,Arial;">Value<br/>
+                                        <font  style="font-family:Helvetica,Arial;font-size: 20px;color:#000;"><strong>{{var deallist.currency_symbol}}{{var deallist.product_worth}}</strong></font></td>
+                                  <td width="33%" align="center" style="font-size:12px;color:#000;font-family:Helvetica,Arial;">Discount<br/>
+                                    <font  style="font-family:Helvetica,Arial;font-size: 20px;color:#000;"><strong>{{var deallist.discount}}%</strong></fontn</td>
+                                  <td width="33%" align="center" style="font-size:12px;color:#000;font-family:Helvetica,Arial;">Save<br/>
+                                    <font  style="font-family:Helvetica,Arial;font-size: 20px;color:#000;"><strong>{{var deallist.currency_symbol}}{{var deallist.product_saveprice}}</strong></font></td>
+                                </tr>
+                                <tr>
+                                  <td height="10" colspan="3"></td>
+                                </tr>
+                              </table></td>
+                          </tr>
+                          <tr>
+                            <td height="5"></td>
+                          </tr>
+                          <tr>
+                              <td ><table cellpadding="0" cellspacing="0" border="1" style="border:1px solid #DDEACF" rules="groups" width="100%" >
+                                <tr>
+                                  <td height="10" colspan="3"></td>
+                                </tr>
+                                <tr>
+                                  <td width="10"></td>
+                                  <td><table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                          <td ><font  style="font-family:Helvetica;font-size: 13px;color: #000"><strong>COMPANY INFORMATION</strong></font></td>
+                                      </tr>
+                                      <tr>
+                                        <td><hr color="#DDEACF" size="1"/></td>
+                                      </tr>
+                                      <tr>
+                                        <td><font size="3" color="#000000" face="Arial, Helvetica, sans-serif">{{var deallist.company_address}}</font></td>
+                                      </tr>
+                                    </table></td>
+                                  <td width="10" align="right"></td>
+                                </tr>
+                                <tr>
+                                  <td height="10" colspan="3"></td>
+                                </tr>
+                              </table></td>
+                          </tr>
+                        </table></td>
+                      <td width="2%"></td>
+                      <td align="right" width="65%" ><img src="{{var deallist.productimage}}" width="450" height="300"/></td>
+                    </tr>
+                  </table></td>
+              </tr>
+              <tr>
+                <td height="10"></td>
+              </tr>
+              <tr>
+                  <td  ><font style="font-size:12px;line-height: 15px;color: #000;font-family: Helvetica;">{{var deallist.product_description}}</font></td>
+              </tr>
+              <tr>
+                <td height="10"></td>
+              </tr>
+            </table></td>
+          <td width="20"></td>
+        </tr>
+
+        <tr>
+          <td bgcolor="#DDEACF" align="center" height="30" valign="middle" colspan="3" width="750"><font size="3" color="#000" face="Arial, Helvetica, sans-serif">Need help? Have feedback? Fell free to <a href="mailto:{{config path='trans_email/ident_support/email'}}">Contact Us</a></font> </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="750">
+  <tr>
+    <td height="10" colspan="3"></td>
+  </tr>
+  <tr>
+
+      <td colspan="3" align="center"><font size="1" color="#666" face="Arial, Helvetica, sans-serif">You are receiving this email because you signed up for the {{var store.getFrontendName()}} alerts.</font></td>
+
+  </tr>
+  <tr>
+
+      <td colspan="3" align="center"><font size="1" color="#666" face="Arial, Helvetica, sans-serif">To unsubscribe <a href="{{store url=''}}newsletter/subscriber/unsubscribe/id/{{var deallist.subscribe_id}}/code/{{var deallist.subscribe_code}}">click here</a></font></td>
+
+  </tr>
+  <tr>
+    <td height="10" colspan="3"></td>
+  </tr>
+  <tr>
+    <td colspan="3" ><hr color="#DDEACF"/></td>
+  </tr>
+  <tr>
+    <td height="10" colspan="3"></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="3"><font size="1" color="#666" face="Arial, Helvetica, sans-serif">Delivered by {{var store.getFrontendName()}}nCall us: {{config path='general/store_information/phone'}}</font></td>
+  </tr>
+  <tr>
+    <td height="10" colspan="3"></td>
+  </tr>
+  <tr>
+    <td width="1%"></td>
+    <td width="98%" align="center"><font size="1" color="#666" face="Arial, Helvetica, sans-serif">To Purchase the {{var store.getFrontendName()}} voucher described in today's deal, you must press the Buy! Button follow the instructions. Once you make the purchase, you will receive the voucher via e-mail. This e-mail is not a valid {{var store.getFrontendName()}} voucher, even if you buy today's deal the only valid voucher is the voucher you receive via e-mail from {{var store.getFrontendName()}} after your Purchase</font></td>
+    <td width="1%"></td>
+  </tr>
+</table>

@@ -1,0 +1,861 @@
+
+<!-- Product report  date picker using jquery -->
+<script type="text/javascript">
+
+    jq(function() {
+        jq( "#product-advanced-report-datepicker" ).datepicker({
+            maxDate: 0,
+            yearRange: "-100:+0",
+            numberOfMonths: 3,
+            beforeShowDay: function(date) {
+
+
+                 if(jq("#product-date-range-select").val()=='Custom' && jq("#product-custom-date-from").val()=='' && jq("#product-custom-date-to").val()=='' )
+               {
+               var d_h1 = jq("#product-revenue-custom-date-from").val();
+               var d_h2 =  jq("#product-revenue-custom-date-to").val();
+               var date1 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, d_h1);
+               var date2 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, d_h2);
+
+               return [true, date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2)) ? "dp-highlight" : ""];
+               }
+
+
+                var date1 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#product-custom-date-from").val());
+                var date2 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#product-custom-date-to").val());
+                return [true, date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2)) ? "dp-highlight" : ""]; },
+            onSelect: function(dateText, inst) {
+                var date1 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#product-custom-date-from").val());
+                var date2 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#product-custom-date-to").val());
+                jq("#product-date-range-select").val("Custom");
+                jq("#product-custom-date-from").removeAttr("disabled");
+                jq("#product-custom-date-to").removeAttr("disabled");
+                if (!date1 || date2) {
+                    jq("#product-custom-date-from").val(dateText);
+                    jq("#product-custom-date-to").val("");
+                    jq(this).datepicker();
+                } else {
+                    jq("#product-custom-date-to").val(dateText);
+                    jq(this).datepicker();
+                }
+                jq("#product-report-err-msg").hide();
+
+            }
+        }
+    );
+    });
+
+
+    jq(document).ready(function(){
+        jq("#product-report-date-cancel").click(function(){
+            jq( "#product-advanced-report-datepicker" ).datepicker( "refresh" );
+        });
+        jq('#product-date-range-select').change(function() {
+            if(jq(this).val()!="Custom")
+            { jq( "#product-advanced-report-datepicker" ).datepicker( "refresh" );
+            }
+        });
+        jq('#product-report-date-range').click(function() {
+            jq('#product-report-date-picker').slideToggle('fast');
+            jq('#product-report-date-range').toggleClass('arrowdown');
+        });
+
+        jq(document).click(function() {
+jq("#product-report-date-picker").hide();
+jq('#product-report-date-range').removeClass('arrowdown');
+});
+
+jq('#product-report-date-picker,#product-report-date-range').click(function(event){
+    event.stopPropagation();
+});
+    });
+
+</script>
+
+<!-- Product report date picket functionality using javascript -->
+<script type="text/javascript">
+
+    function onproductDateChange(value)
+    {
+
+        if(value=='Custom')
+        {
+            document.getElementById('product-custom-date-from').disabled = false;
+            document.getElementById('product-custom-date-to').disabled = false;
+        }
+        else
+        {
+
+            document.getElementById('product-custom-date-from').disabled = true;
+            document.getElementById('product-custom-date-to').disabled = true;
+            document.getElementById('product-custom-date-from').value = "";
+            document.getElementById('product-custom-date-to').value = "";
+        }
+
+    }
+
+    function productapply() {
+        // document.getElementById('test').style.display = 'none';
+        var date_range_option=document.getElementById('product-date-range-select').value;
+
+        if(date_range_option!='Custom')
+        {
+            var url=document.URL;
+            var new_url=url.split("?")[0];
+
+            self.location=new_url+'?page=product&date_range_option='+date_range_option;
+        }
+        else
+        {
+
+            var custom_date_from =document.getElementById('product-custom-date-from').value;
+            var custom_date_to=document.getElementById('product-custom-date-to').value;
+
+            if(custom_date_from=='' || custom_date_to=='')
+            {
+                document.getElementById('product-report-err-msg').style.display = "block";
+                return;
+            }
+
+            var url=document.URL;
+            var new_url=url.split("?")[0];
+            self.location= new_url+'?page=product&date_range_option='+date_range_option+"&from="+custom_date_from+"&to="+custom_date_to;
+        }
+
+
+    }
+    function productcancel() {
+        // document.getElementById('test').style.display = 'none';
+        document.getElementById('product-date-range-select').value="<?php if ($_GET['date_range_option']) {
+    echo $this->__($_GET['date_range_option']);
+} else {
+    echo $this->__('Custom');
+} ?>";
+        document.getElementById("product-report-err-msg").style.display = "none";
+
+        document.getElementById('product-custom-date-from').value = '';
+        document.getElementById('product-custom-date-to').value = '';
+
+        onproductDateChange(document.getElementById('product-date-range-select').value);
+
+    }
+
+
+ function product_option(value)
+        {
+
+        var date_range_option=document.getElementById('product-date-range-select').value;
+
+        if(date_range_option!='Custom')
+        {
+            var url=document.URL;
+            var new_url=url.split("?")[0];
+
+            self.location=new_url+'?page=product&date_range_option='+date_range_option+'&product_option='+value;
+        }
+        else
+        {
+            var custom_date_from =document.getElementById('product-revenue-custom-date-from').value;
+            var custom_date_to=document.getElementById('product-revenue-custom-date-to').value;
+
+            var url=document.URL;
+            var new_url=url.split("?")[0];
+            self.location= new_url+'?page=product&date_range_option='+date_range_option+"&from="+custom_date_from+"&to="+custom_date_to+'&product_option='+value;
+        }
+        }
+
+
+</script>
+
+<?php
+// Assigning from and to date.
+
+if (!empty($_GET)) {
+    switch ($_GET['date_range_option']) {
+
+        case "Today":
+            // today interval
+            $start_day = strtotime("-1 today midnight");
+            $end_day = strtotime("-1 tomorrow midnight");
+            $from = date("Y-m-d", $start_day);
+            $to = date("Y-m-d", $end_day);
+            $from_display = date("Y-m-d", $start_day);
+            $to_display = date("Y-m-d", $start_day);
+            break;
+        case "Yesterday":
+            // yesterday interval
+            $start_day = strtotime("-1 yesterday midnight");
+            $end_day = strtotime("-1 today midnight");
+            $from = date("Y-m-d", $start_day);
+            $to = date("Y-m-d", $end_day);
+            $from_display=date("Y-m-d", $start_day);
+            $to_display=date("Y-m-d", $start_day);
+            break;
+        case "LastWeek":
+            // last week interval
+            $t = date('d-m-Y');
+            $to_day = date('l', strtotime($t));
+
+            // if today is moday, take last monday
+            if ($to_day == 'Monday') {
+                $start_day = strtotime("-1 monday midnight");
+                $end_day = strtotime("yesterday");
+            } else {
+                $start_day = strtotime("-2 monday midnight");
+                $end_day = strtotime("-1 sunday midnight");
+            }
+            $from = date("Y-m-d", $start_day);
+            $to = date("Y-m-d", $end_day);
+            $to = date('Y-m-d', strtotime($to . ' + 1 day'));
+
+            $from_display = $from;
+            $to_display = date("Y-m-d", $end_day);
+
+            break;
+        case "LastMonth":
+            // last month interval
+
+            $from = date('Y-m-01', strtotime('last month'));
+            $to = date('Y-m-t', strtotime('last month'));
+            $to=  date('Y-m-d', strtotime($to . ' + 1 day'));
+            $from_display = $from;
+            $to_display = date('Y-m-t', strtotime('last month'));
+            break;
+        case "Custom":
+            // last custom interval
+            $from = date('Y-m-d', strtotime($_GET['from']));
+            $to = date('Y-m-d', strtotime($_GET['to'] . ' + 1 day'));
+            $from_display = $from;
+            $to_display = date('Y-m-d', strtotime($_GET['to']));
+            break;
+        default:
+            // last 30 interval
+         $from = date('Y-m-d', strtotime('-30 day'));
+    $to = date('Y-m-d', strtotime("-1 today midnight"));
+    $to =  date('Y-m-d', strtotime($to . ' + 1 day'));
+    $from_display = $from;
+    $to_display = date('Y-m-d', strtotime("-1 today midnight"));
+    }
+
+     if(isset($_GET['product_option']))
+    {
+    if($_GET['product_option']== 'net')
+    { $product_option=1;
+       }
+    else
+    { $product_option=0;}
+    }
+
+} else {
+    // last 30 interval
+
+    $from = date('Y-m-d', strtotime('-30 day'));
+    $to = date('Y-m-d', strtotime("-1 today midnight"));
+    $to =  date('Y-m-d', strtotime($to . ' + 1 day'));
+    $from_display = $from;
+    $to_display = date('Y-m-d', strtotime("-1 today midnight"));
+    $product_option=0;
+}
+
+
+// Sales order item collection
+
+/*
+$orderTotals = Mage::getModel('sales/order_item')->getCollection()
+               ->addAttributeToFilter('main_table.created_at', array('from' => $from, 'to' => $to));
+
+$orderTotals->getSelect()->joinInner(array('cp' => Mage::getSingleton('core/resource')->getTableName('sales/order')), 'cp.entity_id = main_table.order_id AND cp.status IN ("complete","processing")', 'cp.status');
+
+//$orderTotals->addAttributeToFilter('cp.created_at', array('from' => $from, 'to' => $to));
+*/
+
+
+$db_from=Mage::getModel('core/date')->gmtDate(null,strtotime($from));
+$db_to=Mage::getModel('core/date')->gmtDate(null,strtotime($to));
+
+$orderTotals = Mage::getModel('sales/order_item')->getCollection();        
+//$orderTotals->getSelect()->joinInner(array('cp' => Mage::getSingleton('core/resource')->getTableName('sales/order_grid')), 'cp.entity_id = main_table.order_id AND cp.status IN ("complete","processing")', 'cp.created_at as sfog_created_at');
+$orderTotals->getSelect()->joinInner(array('cp' => Mage::getSingleton('core/resource')->getTableName('sales/order_grid')), 'cp.entity_id = main_table.order_id AND cp.status IN ("complete","processing")', array('cp.created_at as sfog_created_at'));
+$orderTotals->addAttributeToFilter('cp.created_at', array('from' => $db_from, 'to' => $db_to));
+
+
+/*
+$orderTotals = Mage::getResourceModel('sales/order_grid_collection');           
+$salesFlatOrderItem = (string)Mage::getConfig()->getTablePrefix() . 'sales_flat_order_item';
+$orderTotals->getSelect()->join(array('sales_flat_order_item' => $salesFlatOrderItem),"(sales_flat_order_item.order_id=main_table.entity_id AND main_table.status IN ('complete','processing') AND main_table.created_at > '".$from."' and  main_table.created_at < '".$to."')",array('sales_flat_order_item.base_tax_amount','sales_flat_order_item.product_id','sales_flat_order_item.qty_ordered','sales_flat_order_item.base_original_price','sales_flat_order_item.base_discount_amount'));
+
+$orderTotals->printlogquery(true);
+*/
+
+
+$obj = Mage::getModel('catalog/product');
+
+$product_report = array();
+
+
+$qty = array();
+$qty_month = array();
+$qty_week = array();
+
+foreach ($orderTotals as $value) {
+// For table data
+
+	
+	$_product = $obj->load($value->getProductId());
+    $_product_name = $_product->getName();
+//  $_product_name=$value->getName();
+
+
+    if (empty($product_report[$_product_name]['name'])) {
+        $product_report[$_product_name]['name'] = $_product->getName();
+     //     $product_report[$_product_name]['name'] = $value->getName();
+    }
+
+
+    if (array_key_exists($_product_name, $product_report)) {
+        $product_report[$_product_name]['qty'] = $product_report[$_product_name]['qty'] + round($value->getQtyOrdered());
+        $product_report[$_product_name]['price'] =  $product_report[$_product_name]['price'] +  ($value->getBaseOriginalPrice() * $value->getQtyOrdered()) - $value->getBaseDiscountAmount();
+        $product_report[$_product_name]['price_net'] = $product_report[$_product_name]['price_net'] + ($value->getBaseOriginalPrice() * $value->getQtyOrdered()) - ($value->getBaseDiscountAmount() + $value->getBaseTaxAmount());
+      //    $product_report[$_product_name]['price'] =  $product_report[$_product_name]['price'] +   $value->getRowTotal();
+      //    $product_report[$_product_name]['price_net'] = $product_report[$_product_name]['price_net'] + ( $value->getRowTotal() - $value->getBaseTaxAmount());
+
+        $product_report[$_product_name]['uni_qty'] = $product_report[$_product_name]['uni_qty'] + 1;
+    } else {
+        $product_report[$_product_name]['qty'] = round($value->getQtyOrdered());
+        $product_report[$_product_name]['price'] = ($value->getBaseOriginalPrice() * $value->getQtyOrdered()) - $value->getBaseDiscountAmount();
+        $product_report[$_product_name]['price_net'] = ($value->getBaseOriginalPrice() * $value->getQtyOrdered()) - ( $value->getBaseDiscountAmount()  + $value->getBaseTaxAmount());
+       //  $product_report[$_product_name]['price'] = $value->getRowTotal();
+       //  $product_report[$_product_name]['price_net'] =  $value->getRowTotal() - $value->getBaseTaxAmount();
+        $product_report[$_product_name]['uni_qty'] = 1;
+    }
+
+// Day wise
+    $date_r = Mage::getModel('core/date')->date(null,strtotime($value->getSfogCreatedAt()));
+    $date_r = date('F j, Y', strtotime($date_r));
+    if (array_key_exists($date_r, $qty)) {
+        $qty[$date_r] = $qty[$date_r] + round($value->getQtyOrdered());
+    } else {
+        $qty[$date_r] = round($value->getQtyOrdered());
+    }
+
+// Month wise
+       $date_m = Mage::getModel('core/date')->date(null,strtotime($value->getSfogCreatedAt()));
+    $date_m = date('M, Y', strtotime($date_m));
+    if (array_key_exists($date_m, $qty_month)) {
+        $qty_month[$date_m] = $qty_month[$date_m] + round($value->getQtyOrdered());
+    } else {
+        $qty_month[$date_m] = round($value->getQtyOrdered());
+    }
+// Week wise
+       $date_w = Mage::getModel('core/date')->date(null,strtotime($value->getSfogCreatedAt()));
+    $date_w = date('W, Y', strtotime($date_w));
+    if (array_key_exists($date_w, $qty_week)) {
+        $qty_week[$date_w] = $qty_week[$date_w] + round($value->getQtyOrdered());
+    } else {
+        $qty_week[$date_w] = round($value->getQtyOrdered());
+    }
+}
+
+
+// For display all days
+
+$dateMonthYearArr = array();
+$fromDateTS = strtotime($from);
+$toDateTS = strtotime($to);
+for ($currentDateTS = $fromDateTS; $currentDateTS < $toDateTS; $currentDateTS += (60 * 60 * 24))
+{
+$currentDateStr = date('F j, Y',$currentDateTS);
+$dateMonthYearArr[$currentDateStr] = 0 ;
+}
+
+// For display all week
+
+$prodcut_weeks=array();
+
+for ($currentDateTS = $fromDateTS; $currentDateTS <= $toDateTS; $currentDateTS += (60 * 60 * 24 * 7))
+{
+$currentDateStr = date('W, Y',$currentDateTS);
+$product_weeks[$currentDateStr] = 0 ;
+}
+
+// For final week
+$final_week=date('W, Y',strtotime($to_display));
+if (!array_key_exists($final_week, $product_weeks))
+{
+$product_weeks[$final_week] = 0 ;
+}
+
+/// For display all month
+
+$product_months=array();
+
+if($qty > 0)
+{
+$tmp     = date('mY', $toDateTS);
+$month_key=date('M, Y', $fromDateTS);
+$product_months[$month_key] = 0;
+while($fromDateTS < $toDateTS) {
+
+  // $fromDateTS= strtotime(date('Y-m-d', $fromDateTS).' +1 month');
+
+  if($fromDateTS < 31)
+  {
+  $fromDateTS= strtotime(date('Y-m-d', $fromDateTS).' +1 month');
+  }
+  else
+  {
+  $fromDateTS= strtotime(date('Y-m-d', $fromDateTS).' +15days');
+  } 
+
+
+  if(date('mY', $fromDateTS) != $tmp && ($fromDateTS < strtotime($to_display))) {
+     $month_key=date('M, Y', $fromDateTS);
+     $product_months[$month_key] = 0;
+  }
+}
+$month_key=date('M, Y', strtotime($to_display));
+$product_months[$month_key] = 0;
+}
+
+// For display all days
+
+foreach ($qty as $key => $value) {
+$dateMonthYearArr[$key] = $value ;
+}
+
+// For all weeks
+
+foreach ($qty_week as $key => $value) {
+$product_weeks[$key] = $value ;
+}
+
+// For all months
+
+foreach ($qty_month as $key => $value) {
+$product_months[$key] = $value ;
+}
+
+if(count($qty) < 1)
+{
+$dateMonthYearArr=array();
+$product_months=array();
+$prodcut_weeks=array();
+}
+
+$product_day_data = '';
+$product_week_data = '';
+$product_month_data = '';
+foreach ($dateMonthYearArr as $key => $value) {
+      $tool_data=date('l, F j, Y', strtotime($key)).' '.$this->__('Quantity').' : '.$value;
+    $product_day_data.="data.addRow(['{$key}', {$value}, '{$tool_data}']);";
+}
+foreach ($product_weeks as $key => $value) {
+
+       $arr=array();
+    $arr  = explode(',',$key);
+
+    $week = $arr[0];
+    $year = $arr[1];
+
+    $time = strtotime("1 January $year", time());
+    $day = date('w', $time);
+    $time += ((7*$week)+1-$day)*24*3600 - 7*24*3600;
+    $week_start = date('F j, Y', $time);
+    $time += 6*24*3600;
+    $week_end = date('F j, Y', $time);
+   
+    
+    if(date('W, Y', strtotime($from)) == $key)
+    {     
+        $week_start=date('F j, Y',strtotime($from));
+    }
+
+     if(date('W, Y', strtotime($to_display)) == $key)
+    {
+      $week_end=date('F j, Y',strtotime($to_display));
+    }
+
+
+
+    $tool_data=$week_start.' - '.$week_end.' '.$this->__('Quantity').' : '.$value;
+
+
+    $product_week_data.="data.addRow(['{$key}', {$value}, '{$tool_data}']);";
+}
+
+foreach ($product_months as $key => $value) {
+
+
+      $month_start = date('M 1, Y', strtotime($key));
+    $month_end = date('M t, Y', strtotime($key));
+
+    if(date('M, Y', strtotime($from)) == $key)
+    {
+        $month_start=date('M j, Y',strtotime($from));
+    }
+
+     if(date('M, Y', strtotime($to_display)) == $key)
+    {
+      $month_end=date('M j, Y',strtotime($to_display));
+    }
+
+
+    $tool_data=$month_start.' - '.$month_end.' '.$this->__('Quantity').' : '.$value;
+    $product_month_data.="data.addRow(['{$key}', {$value}, '{$tool_data}']);";
+}
+
+// Total Product Revenue
+ $total_product_revenue=0;
+ $total_product_revenue_net=0;
+ foreach ($product_report as $value) {
+                               $total_product_revenue=$total_product_revenue + $value['price'];
+                               $total_product_revenue_net= $total_product_revenue_net + $value['price_net'];
+                           }
+
+
+?>
+
+<div class="advanced_report_wrapper">
+
+    <h3 class="advanced_report_header content-header"> <?php echo $this->__('Product Report'); ?> </h3>
+    <!-- Date Picker -->
+
+    <div class="advanced_date_picker">
+        <span id="product-report-date-range" class="report-date-range" >
+<?php echo Date('M j, Y', strtotime($from_display)) . ' - ' . Date('M j, Y', strtotime($to_display)); ?>
+        </span>
+        <div id="product-report-date-picker"  class="date_popup" style="display: none">
+
+            <div id="product-advanced-report-datepicker"></div>
+
+            <div class="advanced-report-right">
+                <label for="daterange-select"><?php echo $this->__('Date Range'); ?></label>
+                <select id="product-date-range-select" name="daterange" onchange="onproductDateChange(this.value);">
+
+<option value="Custom" <?php if ($_GET['date_range_option'] == 'Custom') {  echo 'selected';
+} ?>><?php echo $this->__('Custom'); ?></option>
+
+                    <option value="Today" <?php if ($_GET['date_range_option'] == 'Today') {
+    echo 'selected';
+} ?>><?php echo $this->__('Today'); ?></option>
+                    <option value="Yesterday" <?php if ($_GET['date_range_option'] == 'Yesterday') {
+    echo 'selected';
+} ?>><?php echo $this->__('Yesterday'); ?></option>
+                    <option value="LastWeek" <?php if ($_GET['date_range_option'] == 'LastWeek') {
+    echo 'selected';
+} ?>><?php echo $this->__('Last Week'); ?></option>
+                    <option value="LastMonth" <?php if ($_GET['date_range_option'] == 'LastMonth') {
+    echo 'selected';
+} ?>><?php echo $this->__('Last Month'); ?></option>
+
+                </select>
+                <div style="clear: both;margin-bottom: 10px;"></div>
+                <input type="text" id="product-custom-date-from" size="10"  <?php if(!empty($_GET['date_range_option'])){if ($_GET['date_range_option'] != "Custom") {
+    echo 'disabled';
+}} ?>/> <?php echo $this->__('-'); ?>
+                <input type="text" id="product-custom-date-to" size="10" <?php if(!empty($_GET['date_range_option'])){ if ($_GET['date_range_option'] != "Custom") {
+    echo 'disabled';
+}} ?>/>
+
+                <span  id="product-report-err-msg" class="err-msg" style="display: none">
+<?php echo $this->__('Please select from and to dates'); ?>
+                </span>
+                <div style="clear: both;padding-bottom: 10px;border-bottom: 1px dotted #666;margin-bottom: 10px;"></div>
+                <a href="javascript:void(0)" class="apply" onclick="productapply();"><?php echo $this->__('Apply'); ?></a>
+                <a href="javascript:void(0)" id="product-report-date-cancel" onclick="productcancel();"><?php echo $this->__('Cancel'); ?></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="export">
+        <span><?php echo $this->__('Export As:'); ?></span>
+        <a href="<?php echo Mage::helper("adminhtml")->getUrl("advancedreports/adminhtml_advancedreports/advancedReports/", array("from" => $from, "to" => $to, "report" => 'product_csv',"product_option_value"=>$product_option)); ?>" class="csv">&nbsp;</a>
+        <a href="<?php echo Mage::helper("adminhtml")->getUrl("advancedreports/adminhtml_advancedreports/advancedReports/", array("from" => $from, "to" => $to, "report" => 'product_xml',"product_option_value"=>$product_option)); ?>" class="excel">&nbsp;</a>
+    </div>
+
+    <!-- Chart -->
+    <div class="report-chart">
+        <!-- Day, Week & Month Button -->
+
+        <div class="chart_top">
+            <div class="revenue_transaction_report">
+
+
+
+
+    <div class="revenue_transaction product_rev_bottom">
+<input type="hidden" id="product-revenue-custom-date-from" value="<?php echo date('m/d/Y', strtotime($from_display)); ?>" />
+<input type="hidden" id="product-revenue-custom-date-to" value="<?php echo date('m/d/Y', strtotime($to_display)); ?>" />
+
+
+
+<div class="shipping-tax-options">
+    <ul>
+<li><span class="spantxt"><?php echo $this->__('Tax').' : '; ?></span></li>
+
+<li class="include <?php if($product_option==0){ echo 'active'; }else{echo 'inactive';} ?>" >
+<a class="first_child" href="javascript:void(0)" <?php if($product_option != 0) { ?>onclick="product_option('gross');" <?php } ?> ><span class="tex_text"><?php echo $this->__('Included');?></span>
+</a>
+</li>
+<li class=" <?php if($product_option==1){ echo 'active'; }else{echo 'inactive';} ?>" >
+<a href="javascript:void(0)" <?php if($product_option != 1) { ?>onclick="product_option('net');" <?php } ?> ><span class="tex_text"><?php echo $this->__('Excluded');?></span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+   <div class="total-revenue sales_report third_child">
+                        <p class="text">
+                            <?php echo $this->__('Product Revenue'); ?>
+                        </p>
+                        <p class="number">
+                            <?php if( $product_option == 0 ){ echo Mage::helper('core')->currency(round($total_product_revenue, 2), true) ; }else{  echo Mage::helper('core')->currency(round($total_product_revenue_net, 2), true) ; } ?>
+                        </p>
+                    </div>
+
+                <div class="total-transaction">
+                    <p class="text">
+                        <?php echo $this->__('No of Purchases'); ?>
+                    </p>
+                    <p class="number">
+<?php echo count($orderTotals); ?>
+                    </p>
+                </div>
+                <div class="total-revenue">
+                    <p class="text">
+<?php echo $this->__('Quantity'); ?>
+                    </p>
+                    <p class="number">
+<?php echo array_sum($qty); ?>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="chart-button-options">
+                <a href="javascript:void(0)" id="product_report_day_select" onclick="productloadChart();"><?php echo $this->__('Day'); ?></a>
+                <a href="javascript:void(0)" id="product_report_week_select" onclick="productloadChartWeek();"><?php echo $this->__('Week'); ?></a>
+                <a href="javascript:void(0)" id="product_report_month_select" onclick="productloadChartMonth();"><?php echo $this->__('Month'); ?></a>
+            </div>
+
+
+
+        </div>
+        <div id="product_chart_div" style="" ></div>
+    </div>
+
+
+
+    <table id="product-advanced-report-table" border="0" width="960px" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th align="right" class="text_center" width="5%"><?php echo $this->__('S No.'); ?></th>
+                            <th align="left" class="text_left" width="30%"><?php echo $this->__('Product'); ?></th>
+                            <th align="right" class="text_right" width="7%"><?php echo $this->__('Quantity'); ?></th>
+                            <th align="right" class="text_right" width="13%"><?php echo $this->__('Unique Purchases'); ?></th>
+                            <th align="right" class="text_right" width="20%"><?php echo $this->__('Product Revenue'); ?></th>
+                            <th align="right" class="text_right" width="15%"><?php echo $this->__('Average Price'); ?></th>
+                            <th align="right" class="text_right border" width="10%"><?php echo $this->__('Average QTY'); ?></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+<?php
+                        $sno = 1;
+
+
+                        foreach ($product_report as $value) {
+
+                        if($product_option == 0){
+                            $product_revenue = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getBaseCurrencyCode())->getSymbol() . round($value['price'], 2);
+                            $avg_price = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getBaseCurrencyCode())->getSymbol() . round($value['price'] / $value['qty'], 2);
+                        }
+                        else
+                        {
+                          $product_revenue = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getBaseCurrencyCode())->getSymbol() . round($value['price_net'], 2);
+                          $avg_price = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getBaseCurrencyCode())->getSymbol() . round($value['price_net'] / $value['qty'], 2);
+                        }
+?>
+                            <tr class="advanced-report-data <?php if ($sno % 2 == 0) {
+                                echo 'advanced-report-even';
+                            } ?>">
+                                <td align="center" ><?php echo $sno; ?></td>
+                                <td align="left" ><?php echo $value['name']; ?></td>
+                                <td align="right" class="revenue_amt"><?php echo $value['qty']; ?></td>
+                                <td align="right" ><?php echo $value['uni_qty']; ?></td>
+                                <td align="right" ><?php if (isset($product_revenue)) {
+                                echo $product_revenue;
+                            } ?></td>
+                                <td align="right" ><?php if (isset($avg_price)) {
+                                echo $avg_price;
+                            } ?></td>
+                                <td align="right" class="border"><?php echo round($value['qty'] / $value['uni_qty'], 2); ?></td>
+
+                            </tr>
+<?php
+                            $sno = $sno + 1;
+                        }
+?>
+<?php
+// checking for table data
+if(count($product_report) < 1 )
+{
+?>
+<tr><td colspan="7" align="center"> <?php echo $this->__('No data found').'.'; ?> </td></tr>
+<?php } // end if for checking table data ?>
+
+                        </tbody>
+                    </table>
+
+
+<?php
+// checking for pagination
+if(count($product_report) > 5 ) { ?>
+
+                <script type="text/javascript">
+                    jq('#product-advanced-report-table').tablePagination({});
+                </script>
+
+<?php } // end if for checking paginatin ?>
+            </div>
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+            <!-- CODE FOR LESS THAN IE 8 VERSIONS -->
+                <!--[if lt IE 9]>
+                <script type="text/javascript">
+                 jq(document).ready(function() {
+                  setTimeout(productloadChart,300);
+                    jq("#advancedreports_tabs_product_section").click(function(event) {
+                        setTimeout(productloadChart,300);
+                    });
+                });
+                </script>
+                <![endif]-->
+
+            <script type="text/javascript">
+
+                google.load('visualization', '1.0', {'packages':['corechart']});
+                google.setOnLoadCallback(productloadChart);
+
+                function productloadChart(){
+                    document.getElementById("product_report_day_select").className = "active";
+                    document.getElementById("product_report_week_select").className = "";
+                    document.getElementById("product_report_month_select").className = "";
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', '<?php echo $this->__("Date"); ?>');
+                    data.addColumn('number', '<?php echo $this->__("Quantity"); ?>');
+                     data.addColumn({type: 'string', role: 'tooltip'});
+
+<?php
+                        echo $product_day_data;
+?>
+
+                    var options =  {width: 1000, height: 250,
+                        colors:['#058dc7','#e6f4fa'],
+                        areaOpacity: 0.1,
+                        vAxis: {textPosition: 'in', showTextEvery: 5, slantedText: false, textStyle: { color: '#000000', fontSize: 11 } },
+                        hAxis: {title:'<?php echo $this->__("Day"); ?>',titleTextStyle: {color: '#000000', fontSize: 12},textPosition: 'out', showTextEvery: 7, slantedText: false, textStyle: { color: '#000000', fontSize: 10 } },
+                        pointSize: 5,
+                        legend: 'top',
+                        chartArea:{left:40,top:30,width:"100%",height:"75%"},
+                        tooltip: {isHtml: true}
+                    };
+
+
+                    var chart = new google.visualization.AreaChart(document.getElementById('product_chart_div'));
+
+                    chart.draw(data, options);
+                }
+
+
+                function productloadChartMonth()
+                {
+                    document.getElementById("product_report_day_select").className = "";
+                    document.getElementById("product_report_week_select").className = "";
+                    document.getElementById("product_report_month_select").className = "active";
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', '<?php echo $this->__("Date"); ?>');
+                    data.addColumn('number', '<?php echo $this->__("Quantity"); ?>');
+                     data.addColumn({type: 'string', role: 'tooltip'});
+<?php
+                        echo $product_month_data;
+?>
+
+                    var options = {width: 1000, height: 250,
+                        colors:['#058dc7','#e6f4fa'],
+                        areaOpacity: 0.1,
+                        vAxis: {textPosition: 'in', showTextEvery: 5, slantedText: false, textStyle: { color: '#000000', fontSize: 11 } },
+                        hAxis: {title:'<?php echo $this->__("Month"); ?>',titleTextStyle: {color: '#000000', fontSize: 12},textPosition: 'out', showTextEvery: 1, slantedText: false, textStyle: { color: '#000000', fontSize: 10 } },
+                        pointSize: 5,
+                        legend: 'top',
+                        chartArea:{left:40,top:30,width:"100%",height:"75%"},
+                        tooltip: {isHtml: true}
+                    };
+
+                    var chart = new google.visualization.AreaChart(document.getElementById('product_chart_div'));
+
+                    chart.draw(data, options);
+                }
+
+                function productloadChartWeek()
+                {
+                    document.getElementById("product_report_day_select").className = "";
+                    document.getElementById("product_report_week_select").className = "active";
+                    document.getElementById("product_report_month_select").className = "";
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', '<?php echo $this->__("Date"); ?>');
+                    data.addColumn('number', '<?php echo $this->__("Quantity"); ?>');
+                    data.addColumn({type: 'string', role: 'tooltip'});
+
+<?php
+                        echo $product_week_data;
+?>
+                    var options = {width: 1000, height: 250,
+                        colors:['#058dc7','#e6f4fa'],
+                        areaOpacity: 0.1,
+                        vAxis: {textPosition: 'in', showTextEvery: 5, slantedText: false, textStyle: { color: '#000000', fontSize: 11 } },
+                        hAxis: {title:'<?php echo $this->__("Week"); ?>',titleTextStyle: {color: '#000000', fontSize: 12},textPosition: 'out', showTextEvery: 1, slantedText: false, textStyle: { color: '#000000', fontSize: 10 } },
+            pointSize: 5,
+            legend: 'top',
+            chartArea:{left:40,top:30,width:"100%",height:"75%"},
+            tooltip: {isHtml: true}
+
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('product_chart_div'));
+
+        chart.draw(data, options);
+    }
+
+
+</script>
+
+<?php if(count($dateMonthYearArr) >= 60 ){ ?>
+ <script type="text/javascript">
+        jq(document).ready(function() {
+        setTimeout(productloadChart,200);
+        jq("#advancedreports_tabs_product_section").click(function(event) {            
+        
+         if(jq("#product_report_day_select").attr('class')=="active")
+                           {
+                             setTimeout(productloadChart,200);
+                           }
+                           elseif(jq("#product_report_week_select").attr('class')=="active")
+                           {
+                                 setTimeout(productloadChartWeek,200);
+                               }
+                           esle
+                           {
+                             setTimeout(productloadChartMonth,200);
+                       }
+
+     
+        });
+        });
+</script>
+<?php } ?>
+
+

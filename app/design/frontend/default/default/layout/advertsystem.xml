@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <remove name="right.newsletter"/>       
+    </default>       
+    <advertsystem_index_index>
+        <reference name="content">
+            <block type="advertsystem/advertsystem" name="advertsystem" template="advertsystem/advertsystem.phtml" />
+        </reference>
+    </advertsystem_index_index>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="advertsystem" ifconfig="advertsystem/invite/enabled_module">
+                <name>advertsystem</name>
+                <path>advertsystem/index/invitation</path>
+                <label>Referral Invitations</label>
+            </action>
+        </reference>
+    </customer_account>
+    <advertsystem_index_invitation>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="advertsystem/advertsystem" name="advertsystem_invitation_dashboard" template="advertsystem/invitation.phtml">
+                <block type="advertsystem/advertsystem" name="advertsystem_invitation_form" as="invite_form" template="advertsystem/invitation/invite_form.phtml"/>
+                <block type="advertsystem/advertsystem" name="advertsystem_invitation_history" as="invite_history" template="advertsystem/invitation/invite_history.phtml">
+                    <!--<block type="advertsystem/advertsystem" name="invitation_toolbar" as="invitation_toolbar" template="advertsystem/invitation/toolbar.phtml"/>-->                    
+                </block>
+            </block>
+        </reference>
+    </advertsystem_index_invitation>
+</layout> 

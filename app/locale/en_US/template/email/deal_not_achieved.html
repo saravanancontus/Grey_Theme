@@ -1,0 +1,37 @@
+<!--@subject Thank you for participating {{var deallist.storename}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<table style="border:5px solid #000" width="740" cellpadding="0" cellspacing="0" rules="groups" >
+    <tr>
+        <td><table bgcolor="#8C8C8C" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="20">&nbsp;</td>
+                    <td><a href="{{store url=''}}" style="color:#1E7EC8;"><img src="{{skin url='images/logo_email.png' _area='frontend'}}" alt="{{var store.getFrontendName()}}" border="0"/></a></td>
+                    
+                    <td width="20">&nbsp;</td>
+                </tr>
+        </table></td>
+    </tr>
+    <tr>
+        <td style="padding:10px;"><table cellpadding="0" cellspacing="0" width="100%">
+ Thank you for participating in <strong>{{var deallist.storename}}</strong><br/>
+        <br/>
+        Unfortunately today 's deal which is: <br/>
+        <p style="margin: 0;padding: 4px 0;font-weight:bold;">
+            {{var deallist.productname}}
+        </p>
+        <p style="color: #474747;margin: 0;font-style: italic;">{{var deallist.customtitle}}</p>
+        <p style="text-decoration: underline; margin: 0; padding: 0 0 10px;">{{var deallist.customoptiontitle}}</p>
+         has not been achieved.  End of the day we see only <strong>{{var deallist.purchasedqty}}</strong> deal purchased against <strong>{{var deallist.quantity}}</strong> target.<br/>
+        <br/>
+        So, this deal has been cancelled.<br/>
+        <br/>
+        Once again thank you for participating in deal</div>
+         </td>
+    </tr>
+</table>

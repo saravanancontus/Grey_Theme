@@ -1,0 +1,410 @@
+
+<!-- Time to purchase report  date picker using jquery -->
+<script type="text/javascript">
+
+       jq(function() {
+       jq( "#timetopurchase-advanced-report-datepicker" ).datepicker({
+       maxDate: 0,
+       yearRange: "-100:+0",
+       numberOfMonths: 3,
+       beforeShowDay: function(date) {           
+         
+           if(jq("#timetopurchase-date-range-select").val()=='Custom' && jq("#timetopurchase-custom-date-from").val()=='' && jq("#timetopurchase-custom-date-to").val()=='' )
+               {
+               var d_h1 = jq("#timetopurchase-revenue-custom-date-from").val();
+               var d_h2 =  jq("#timetopurchase-revenue-custom-date-to").val();
+               var date1 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, d_h1);
+               var date2 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, d_h2);
+
+               return [true, date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2)) ? "dp-highlight" : ""];
+               }
+
+       var date1 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#timetopurchase-custom-date-from").val());
+       var date2 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#timetopurchase-custom-date-to").val());
+       return [true, date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2)) ? "dp-highlight" : ""]; },
+       onSelect: function(dateText, inst) {
+       var date1 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#timetopurchase-custom-date-from").val());
+       var date2 = jq.datepicker.parseDate(jq.datepicker._defaults.dateFormat, jq("#timetopurchase-custom-date-to").val());
+       jq("#timetopurchase-date-range-select").val("Custom");
+       jq("#timetopurchase-custom-date-from").removeAttr("disabled");
+       jq("#timetopurchase-custom-date-to").removeAttr("disabled");
+       if (!date1 || date2) {
+       jq("#timetopurchase-custom-date-from").val(dateText);
+       jq("#timetopurchase-custom-date-to").val("");
+       jq(this).datepicker();
+       } else {
+       jq("#timetopurchase-custom-date-to").val(dateText);
+       jq(this).datepicker();
+       } 
+       jq("#timetopurchase-report-err-msg").hide();
+  
+       }
+       }
+       );
+       });
+
+
+       jq(document).ready(function(){
+       jq("#timetopurchase-report-date-cancel").click(function(){
+       jq( "#timetopurchase-advanced-report-datepicker" ).datepicker( "refresh" );
+       });
+       jq('#timetopurchase-date-range-select').change(function() {
+       if(jq(this).val()!="Custom")
+       { jq( "#timetopurchase-advanced-report-datepicker" ).datepicker( "refresh" );
+       }
+       });
+       jq('#timetopurchase-report-date-range').click(function() {
+       jq('#timetopurchase-report-date-picker').slideToggle('fast');
+       jq('#timetopurchase-report-date-range').toggleClass('arrowdown');
+       });
+
+
+       jq(document).click(function() {
+       	jq("#timetopurchase-report-date-picker").hide();
+       	jq('#timetopurchase-report-date-range').removeClass('arrowdown');
+       	});
+
+       	jq('#timetopurchase-report-date-picker,#timetopurchase-report-date-range').click(function(event){
+       	    event.stopPropagation();
+       	});                     
+       });   
+
+
+</script>
+
+<!-- time to purchase report date picket functionality using javascript -->
+<script type="text/javascript">
+
+                function ontimetopurchaseDateChange(value)
+                {
+                    if(value=='Custom')
+                    {
+                        document.getElementById('timetopurchase-custom-date-from').disabled = false;
+                        document.getElementById('timetopurchase-custom-date-to').disabled = false;
+                    }
+                    else
+                    {
+                        document.getElementById('timetopurchase-custom-date-from').disabled = true;
+                        document.getElementById('timetopurchase-custom-date-to').disabled = true;
+                        document.getElementById('timetopurchase-custom-date-from').value = "";
+                        document.getElementById('timetopurchase-custom-date-to').value = "";
+                    }
+
+                }
+
+                function timetopurchaseapply() {
+                    // document.getElementById('test').style.display = 'none';
+                    var date_range_option=document.getElementById('timetopurchase-date-range-select').value;
+
+                    if(date_range_option!='Custom')
+                    {
+                        var url=document.URL;
+                        var new_url=url.split("?")[0];
+
+                        self.location=new_url+'?page=timetopurchase&date_range_option='+date_range_option;
+                    }
+                    else
+                    {
+
+                        var custom_date_from =document.getElementById('timetopurchase-custom-date-from').value;
+                        var custom_date_to=document.getElementById('timetopurchase-custom-date-to').value;
+
+                        if(custom_date_from=='' || custom_date_to=='')
+                        {
+                            document.getElementById('timetopurchase-report-err-msg').style.display = "block";
+                            return;
+                        }
+
+                        var url=document.URL;
+                        var new_url=url.split("?")[0];
+                        self.location= new_url+'?page=timetopurchase&date_range_option='+date_range_option+"&from="+custom_date_from+"&to="+custom_date_to;
+                    }
+
+
+                }
+                function timetopurchasecancel() {
+                    // document.getElementById('test').style.display = 'none';
+                document.getElementById('timetopurchase-date-range-select').value="<?php if ($_GET['date_range_option']) {  echo $this->__($_GET['date_range_option']); } else{ echo $this->__('Custom'); }?>";
+                document.getElementById("timetopurchase-report-err-msg").style.display = "none";
+            
+                document.getElementById('timetopurchase-custom-date-from').value = '';
+                document.getElementById('timetopurchase-custom-date-to').value = '';
+
+                ontimetopurchaseDateChange(document.getElementById('timetopurchase-date-range-select').value);
+
+            }
+
+
+
+</script>
+
+<?php
+
+// Assigning from and to date.
+
+
+if (!empty($_GET)) {
+    switch ($_GET['date_range_option']) {
+
+        case "Today":
+            // today interval
+            $start_day = strtotime("-1 today midnight");
+            $end_day = strtotime("-1 tomorrow midnight");
+            $from = date("Y-m-d", $start_day);
+            $to = date("Y-m-d", $end_day);
+            $from_display = date("Y-m-d", $start_day);
+            $to_display = date("Y-m-d", $start_day);
+            break;
+        case "Yesterday":
+            // yesterday interval
+            $start_day = strtotime("-1 yesterday midnight");
+            $end_day = strtotime("-1 today midnight");
+            $from = date("Y-m-d", $start_day);
+            $to = date("Y-m-d", $end_day);
+            $from_display=date("Y-m-d", $start_day);
+            $to_display=date("Y-m-d", $start_day);
+            break;
+        case "LastWeek":
+            // last week interval
+            $t = date('d-m-Y');
+            $to_day = date('l', strtotime($t));
+
+            // if today is moday, take last monday
+            if ($to_day == 'Monday') {
+                $start_day = strtotime("-1 monday midnight");
+                $end_day = strtotime("yesterday");
+            } else {
+                $start_day = strtotime("-2 monday midnight");
+                $end_day = strtotime("-1 sunday midnight");
+            }
+            $from = date("Y-m-d", $start_day);
+            $to = date("Y-m-d", $end_day);
+            $to = date('Y-m-d', strtotime($to . ' + 1 day'));
+
+            $from_display = $from;
+            $to_display = date("Y-m-d", $end_day);
+
+            break;
+        case "LastMonth":
+            // last month interval
+
+            $from = date('Y-m-01', strtotime('last month'));
+            $to = date('Y-m-t', strtotime('last month'));
+            $to=  date('Y-m-d', strtotime($to . ' + 1 day'));
+            $from_display = $from;
+            $to_display = date('Y-m-t', strtotime('last month'));
+            break;
+        case "Custom":
+            // last custom interval
+            $from = date('Y-m-d', strtotime($_GET['from']));
+            $to = date('Y-m-d', strtotime($_GET['to'] . ' + 1 day'));
+            $from_display = $from;
+            $to_display = date('Y-m-d', strtotime($_GET['to']));
+            break;
+        default:
+            // last 30 interval
+         $from = date('Y-m-d', strtotime('-30 day'));
+    $to = date('Y-m-d', strtotime("-1 today midnight"));
+    $to =  date('Y-m-d', strtotime($to . ' + 1 day'));
+    $from_display = $from;
+    $to_display = date('Y-m-d', strtotime("-1 today midnight"));
+    }
+} else {
+    // last 30 interval
+
+    $from = date('Y-m-d', strtotime('-30 day'));
+    $to = date('Y-m-d', strtotime("-1 today midnight"));
+    $to =  date('Y-m-d', strtotime($to . ' + 1 day'));
+    $from_display = $from;
+    $to_display = date('Y-m-d', strtotime("-1 today midnight"));
+}
+
+/*
+$carts      = Mage::getModel('sales/quote')->getCollection()
+              ->addFieldToFilter('main_table.reserved_order_id',array('neq' => 'NULL' ))
+              ->addFieldToFilter('main_table.created_at', array('from' => $from, 'to' => $to));
+             
+
+$carts->getSelect()->joinInner(array('cp' => Mage::getSingleton('core/resource')->getTableName('sales/order')),'cp.increment_id = main_table.reserved_order_id AND cp.status IN ("complete","processing")','cp.status');
+//$carts->addFieldToFilter('cp.created_at', array('from' => $from, 'to' => $to));
+*/
+
+$db_from=Mage::getModel('core/date')->gmtDate(null,strtotime($from));
+$db_to=Mage::getModel('core/date')->gmtDate(null,strtotime($to));
+
+$sales_status = array('complete', 'processing');
+$carts = Mage::getResourceModel('sales/order_grid_collection')
+          ->addAttributeToFilter('main_table.status', array('in' => $sales_status))
+          ->addAttributeToFilter('main_table.created_at', array('from' => $db_from, 'to' => $db_to));
+
+$salesFlatQuote = (string)Mage::getConfig()->getTablePrefix() . 'sales_flat_quote';
+$carts->getSelect()->join(array('sales_flat_quote' => $salesFlatQuote),"(sales_flat_quote.reserved_order_id=main_table.increment_id)",array('sales_flat_quote.created_at as sfq_created_at','sales_flat_quote.updated_at as sfq_updated_at'));
+//$carts->getSelect()->join(array('sales_flat_quote' => $salesFlatQuote),"(sales_flat_quote.entity_id=main_table.entity_id AND main_table.status IN ('complete','processing') AND main_table.created_at > '".$from."' and  main_table.created_at < '".$to."' and sales_flat_quote.reserved_order_id IS NOT NULL)",array('sales_flat_quote.created_at as sfq_created_at','sales_flat_quote.updated_at as sfq_updated_at'));
+
+$timetopurchase = array();
+
+for($inc=0;$inc<=10;$inc++)
+{
+$timetopurchase[$inc]=0;
+}
+$timetopurchase['11-25']=0;
+$timetopurchase['25+']=0;
+$i=0;
+$j=0;
+ 
+
+            foreach ($carts as $value)
+            {
+            $date_u = Mage::getModel('core/date')->date(null,strtotime($value->getSfqUpdatedAt()));
+            $date_c = Mage::getModel('core/date')->date(null,strtotime($value->getSfqCreatedAt()));
+            $datediff= abs(strtotime($date_u) - strtotime($date_c));
+            $nodays= intval(floor($datediff/86400));            
+           
+           if($nodays > 10 && $nodays <= 25)
+           {
+            $timetopurchase['11-25'] = $i+1;
+            $i=$i+1;
+           }
+           elseif($nodays > 25)
+           {
+              $timetopurchase['25+'] = $j+1;
+              $j=$j+1;
+           }
+           else {
+           $timetopurchase[$nodays] = $timetopurchase[$nodays] + 1;
+           /* if (array_key_exists($nodays, $timetopurchase)) {
+           $timetopurchase[$nodays] = $timetopurchase[$nodays] + 1;
+           } else {
+           $timetopurchase[$nodays] = 1;
+           } */
+           }
+           }
+
+       $total_timetopurchase=array_sum($timetopurchase);
+
+       ksort($timetopurchase);
+       
+?>
+
+ <div class="advanced_report_wrapper">
+
+<input type="hidden" id="timetopurchase-revenue-custom-date-from" value="<?php echo date('m/d/Y', strtotime($from_display)); ?>" />
+<input type="hidden" id="timetopurchase-revenue-custom-date-to" value="<?php echo date('m/d/Y', strtotime($to_display)); ?>" />
+
+
+     <h3 class="advanced_report_header content-header"> <?php echo $this->__('Time to Purchase Report'); ?> </h3>
+          <!-- Date Picker -->
+       
+         <div class="advanced_date_picker">
+            <span id="timetopurchase-report-date-range" class="report-date-range" >
+                <?php echo Date('M j, Y',strtotime($from_display)).' - '.Date('M j, Y',strtotime($to_display));?>
+            </span>
+            <div id="timetopurchase-report-date-picker"  class="date_popup" style="display: none">
+
+                <div id="timetopurchase-advanced-report-datepicker"></div>
+
+                <div class="advanced-report-right">
+                    <label for="daterange-select"><?php echo $this->__('Date Range'); ?></label>
+                        <select id="timetopurchase-date-range-select" name="daterange" onchange="ontimetopurchaseDateChange(this.value);">
+
+                             <option value="Custom" <?php  if ($_GET['date_range_option'] == 'Custom') {  echo 'selected'; } ?>><?php echo $this->__('Custom'); ?></option>
+                            <option value="Today" <?php if ($_GET['date_range_option'] == 'Today') {echo 'selected';}?>><?php echo $this->__('Today'); ?></option>
+                            <option value="Yesterday" <?php if ($_GET['date_range_option'] == 'Yesterday') { echo 'selected'; } ?>><?php echo $this->__('Yesterday'); ?></option>
+                            <option value="LastWeek" <?php if ($_GET['date_range_option'] == 'LastWeek') { echo 'selected'; } ?>><?php echo $this->__('Last Week'); ?></option>
+                            <option value="LastMonth" <?php if ($_GET['date_range_option'] == 'LastMonth') {  echo 'selected'; } ?>><?php echo $this->__('Last Month'); ?></option>
+                           
+                        </select>
+                    <div style="clear: both;margin-bottom: 10px;"></div>
+                    <input type="text" id="timetopurchase-custom-date-from" size="10"  <?php if(!empty($_GET['date_range_option'])){ if ($_GET['date_range_option'] != "Custom") {  echo 'disabled'; }} ?>/>
+                    <?php echo $this->__('-'); ?>
+                    <input type="text" id="timetopurchase-custom-date-to" size="10" <?php  if(!empty($_GET['date_range_option'])){if($_GET['date_range_option'] != "Custom") {  echo 'disabled'; }} ?>/>
+                   
+                    <span  id="timetopurchase-report-err-msg" class="err-msg" style="display: none">
+                        <?php echo $this->__('Please select from and to dates'); ?>
+                    </span>                    
+                <div style="clear: both;padding-bottom: 10px;border-bottom: 1px dotted #666;margin-bottom: 10px;"></div>
+                    <a href="javascript:void(0)" class="apply" onclick="timetopurchaseapply();"><?php echo $this->__('Apply'); ?></a>
+                    <a href="javascript:void(0)" id="timetopurchase-report-date-cancel" onclick="timetopurchasecancel();"><?php echo $this->__('Cancel'); ?></a>
+                </div>
+            </div>
+         </div>
+
+            <div id="timetopurchaseexport">
+                <span><?php echo $this->__('Export As:'); ?></span>
+                <a href="<?php echo Mage::helper("adminhtml")->getUrl("advancedreports/adminhtml_advancedreports/advancedReports/",array("from"=>$from,"to"=>$to,"report"=>'timetopurchase_csv'));?>" class="csv">&nbsp;</a>
+                <a href="<?php echo Mage::helper("adminhtml")->getUrl("advancedreports/adminhtml_advancedreports/advancedReports/",array("from"=>$from,"to"=>$to,"report"=>'timetopurchase_xml'));?>" class="excel">&nbsp;</a>
+            </div>
+            <div class="total-transaction timetopurchase">
+                <ul>
+                    <li class="text"><?php echo $this->__('No of Transactions').' - '; ?> </li>
+
+                    <li class="number"> <?php echo $total_timetopurchase; ?></li>
+                </ul>
+<!--                <p class="text">
+                
+                </p>
+                <p class="number">
+                
+                </p>-->
+            </div>
+          <div style="clear: both;"></div>
+
+
+
+  <table id="timetopurchase-advanced-report-table" border="0" width="960px" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                 <!--
+                    <th align="right" class="text_center" width="5%"><?php echo $this->__('S No.'); ?></th>
+                 -->
+                   <th align="left" class="text_left" width="30%"><?php echo $this->__('Days to Transaction'); ?></th>
+                    <th align="right" class="text_right" width="30%"><?php echo $this->__('Transactions'); ?></th>
+                    <th align="right" class="text_right last_td" width="40%"><?php echo $this->__('Percentage of total %'); ?></th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+              //   $sno = 1;
+                if($total_timetopurchase >= 1){
+                  foreach ($timetopurchase as $key=>$value) {
+                
+                ?>
+                        <tr class="advanced-report-data <?php if($sno % 2 == 0){  echo 'advanced-report-even'; } ?>">
+                       <!--     <td align="center" ><?php // echo $sno;  ?></td>  -->
+                            <td align="left" ><?php echo $key;  ?></td>
+                            <td align="left" class="transactions" ><?php echo $value;  ?></td>
+                                                 
+                            <td align="left"  class="percentage" >
+                                <span class="advanced_progress_wrap">
+                                    <span class="advanced_progress_bar" style="width:<?php echo round(($value / $total_timetopurchase * 100), 2) . '%'; ?>"></span>
+                                    <span class="advanced-percentage"><?php  echo round(($value / $total_timetopurchase * 100), 2) . ' %'; ?></span>
+                                </span>                                
+                            </td>                            
+                        </tr>
+                <?php
+              //  $sno = $sno + 1;
+                }
+                }
+                ?>
+                        
+<?php
+// checking for table data
+if($total_timetopurchase < 1 )
+{
+?>
+<tr><td colspan="4" align="center"> <?php echo $this->__('No data found').'.'; ?> </td></tr>
+<?php } // end if for checking table data ?>
+
+                        </tbody>
+                    </table>
+
+<?php
+// checking for pagination
+if($total_timetopurchase >= 1 ) { ?>
+<script type="text/javascript">
+jq('#timetopurchase-advanced-report-table').tablePagination({});
+</script>
+<?php } // end if for checking paginatin ?>
+
+</div>

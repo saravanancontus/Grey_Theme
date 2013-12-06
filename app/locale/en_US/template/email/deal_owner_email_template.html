@@ -1,0 +1,18 @@
+<!--@vars
+{"var deallist.content":"Sender Name"
+@-->
+<div style="border: 5px solid rgb(222, 237, 204); margin: 5px 0pt; padding: 20px; width: 670px; ">
+      
+      
+ {{var deallist.content}}
+</div>
+
+<table border="0" cellpadding="0" cellspacing="0">
+ <tbody><tr>
+  <td style="padding: 0cm;">
+
+  <p style="margin: 2.25pt; text-align: center;" align="center"><span style="font-size: 8.5pt; color: rgb(146, 146, 146);">Delivered
+  by <a href='{{config path="web/secure/base_url"}}' title="Deal" target="_blank">{{var store.getFrontendName()}}</a> {{config path="general/store_information/address"}} </span></p>
+  </td>
+ </tr>
+</tbody></table>

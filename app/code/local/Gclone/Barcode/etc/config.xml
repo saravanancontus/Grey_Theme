@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gclone_Barcode>
+            <version>0.1.0</version>
+        </Gclone_Barcode>
+    </modules>
+<adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <barcode translate="title" module="barcode">
+                                            <title>Gclone Barcode</title>
+                                            <sort_order>100</sort_order>
+                                        </barcode>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <global>
+        <models>
+            <barcode>
+                <class>Contus_Barcode_Model</class>
+            </barcode>
+        </models>
+    <helpers>
+            <barcode>
+                <class>Gclone_Barcode_Helper</class>
+            </barcode>
+        </helpers>
+    </global>
+</config>

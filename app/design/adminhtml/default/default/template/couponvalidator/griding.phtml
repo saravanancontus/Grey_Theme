@@ -1,0 +1,207 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Template for Mage_Block_Adminhtml_Report_Grid
+ *
+ *  getId()
+ *  getCollection()
+ *  getColumns()
+ *  getPagerVisibility()
+ *  getVarNamePage()
+ */
+$numColumns = sizeof($this->getColumns());
+
+
+//print_r($this->getdealdetails());
+//print_r($this->getcustomerdetails());
+?>
+<?php   $current_url = Mage::getBaseUrl();?>
+<?php if($this->canDisplayContainer()): ?>
+<?php if($this->getGridHeader()): ?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h2><?php echo $this->getGridHeader(); ?></h2></td>
+        </tr>
+    </table>
+</div>
+<?php endif ?>
+<div id="<?php echo $this->getId() ?>">
+    <?php else: ?>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php endif; ?>
+    <?php if($this->getStoreSwitcherVisibility() || $this->getDateFilterVisibility()): ?>
+    <?php if($this->getStoreSwitcherVisibility()): ?>
+    <?php echo $this->getStoreSwitcherHtml() ?>
+    <?php endif ?>
+    <table cellspacing="0" class="actions">
+        <tr>
+            <?php if($this->getDateFilterVisibility()): ?>
+            <td class="a-left filter">
+
+                <div class="f-left">
+                    <?php $collection = $this->getDeals();echo $this->__('Enter the Coupon Code') ?>:
+                    <input name="deal_name" id="deal_name" style="width:18em;"/>
+                   
+                    <?php echo $this->getRefreshButtonHtml() ?>
+                </div>
+
+            </td>
+            <?php endif; ?>
+            <?php if($this->getExportVisibility()): ?>
+
+            <?php endif; ?>
+        </tr>
+    </table>
+    <?php endif; ?>
+
+    <!--Deal Details-->
+    <div class="grid"><center><h1>Coupon Details</h1></center>
+        <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
+            <col/>
+            <?php foreach ($this->getColumns() as $_column): ?>
+            <col <?php echo $_column->getHtmlProperty() ?>/>
+            <?php endforeach; ?>
+            <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
+            <thead>
+                <?php if ($this->getHeadersVisibility()): ?>
+                <tr class="headings">
+                    <th class="no-link" style="width:100px"><span class="no-br"><?php echo $this->getPeriodText() ?></span></th>
+                    <?php foreach ($this->getColumns() as $_column): ?>
+                    <th <?php echo $_column->getHeaderHtmlProperty() ?>><span class="no-br"><?php echo $_column->getHeaderHtml() ?></span></th>
+                    <?php endforeach; ?>
+                </tr>
+                <?php endif; ?>
+            </thead>
+            <?php endif; ?>
+            <tbody>
+                <?php if (count($this->getdealdetails())>0 && (!$this->getIsCollapsed())):  ?>
+                <tr title="<?php echo $this->getRowId($_index) ?>" >
+                    <?php foreach ($this->getdealdetails() as $_index=>$_item): ?>
+
+                    <input type="hidden" value="<?php echo $_index; ?>" id="detail" />
+                    <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>"><?php echo (($_html = $_item) != '' ? $_html : '&nbsp;') ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <?php elseif ($this->getEmptyText()): ?>
+                <tr>
+                    <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="100"><?php echo $this->getEmptyText() ?></td>
+                </tr>
+                <?php endif; ?>
+            </tbody>
+            <?php if ($this->getCountTotals() && $this->getCollection()->getSize()): ?>
+            <tfoot>
+                <tr><th><?php echo $this->getTotalText() ?></th>
+                    <?php $j=0;foreach ($this->getColumns() as $_column): ?>
+                    <th class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?>"><?php echo $_column->getRowField($this->getGrandTotals()) ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </tfoot>
+            <?php endif; ?>
+        </table>
+        <div style="padding-top:30px;">
+            <center>
+        <?php
+        $onStatus = Mage::getSingleton('core/session')->getStatus();
+        $entity=Mage::getSingleton('core/session')->getEntity();
+        $updatedDate=Mage::getSingleton('core/session')->getUpdatedon();
+        $noRecord=Mage::getSingleton('core/session')->getNorecord();
+        if ($onStatus == '1' && $noRecord == '0'){
+
+        ?>
+        <form action="<?php echo $current_url;?>couponvalidator/index/update" id="contactForm" method="post">
+        <button name="usecoupon" id="use-coupon" class="buttoncoupon" type="submit" value="Use Coupon" >Use Coupon</button>
+        <input name="update" value="<?php echo $entity;?>" type="hidden"/>
+        </form>
+        <?php }elseif($onStatus == '2' && $noRecord == '0'){?>
+        <div style="color:#ED6502; font-size: 20px; font-weight: bold;">Coupon has been used on <?php echo $updatedDate ;?></div>
+        <?php }?>
+        </center>
+        </div>
+    </div>
+    <!--End Of Deal Details-->
+<?php
+$onStatus = Mage::getSingleton('core/session')->setStatus('');
+        $entity=Mage::getSingleton('core/session')->setEntity('');
+        $updatedDate=Mage::getSingleton('core/session')->setUpdatedon('');
+        $noRecord=Mage::getSingleton('core/session')->setNorecord('');
+?>
+
+<?php if($this->canDisplayContainer()): ?>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+<?php echo $this->getJsObjectName() ?> = new varienGrid('<?php echo $this->getId() ?>', '<?php echo $this->getGridUrl() ?>', '<?php echo $this->getVarNamePage() ?>', '<?php echo $this->getVarNameSort() ?>', '<?php echo $this->getVarNameDir() ?>', '<?php echo $this->getVarNameFilter() ?>');
+<?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
+<?php if($this->getDateFilterVisibility()):?>
+<?php echo $this->getJsObjectName() ?>.doFilterCallback = validateFilterDate;
+    var period_date_from = $('period_date_from');
+    var period_date_to   = $('period_date_to');
+    var deal_name   = $('deal_name');
+    period_date_from.advaiceContainer = $('period_date_from_advaice');
+    period_date_to.advaiceContainer = $('period_date_to_advaice');
+    deal_name.advaiceContainer = $('deal_name');
+
+    function validateFilterDate()
+    {
+        if (period_date_from && period_date_to) {
+            return Validation.validate(period_date_from) && Validation.validate(period_date_to);
+        }
+        else {
+            return true;
+        }
+    }
+<?php endif;?>
+    /* Overwrite function from switcher.phtml widget*/
+    function switchStore(obj){
+        if (obj.options[obj.selectedIndex].getAttribute('website') == 'true') {
+            var selectionType = 'website';
+        } else if (obj.options[obj.selectedIndex].getAttribute('group') == 'true') {
+            var selectionType = 'group';
+        } else {
+            var selectionType = 'store';
+        }
+        var storeParam = obj.value ? selectionType + '/' + obj.value + '/' : '';
+        if(obj.switchParams){
+            storeParam+= obj.switchParams;
+        }
+        var formParam = new Array('period_date_from', 'period_date_to', 'report_period');
+        var paramURL = '';
+        var switchURL = '<?php echo $this->getAbsoluteGridUrl(array('_current' => false)); ?>'.replace(/(store|group|website)\/\d+\//,'');
+
+        for(var i=0;i<formParam.length;i++){
+            if ($(formParam[i]).value && $(formParam[i]).name) {
+                paramURL+= $(formParam[i]).name + '=' + escape($(formParam[i]).value) + '&';
+            }
+        }
+        setLocation(switchURL + storeParam + '?' + paramURL);
+    }
+    //]]>
+</script>
+<?php endif; ?>
+

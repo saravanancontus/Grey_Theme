@@ -1,0 +1,82 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_blank
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+$amounts = Gclone_Deal_Block_Deal::getDiscountsales();
+$sharelinks = Gclone_Deal_Block_Deal::getsharelinks();
+$facebook = $sharelinks['facebook'];
+$twitter = $sharelinks['twitter'];
+$linkedin = $sharelinks['linkedin'];
+$status = Mage::getStoreConfig('advertsystem/invite/enabled');
+?>
+<div class="footer-top">
+          <div class="footer-content">
+            <div class="top clearfix">
+              <ul id="footer-right-block">
+                  <li class="mobile_app"><a href="http://itunes.apple.com/app/groupclone/id413499577?mt=8" target="_blank"><img src="<?php echo $this->getSkinUrl('images/mobile_app.png') ?>" alt="mobile" title="mobile" /></a></li>
+                 <?php if($this->getLayout()->createBlock('cms/block')->setBlockId('footer-merchant')->toHtml()){ ?>
+                <li class="imgblock footer_merchant">
+                  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer-merchant')->toHtml() ?>
+                </li>
+                <?php }?>
+                <?php  if($this->getLayout()->createBlock('cms/block')->setBlockId('footer-fbusiness')->toHtml()){ ?>
+                <li class="imgblock" >
+                  <?php  echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer-fbusiness')->toHtml() ?>
+                </li>
+                <?php }?>
+                 <?php  if($this->getLayout()->createBlock('cms/block')->setBlockId('footer-refer')->toHtml() && $status == 1){ ?>
+                <li class="imgblock" onclick="window.scrollTo(0,0);">
+                   <?php  echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer-refer')->toHtml() ?>
+                </li>
+                <?php }?>              
+              </ul>                
+            </div>
+          </div>
+        </div>
+<div class="footer-bottom">
+<div class="clsfoot-txt">
+<div class="clearfix">
+ <?php echo $this->getChildHtml() ?>
+<div id="footer-left-block">
+  <div class="follow-us clearfix">
+    <dl>
+      <dt><?php echo $this->__('Follow Us');?></dt>
+      <?php if(!empty($facebook)){ ?>
+      <dd><a target="_blank" href="<?php echo $facebook; ?>"><img src="<?php echo $this->getSkinUrl('images/facebook-follow.png') ?>" alt="Facebook" title="Facebook"/></a></dd>
+      <?php } if(!empty($twitter)){ ?>
+      <dd><a target="_blank" href="<?php echo $twitter; ?>"><img src="<?php echo $this->getSkinUrl('images/twitter-follow.png') ?>"  alt="Twitter" title="Twitter"/></a></dd>
+      <?php } if(!empty($linkedin)){ ?>
+      <dd><a target="_blank" href="<?php echo Mage::getBaseUrl().'subscribepage.html'; ?>"><img src="<?php echo $this->getSkinUrl('images/mail-follow.png') ?>" alt="Subscription Mail" title="Subscription Mail"/></a></dd>
+      <?php } if(!empty($linkedin)){ ?>
+      <dd><a target="_blank" href="<?php echo Mage::getBaseUrl().'rssfeed'; ?>"><img src="<?php echo $this->getSkinUrl('images/rss-follow.png') ?>" alt="RSS" title="RSS"/></a></dd>
+      <?php } $enableAdvert = Mage::getStoreConfig('advertsystem/invite/enabled_module');
+        if($enableAdvert == 1) {
+            $discount = Gclone_Deal_Block_Deal::getDiscountamount();
+            ?>
+      <dd><div class="refer_cta" id="login_section1"><a href="<?php echo Mage::getBaseUrl() . "advertsystem/index/invitation/"; ?>"><img src="<?php echo $this->getSkinUrl('images/refer.png') ?>" alt="Refer A Friend" title="Refer A Friend"/></a></div></dd>
+      <?php } ?>
+    </dl>
+  </div>
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('copyrights')->toHtml() ?>
+</div></div></div></div>

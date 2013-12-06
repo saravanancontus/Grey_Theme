@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <videoupload_adminhtml_videoupload_index>
+        <reference name="content">
+            <block type="videoupload/adminhtml_videoupload" name="videoupload" />
+        </reference>
+    </videoupload_adminhtml_videoupload_index>
+</layout>

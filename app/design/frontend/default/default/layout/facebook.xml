@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+
+	<default>
+		<reference name="content">
+            <block type="facebook/template" template="facebook/init.phtml" name="facebook_init" />
+        </reference>
+
+		<reference name="top.links">
+			
+        </reference>
+	</default>
+
+	<facebook_index_index>
+		<reference name="root">
+			<action method="unsetChildren" />
+            <action method="setTemplate"><template>facebook/help.phtml</template></action>
+        </reference>
+	</facebook_index_index>
+	
+	<customer_account_login>
+		<reference name="content">
+    		
+    	</reference>
+	</customer_account_login>
+
+
+</layout>

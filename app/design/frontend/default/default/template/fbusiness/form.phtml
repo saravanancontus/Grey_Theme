@@ -1,0 +1,95 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_blank
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1 ><?php echo $this->__('Featured Business') ?></h1>
+</div>
+<form action="<?php echo Mage::getBaseUrl().'fbusiness/index/post/' ?>" id="fbusinessForm" method="post">
+    <p class="contactquery"><?php echo $this->__('Wanna get your business featured? Use this form to contact us. Our representative will get back to you.') ?></p>
+    <div class="fieldset">
+    <h2 class="legend">Contact Information</h2>
+    <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo $this->__('Name') ?></label>
+                    <div class="input-box">
+                        <input name="name" id="name" title="<?php echo $this->__('Name') ?>" value="" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo $this->__('Email') ?></label>
+                    <div class="input-box">
+                        <input name="email" id="email" title="<?php echo $this->__('Email') ?>" value="" class="input-text required-entry validate-email" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label for="telephone"><?php echo $this->__('Telephone') ?></label>
+                <div class="input-box">
+                    <input name="telephone" id="telephone" title="<?php echo $this->__('Telephone') ?>" value="" class="input-text" type="text" />
+                </div>
+            </li>
+            <li class="wide">
+                <label for="comment" class="required"><em>*</em><?php echo $this->__('Message') ?></label>
+                <div class="input-box">
+                    <textarea name="comment" id="comment" title="<?php echo $this->__('Message') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+        </ul>
+        <ul  class="contactul">
+            <li>
+                <div class="clearfix">
+                    <div class="leftcol"><label for="code"  class="txtmsg label-captcha"><?php echo $this->__('Please enter the code, which is used for spam filter') ?> <em>*</em></label>
+                            </div>
+                    <script type="text/javascript">
+                        var RecaptchaOptions = {
+                            theme : 'white'
+                        };
+                    </script>
+                    <div class="floatleft">
+                        <?php
+                            require_once('recaptchalib.php');
+                            $publickey = "6LdGMr8SAAAAAPXwsXi8jHx7iDbHvQ6-V6P7W5kb"; // you got this from the signup page
+                            echo recaptcha_get_html($publickey);
+                        ?>
+                    </div>
+                </div>
+            </li>
+        </ul> </div>
+<div class="buttons-set">
+        <p class="required">* Required Fields</p>
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo $this->__('Send Message') ?>" class="button"><span><span><?php echo $this->__('Send Message') ?></span></span></button>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    //<![CDATA[
+    var contactForm = new VarienForm('fbusinessForm', true);
+    //]]>
+</script>

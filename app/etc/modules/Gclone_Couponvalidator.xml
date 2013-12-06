@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gclone_Couponvalidator>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Gclone_Couponvalidator>
+    </modules>
+</config> 

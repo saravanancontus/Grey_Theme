@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <report translate="title" module="reports">
+                        <children>
+                            <advancedreports translate="title" module="advancedreports">
+                                <title>Advanced Reports</title>
+                            </advancedreports>
+                        </children>
+                    </report>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+
+

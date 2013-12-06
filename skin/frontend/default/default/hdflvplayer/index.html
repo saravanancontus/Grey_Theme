@@ -1,0 +1,104 @@
+<!DOCTYPE html ">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<title>High Definition Video Player. Supports both HTML 5 & Flash player</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<script type="text/javascript" src="swfobject.js"></script>
+                <link rel="stylesheet" href="css/style.css" type="text/css" />
+	</head>
+	<body >
+            <div class="wrapper">
+                <h1>
+                    <img src="images/logo.png" width="" height="" />
+                </h1>
+                <p>Thank you for downloading the HD FLV Player, Get ready to experience the most exquisite high definition HTML5 and flash player that stuns you with its brilliant assortment of all the necessary advanced features in their best acuity. HD FLV Player is intuitively better than any other high definition video player and you are sure going to love this one which plays your videos in unbelievable HD and crystal sound clarity..!</p>
+
+                <div id="mediaspace" >
+                    <script type="text/javascript">
+                        var s1 = new SWFObject('hdplayer.swf','player','802','450','9',"#333333");
+                        s1.addParam('allowfullscreen','true');
+                        s1.addParam('allowscriptaccess','always');
+                        s1.addParam('WMode','transparent');
+                        s1.addParam('quality','high');
+                       
+                        s1.write('mediaspace');
+                    </script>
+                </div>
+                <div id="htmlplayer">
+                    <video id="video" src="http://jqueryvideolightbox.com/data/images/happyfit2.mp4" poster="http://4.bp.blogspot.com/-rq7D7cIE1qM/TjASBKV5pAI/AAAAAAAAK4A/oudhO0AXCRc/s640/Happy-Feet-Two-wallpaper-4.jpg" width="600" height="330" autobuffer controls onerror="failed(event)">
+                        Html5 Not support This video Format.
+                    </video>
+                </div>
+                <h4>Quick start</h4>
+                <p>The quickest way to get started is to unzip the file you downloaded and copy the contents into a folder called 'hdflvplayer' at the root of your website. The end result should be:</p>
+                <ul>
+                    <li>{webroot}/hdflvplayer/skin</li>
+                    <li>{webroot}/hdflvplayer/xml</li>
+                    <li>{webroot}/hdflvplayer/email.php</li>
+                    <li>{webroot}/hdflvplayer/download.php</li>
+                    <li>{webroot}/hdflvplayer/hdplayer.swf</li>
+                    <li>{webroot}/hdflvplayer/index.html</li>
+                    <li>{webroot}/hdflvplayer/readme.txt</li>
+                    <li>{webroot}/hdflvplayer/swfobject.js</li>
+                    <li>{webroot}/hdflvplayer/videos</li>
+                    <li>{webroot}/hdflvplayer/images</li>
+                </ul>
+                <div id="samplecontent">
+                    <h4>Copy the following code onto your webpage. That's it! You should see a player on your site.</h4>
+
+                    <ol start="1" class="dp-xml" >
+                        <li><pre><span><span class="tag">&#9;&lt;</span>script type="text/javascript" src="swfobject.js"<span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">/script</span><span class="tag">&gt;</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag">&#9;&lt;</span><span class="tag-name">div</span><span>&nbsp;</span><span class="attribute">id</span><span>=</span><span class="attribute-value">"mediaspace"</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">/div</span><span class="tag">&gt;</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag">&#9;&lt;</span><span class="tag-name">script</span><span>&nbsp;</span><span class="attribute">type</span><span>=</span><span class="attribute-value">"text/javascript"</span><span class="tag">&gt;</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag-name">&#9;&#9;var s1 =</span><span class="attribute">new SWFObject('hdplayer.swf','player','640','360','9');</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag-name">&#9;&#9;s1.</span><span class="attribute">addParam('allowfullscreen','true');</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag-name">&#9;&#9;s1.</span><span class="attribute">addParam('allowscriptaccess','always');</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag-name">&#9;&#9;s1.</span><span class="attribute">addParam('wmode','transparent');</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag-name">&#9;&#9;s1.</span><span class="attribute">write('mediaspace');</span></span></pre></li>
+                        <li class="alt"><pre><span><span class="tag">&#9;&lt;</span><span class="tag-name">/script</span><span class="tag">&gt;</span></span></pre></li>
+                    </ol>
+
+                </div>
+
+		<p><a href="http://www.hdflvplayer.net/documentation/installing-hd-flv-player-standalone/?phpMyAdmin=Wbr5rTVcWAwVhoaIvPgZNCrKuRd" target="_blank">Player installation</a></p>
+		<p><a href="http://www.hdflvplayer.net/documentation/player-configuration/?phpMyAdmin=Wbr5rTVcWAwVhoaIvPgZNCrKuRd" target="_blank">Player configuration</a></p>
+                <p><a href="http://www.hdflvplayer.net/documentation/playlist-configuration/?phpMyAdmin=Wbr5rTVcWAwVhoaIvPgZNCrKuRd" target="_blank">Playlist configuration</a></p>
+                <p><a href="http://www.hdflvplayer.net/documentation/language-configuration/?phpMyAdmin=Wbr5rTVcWAwVhoaIvPgZNCrKuRd" target="_blank">Language configuration</a></p>
+                <p><a href="http://www.hdflvplayer.net/documentation/ads-configuration/?phpMyAdmin=Wbr5rTVcWAwVhoaIvPgZNCrKuRd" target="_blank">Ads configuration</a></p>
+                <p><a href="http://www.hdflvplayer.net/documentation/mid-roll-ads-configuration/?phpMyAdmin=Wbr5rTVcWAwVhoaIvPgZNCrKuRd" target="_blank">Mid-roll Ads configuration</a></p>
+                <p class="support">
+                    For more information
+                    <a href="http://www.hdflvplayer.net/forum/" title="" target="_blank">Support</a>,
+                    <a href="http://www.hdflvplayer.net/documentation/contus-hd-flv-player/" title="" target="_blank">Documentation</a>
+                </p>
+
+            </div>
+
+<script>
+var txt = navigator.platform ;
+
+if(txt =='iPod'|| txt =='iPad'|| txt =='iPhone' ||  txt =='Linux armv7l' || txt =='Linux armv6l')
+{
+
+document.getElementById("htmlplayer").style.display = "block";
+document.getElementById("mediaspace").style.display = "none";
+
+
+}
+else
+{
+document.getElementById("htmlplayer").style.display = "none";
+
+}
+function failed(e)
+{
+if(txt =='iPod'|| txt =='iPad'|| txt =='iPhone' || txt =='Linux armv7l' || windo=='Windows Phone' || txt =='Linux armv6l')
+{
+alert('Player doesnot support this video.');
+}
+}
+</script>
+
+       	</body>
+
+</html>

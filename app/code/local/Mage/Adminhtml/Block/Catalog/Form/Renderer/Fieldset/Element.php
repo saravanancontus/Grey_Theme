@@ -1,0 +1,232 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Catalog fieldset element renderer
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
+{
+    /**
+     * Initialize block template
+     */
+    protected function _construct()
+    {
+    	
+        $this->setTemplate('catalog/form/renderer/fieldset/element.phtml');
+    }
+
+    /**
+     * Retrieve data object related with form
+     *
+     * @return Mage_Catalog_Model_Product || Mage_Catalog_Model_Category
+     */
+    public function getDataObject()
+    {
+        return $this->getElement()->getForm()->getDataObject();
+    }
+
+    /**
+     * Retireve associated with element attribute object
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     */
+    public function getAttribute()
+    {
+        return $this->getElement()->getEntityAttribute();
+    }
+
+    /**
+     * Retrieve associated attribute code
+     *
+     * @return string
+     */
+    public function getAttributeCode()
+    {
+        return $this->getAttribute()->getAttributeCode();
+    }
+
+    /**
+     * Check "Use default" checkbox display availability
+     *
+     * @return bool
+     */
+    public function canDisplayUseDefault()
+    {
+        if ($attribute = $this->getAttribute()) {
+            if (!$attribute->isScopeGlobal()
+                && $this->getDataObject()
+                && $this->getDataObject()->getId()
+                && $this->getDataObject()->getStoreId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check default value usage fact
+     *
+     * @return bool
+     */
+    public function usedDefault()
+    {
+        $devaultValue = $this->getDataObject()->getAttributeDefaultValue($this->getAttribute()->getAttributeCode());
+        return $devaultValue === false;
+    }
+
+    /**
+     * Disable field in default value using case
+     *
+     * @return Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
+     */
+    public function checkFieldDisable()
+    {
+        if ($this->canDisplayUseDefault() && $this->usedDefault()) {
+            $this->getElement()->setDisabled(true);
+        }
+        return $this;
+    }
+    /*
+     * Contus Calendar
+     */
+    function showMonth($month, $year,$needle)
+    {
+        $date = mktime(12, 0, 0, $month, 1, $year);
+        $daysInMonth = date("t", $date);
+        // calculate the position of the first day in the calendar (sunday = 1st column, etc)
+        $offset = date("w", $date);
+        $rows = 1;
+
+        echo "<h4>Available dates for " . date("M Y", $date) . "</h4>\n";
+
+
+        echo "<table border=\"1\" width=\" 250px\">\n";
+        echo "\t<tr><th>Su</th><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th></tr>";
+        echo "\n\t<tr>";
+
+        for($i = 1; $i <= $offset; $i++)
+        {
+            echo "<td></td>";
+        }
+        for($day = 1; $day <= $daysInMonth; $day++)
+        {
+            if( ($day + $offset - 1) % 7 == 0 && $day != 1)
+            {
+                echo "</tr>\n\t<tr>";
+                $rows++;
+            }
+
+            if(in_array($day,$needle))
+            {
+                echo "<td style='background-color:red;'>" . $day . "</td>";
+            }
+            else
+            {
+                echo "<td style='background-color:green;'>" . $day . "</td>";
+            }
+
+        }
+        while( ($day + $offset) <= $rows * 7)
+        {
+            echo "<td></td>";
+            $day++;
+        }
+        echo "</tr>\n";
+        echo "</table>";
+    }
+    /*
+     * Contus
+     * To find dates between two dates
+     */
+    function getDaysInBetween($start, $end) {
+        // Vars
+        $day = 86400; // Day in seconds
+        $format = 'Y-m-d'; // Output format (see PHP date funciton)
+        $sTime = strtotime($start); // Start as time
+        $eTime = strtotime($end); // End as time
+        $numDays = round(($eTime - $sTime) / $day) + 1;
+        $days = array();
+
+        // Get days
+        for ($d = 0; $d < $numDays; $d++) {
+            $days[] = date($format, ($sTime + ($d * $day)));
+        }
+
+        // Return days
+        return $days;
+    }
+
+    /**
+     * Retrieve label of attribute scope
+     *
+     * GLOBAL | WEBSITE | STORE
+     *
+     * @return string
+     */
+    public function getScopeLabel()
+    {
+        $html = '';
+        $attribute = $this->getElement()->getEntityAttribute();
+        if (!$attribute || Mage::app()->isSingleStoreMode() || $attribute->getFrontendInput()=='gallery') {
+            return $html;
+        }
+        if ($attribute->isScopeGlobal()) {
+            $html.= '[GLOBAL]';
+        }
+        elseif ($attribute->isScopeWebsite()) {
+            $html.= '[WEBSITE]';
+        }
+        elseif ($attribute->isScopeStore()) {
+            $html.= '[STORE VIEW]';
+        }
+
+        return $html;
+    }
+
+    /**
+     * Retrieve element label html
+     *
+     * @return string
+     */
+    public function getElementLabelHtml()
+    {
+        return $this->getElement()->getLabelHtml();
+    }
+
+    /**
+     * Retrieve element html
+     *
+     * @return string
+     */
+    public function getElementHtml()
+    {
+        return $this->getElement()->getElementHtml();
+    }
+}

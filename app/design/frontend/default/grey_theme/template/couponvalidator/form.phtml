@@ -1,0 +1,89 @@
+<style type="text/css">
+    body{ background: #9cc25d !important;  }
+    .merchant_redeem_form{ width: 90%; background: #fff;border-radius: 9px; -moz-border-radius: 9px; -webkit-border-radius: 9px; margin: 0 auto; padding: 15px; }
+    .merchant_redeem_form .warninglarge{ width: 100%; text-align: left; font: normal bold 16px arial; color: #ED6502; display: block; padding-bottom: 10px; }
+    .merchant_redeem_form .warningsmall{ width: 100%; text-align: left; font: normal normal 12px arial; color: #666; display: block; padding-bottom: 30px;}
+    .merchant_redeem_form .coupon_display{ display: block; width: 100%; }
+    .merchant_redeem_form .coupon_display li { display: block; width: 100%; padding-bottom: 10px; overflow: hidden; }
+    .merchant_redeem_form .coupon_display li p.coupon_label{ display: block; float: left; font: normal bold 16px arial; color: #666; }
+    .merchant_redeem_form .coupon_display li p.coupon_value{ display: block; float: left; font: normal bold 16px arial; color: #333; padding: 0 0 0 5px; }
+    .merchant_redeem_form .coupon_display li p.cou{color: #497323; padding: 1px 0 0 5px;}
+    .merchant_redeem_form .merchant_area{ width: 100%; border: 1px solid #86ac57; border-radius: 5px; moz-border-radius: 5px; -webkit-border-radius: 5px; display: block; padding: 15px 0; margin-top: 15px; overflow: hidden; }
+    .merchant_redeem_form .merchant_area .formText{ float: left; font: normal normal 14px arial; color: #333; padding-top: 2px; width: 38%; text-align: center; }
+    .merchant_redeem_form .merchant_area .merchantInput{ float: right; margin-right: 20px; width: 48%; border: 1px solid #ccc; padding: 2px 0; }
+    .merchant_redeem_form .smallNote{ display: block; width: 100%; text-align: left; font-size: 11px; font-family: arial; line-height: 11px; color: #999; padding-top: 4px; }
+    .submit_button{ border: 1px solid rgb(196, 110, 1) !important; font-size: 21px; padding: 13px 0; background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#febc5c), color-stop(0.5, #f79125), color-stop(0.5, #f79125), to(#ee7115)); text-shadow: rgb(139, 72, 0) 1px 1px 2px; -webkit-box-shadow: 0px 5px 5px rgb(201, 201, 201); cursor: pointer; width: 100%; color: #fff; -webkit-border-radius: 8px; display: block; margin: 15px auto 15px auto; width: 100%; text-align: center; }
+    .errorformText{ clear: both; display: block; padding: 5px 0; background: #dd4b39; color: #fff; margin-top: 10px; text-align: center; }
+    .invalid_coupon{height: 40%; margin-top: 5%; text-align: center; font-size: 16px; line-height: 24px;}
+    .invalid_coupon_error{ width: 100%; font-weight: bold;font-size: 16px; line-height: 24px; }
+</style>
+<?php
+$response = Mage::registry("response");
+$result = $response["result"];
+$status = $response["couponstatus"];
+$customer_name = $response["customer_name"];
+$uniqueid = $response["uniqueid"];
+$updated_on = $response["updated_on"];
+$order_id = $response["order_id"];
+$validMerchant = $response['validMerchant'];
+
+if ($result == 0) {
+?>
+<div class="merchant_redeem_form invalid_coupon">
+    <span class="errorformText invalid_coupon_error"><?php echo $this->__('Invalid Coupon Code') ?></span>
+</div>
+<?php } else {
+?>
+    <div class="merchant_redeem_form">
+        <div>
+            <p class="warninglarge"><?php echo $this->__('This is Merchant only screen!') ?></p>
+            <p class="warningsmall"><?php echo $this->__('If you are a customer, please do not use this form or you will lose the ability to use this Coupon. ') ?></p>
+        </div>
+        <ul class="coupon_display">
+            <li>
+                <p class="coupon_label"><?php echo $this->__('Coupon # : ') ?></p>
+                <p class="coupon_value cou"><?php echo $uniqueid; ?></p>
+            </li>
+            <li>
+                <p class="coupon_label"><?php echo $this->__(' Issued To : ') ?></p>
+                <p class="coupon_value"><?PHP echo $customer_name; ?></p>
+            </li>
+        </ul>
+    <?php if ($status == 1) {
+    ?>
+        <div>
+            <form name="vouchervalid" class="merchant_area" action="<?php echo $this->getUrl('couponvalidator/index/valid') ?>" method="post" >
+                <label class="formText"><?php echo $this->__('Merchant # : ') ?></label>
+                <input type="text" class="merchantInput" name="merchant_ID" id="merchant_ID" value="" >
+                <input type="hidden" name="uniqueid" id="uniqueid" value="<?php echo $uniqueid; ?>">
+                <input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id; ?>">
+            <?php if ($validMerchant == 'invalid') { ?>
+                <div class="clear"></div>
+                <span class="errorformText">
+                    <?php echo $this->__('Merchant ID not matched') ?>
+                </span>
+            <?php } ?>
+        </form>
+        <label class="smallNote"><?php echo $this->__('Note: You can find merchant # at the top right of your merchant login screen.') ?></label>
+        <input type="button" class="submit_button" src="<?php echo $this->getSkinUrl('images/validation/redeem_voucher.png') ?>" value="Redeem Coupon" alt="Redeem coupon"  onClick="return validateForm();" >
+    </div>
+    <?php
+        } else if ($status == 2) {
+            $updated_on = date("F j, Y, g:i a", strtotime($updated_on));
+            echo $this->__('Coupon has been used on ') . $updated_on;
+        }
+    ?>
+    </div>
+<?php } ?>
+<script type="text/javascript">
+    function validateForm(){
+        var merchantID = document.getElementById("merchant_ID");
+        if(merchantID.value == ""){
+            merchantID.style.border="1px solid #FF0000;";
+            return false;
+        }else{
+            merchantID.style.border="1px solid #ccc;";
+            document.vouchervalid.submit();
+        }
+    }
+</script>

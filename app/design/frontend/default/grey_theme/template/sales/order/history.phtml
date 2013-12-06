@@ -1,0 +1,225 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+$baseUrl = Mage::getBaseUrl();
+?>
+
+
+
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_orders = $this->getOrders();?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Orders') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($_orders->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Order #') ?></th>
+            <th><?php echo $this->__('Date') ?></th>
+            <th><?php echo $this->__('Qty') ?></th>
+            <th><span class="nobr"><?php echo $this->__('Order Total') ?></span></th>
+            <th><span class="nobr"><?php echo $this->__('Order Status') ?></span></th>
+                <th><span class="nobr"><?php echo $this->__('Coupon') ?></span></th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php $y = 1 ?>
+        <?php
+        foreach ($_orders as $_order):
+
+            $orderCertificate = Mage::getModel('sales/order')->load($_order->getId());
+            $itemsc = $orderCertificate->getAllItems();
+            $itemcount = count($items);
+            $Productname = '';
+            $unitPrice = '';
+            $qty = '';
+			$orderId = $_order->getId();
+            $orderStatus = $orderCertificate->getStatus();
+            foreach ($itemsc as $itemId => $item) {
+
+                $model = Mage::getModel('catalog/product');
+                $productId = $item->getProductId();
+                $orderedQty = $item->getQtyOrdered();
+                $productdetail = $model->load($productId);
+                $target = $productdetail->gettarget_number();
+            }
+            $resource = Mage::getSingleton('core/resource');
+            $read = $resource->getConnection('catalog_read');
+            $orderTable = $resource->getTableName('sales/order');
+            $orderItemTable = $resource->getTableName('sales/order_item');
+            $dealstatus[0] = "processing";
+            //$dealstatus[1] = "pending";
+            $dealstatus[1] = "complete";
+            $select = $read->select()
+                            ->from(array('cp' => $orderTable), array('totalcount' => 'sum(cp.total_qty_ordered)', 'orderid' => 'pei.order_id', 'firstname' => 'cp.customer_firstname', 'lastname' => 'cp.customer_lastname'))
+                            ->join(array('pei' => $orderItemTable), 'pei.order_id=cp.entity_id', array())
+                            ->where('cp.status in (?)', $dealstatus)
+                            ->where('pei.product_id in (?)', $productId);
+            $orders_list = $read->fetchAll($select);
+            $quantity[0] = floor($orders_list[0]['totalcount']);
+            $uniquenumber = '';
+            $orderid = $orders_list[0]['orderid'];
+            $customer_name = $orders_list[0]['firstname'] . ' ' . $orders_list[0]['lastname'];
+
+            /*
+             * checking for order status.
+             */
+            if (in_array($orderStatus, $dealstatus)) {
+                $canPrintCoupon = 1;
+            }else{
+                $canPrintCoupon = 0;
+            }
+            $giftemail = $resource->getConnection('core_write');
+            $tprefix = (string) Mage::getConfig()->getTablePrefix();
+            $giftCouponCheck = $giftemail->fetchRow("select * from " . $tprefix . "ordercustomer where order_id ='$orderid'");
+        ?>
+
+
+
+        <tr>
+            <td><?php echo $_order->getRealOrderId() ?></td>
+            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
+                <td><?php echo floor($orderedQty); ?></td>
+            <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
+            <td class="a-center">
+                    <span class="nobr"><?php 
+            if (isset($giftCouponCheck['uniqueid'])) {
+                if ($target <= $quantity[0] && $canPrintCoupon == 1) {
+      ?>
+
+                                
+                    <?php if ($orderedQty == 1) {
+ ?>
+                        <a href="<?php echo $baseUrl;?>dealcoupon/coupon/index/order_id/<?php echo $orderId;?>/id/1" class="link-print" onclick="this.target='_blank';"><?php echo $this->__('Print Coupon') ?></a> | <a href="<?php echo $baseUrl; ?>dealcoupon/coupon/index/order_id/<?php echo $orderId; ?>/pdf/1" onclick="this.target='_blank';" title="<?php echo $this->__('Download pdf') ?>"><?php echo $this->__('Download') ?></a>
+<?php } else { ?>
+                        <a href="javascript:lightboxAction('popup<?php echo $y; ?>');" class="link-print" rel="facebox<?php echo $y; ?>"><?php echo $this->__('Print Coupon') ?></a>
+
+
+                        <!-- Print multiple coupon -->
+<?php $baseUrl = Mage::getBaseUrl(); ?>
+
+                        
+                        <div style="text-align:left; display:none;position:absolute; width:650px;" id="popup<?php echo $y; ?>" class="popup">
+                            <div id="popup-container">
+                <div id="popup-header">
+                    <h1 class="border-bottom"><?php echo $this->__('Print Your Coupons') ?>
+
+                            <?php
+                            //$orderId = (int)$this->getRequest()->getParam('order_id');
+                            //$order = Mage::getModel('sales/order')->load($_order->getId());
+                            $orderId = $_order->getId();
+                            $incrementId = $orderCertificate->getIncrementId();
+                            $items = $orderCertificate->getAllItems();
+
+                            foreach ($items as $itemId => $item) {
+                                $ordertotal = $item->getQtyOrdered();
+                            }
+
+
+                            echo '<span style="float:right">#' . $orderCertificate->getIncrementId() . '</span>';
+
+
+                            $select = $read->select()
+                                            ->from(array('cp' => $orderTable), array('name' => 'pei.name'))
+                                            ->join(array('pei' => $orderItemTable), 'pei.order_id=cp.entity_id', array())
+                                            ->where('pei.order_id in (?)', $orderId);
+                            $deallist = $read->fetchAll($select);
+                            $dealName = $deallist[0]['name'];
+                            ?></h1>
+                </div>
+                                <div id="popup-content">
+                        <h3><?php echo $dealName; ?></h3>
+                        <ul class="clsprint_certificate clearfix">
+<?php for ($i = 0; $i < $ordertotal; $i++) { ?>
+                                <li class="floatleft" style="padding:10px 15px;"><span class="floatleft" style="padding:0 10px; display: block; font-weight: bold;"><?php echo $this->__('Coupon') ?> #<?php echo ($i + 1); ?></span>
+                                    <ul class="floatleft">
+                                        <li class="coupon-detail" style="display:inline;"><a href="<?php echo $baseUrl; ?>dealcoupon/coupon/index/order_id/<?php echo $orderId; ?>/id/<?php echo $i + 1; ?>" class="link-print" onclick="this.target='_blank';"><?php echo $this->__('Print') ?></a></li>
+                                        <li style="display:inline;">|</li>
+                                        <li style="display:inline;"><a href="<?php echo $baseUrl; ?>dealcoupon/coupon/index/order_id/<?php echo $orderId; ?>/id/<?php echo $i + 1; ?>/pdf/1" onclick="this.target='_blank';" title="<?php echo $this->__('Download pdf') ?>"><?php echo $this->__('Download') ?></a></li>
+                                    </ul>
+                                </li>
+<?php } ?>
+                        </ul>
+                        <div class="popup-close-cont">
+            <a id="closeLink" href="javascript:closeLink('popup<?php echo $y; ?>');">  </a>
+                </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <?php
+                        }
+                    }
+                }
+                    ?> </span></td>
+            <td class="a-center">
+                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
+                    <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
+                    <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
+                    <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
+                <?php endif ?>
+                </span>
+            </td>
+        </tr>
+<?php $y+=1;
+            endforeach; ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('You have placed no orders.'); ?></p>
+<?php endif ?>
+
+
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/lightbox.js') ?>"></script>
+<script type="text/javascript">
+    var test1;
+    function lightboxAction(Id)
+    {
+
+        //window.scroll(0,0);
+        test1 = new Lightbox(Id);
+        test1.open();
+    }
+    function closeLink(Id)
+    {
+        //document.getElementById('popup').style.display="none";
+        test1.close(Id);
+    }
+
+</script>

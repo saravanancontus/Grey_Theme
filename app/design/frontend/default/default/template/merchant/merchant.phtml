@@ -1,0 +1,75 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Merchant login form template
+ *
+ * @see Contus_Merchant_Block_Merchant
+ */
+?>
+<div class="account-login">
+   <div class="page-title account-page" >
+     <h1><?php echo $this->__('Login or Create an Account ') ?></h1>
+   </div>              
+   <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
+
+    
+    <div class="col2-set">
+            <div class="col-1 new-users">
+                <div class="content">
+                    <h2><?php echo $this->__('New Merchant') ?></h2>
+                    <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
+                </div>
+            </div>
+            <div class="col-2 registered-users">
+                <div class="content">
+                    <h2><?php echo $this->__('Registered Merchant') ?></h2>
+                    <p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col2-set">
+            <div class="col-1 new-users">
+                <div class="buttons-set">
+                    <button type="button" title="Create an Merchant Account" class="button" onclick="window.location='<?php echo $this->getCreateAccountUrl() ?>';"><span><?php echo $this->__('Create an Merchant Account') ?></span></button>
+                </div>
+            </div>
+            <div class="col-2 registered-users">
+                <div class="buttons-set">
+                    <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><?php echo $this->__('Login') ?></span></button>
+                </div>
+            </div>
+        </div>
+</form>
+
+                <script type="text/javascript">
+                    //<![CDATA[
+                    var dataForm = new VarienForm('login-form', true);
+                    //]]>
+                </script>
+            </div>

@@ -1,0 +1,166 @@
+<?php
+/*
+ * Contus Support Pvt Ltd.
+ * created by Thamarai Selvi on Jan 10 2013.
+ * thamaraiselvi@contus.in
+ * Getaway deals are displayed in this page
+ */
+?>
+<?php
+$activeEnabled = Mage::getStoreConfig('deal/getaways/as_getaways');
+$products = array();
+$currentTime = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+$i = 1;
+$_productCollection = $this->getTransaction();
+foreach ($_productCollection as $rows) {
+    $storeId = Mage::app()->getStore()->getId();
+    $products[] = Mage::getModel('catalog/product')->setStoreId($storeId)->load($rows->getId());
+}
+$products = $this->getLoadedProductCollection();
+?>
+
+<?php
+if (count($products) > 0 ) {
+    foreach ($products as $_product) {
+        $startTime = $_product->getstarttime();
+        $customersite = $_product->getcustomersite();
+        $ProductToDate = $_product->getResource()->formatDate($_product->getspecial_to_date(), false);
+        $ProductFromDate = $_product->getResource()->formatDate($_product->getspecial_from_date(), false);
+        $Fromtime = strtotime($ProductFromDate . ' ' . $startTime);
+        if ($Fromtime < strtotime($currentTime)) {
+            if (strtotime($currentTime) < strtotime($ProductToDate . ' ' . $_product->getTime())) {
+                $URL = $_product->getProductUrl();
+                
+                if (!$_product->isGrouped()) {
+                    if ($i == 1) {
+?>
+                        <div id="occasion-browse-deals" class="  clearfix">
+                            <a href="<?php echo $URL; ?>" style="text-decoration: none;" class="floatleft">
+                                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image'); ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" class="dealimg"/>
+                            </a>
+                         <div class="occasion_deal_content">
+        <?php
+                        $productName = $this->htmlEscape($_product->getName());
+                        $pnameLength = strlen($productName);
+                        if ($pnameLength > 75) {
+                            $productName = substr($this->htmlEscape($_product->getName()), 0, 75) . '..';
+                        } else {
+                            $productName = $productName;
+                        }
+        ?>
+                        
+                        <h1><a href="<?php echo $URL; ?>"><?php echo $productName; ?></a></h1>
+        <?php
+                        $pnameLength = strlen($_product->getSubtitle());
+                        if ($pnameLength > 120) {
+                            $subtitle = substr($this->htmlEscape($_product->getSubtitle()), 0, 120) . '..';
+                        } else {
+                            $subtitle = $_product->getSubtitle();
+                        }
+                        $city = $_product->getAttributeText('dealcity');
+        ?>
+                        <p><?php echo $subtitle; ?></p>
+                        <div class="purchase_info">
+                            <p class="online_deal"><?php echo $city[0];//$this->__('Online Deal') ?></p>
+                            <div class="price_info">
+                <?php if ($_product->getSpecialPrice()) {
+ ?>
+                            <span class="original"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                            <span> <?php echo Mage::helper('core')->currency($_product->getSpecialPrice(), true, false) ?></span>
+<?php } else { ?>
+                            <span> <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+<?php } ?>
+                            </div>
+                            <div class="action_info">
+                                <div class="clearfix">
+                                    <a href="<?php echo $URL; ?>" class="more_info"><?php echo $this->__('view deal'); ?></a>
+                                </div>
+                            </div>
+                        </div>          <div class="clear"></div>
+                    </div>
+                </div>
+<?php
+                    } else {
+                        if (($i % 3) == 1) {
+                            $style = 'no-margin';
+                        } else {
+                            $style = '';
+                        }
+                        $productName = $this->htmlEscape($_product->getName());
+                        $pnameLength = strlen($productName);
+                        if ($pnameLength > 55) {
+                            $productName = substr($this->htmlEscape($_product->getName()), 0, 55) . "..";
+                        } else {
+                            $productName = $productName;
+                        }
+?>
+<?php
+                        $text = strip_tags($customersite); // using the raw value of the text
+                        if (strlen($text) < 45) {
+                            $end_text = $text; // if less than 200 chars, show the entire text
+                        } else {
+                            $cut_text = substr($text, 0, 45); //cut at 200 chars
+                            $last_space = strrpos($cut_text, " "); //find the position of the last space in the 200 chars text
+                            $short_text = substr($cut_text, 0, $last_space); //cut again at the last space
+                            $end_text = $short_text; // add three dots
+                        }
+                        
+?>        <?php
+                        $pnameLength = strlen($_product->getSubtitle());
+                        if ($pnameLength > 25) {
+                            $subtitle = substr($this->htmlEscape($_product->getSubtitle()), 0, 25) . '..';
+                        } else {
+                            $subtitle = $_product->getSubtitle();
+                        }
+                        $city = $_product->getAttributeText('dealcity');
+        ?>
+
+                      <div class="non_subcategories"><div class="occasion_block <?php echo $style; ?>">
+                            <a href="<?php echo $URL; ?>" class="product_image">
+                                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>" width="300" height="182" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" class="deal_list_img"/>
+                            </a>
+                            <div class="occasion_grid">
+                                <a href="<?php echo $URL; ?>" style="text-decoration: none;"><h4 class="primary_name"><?php echo $productName; ?></h4></a>
+                                <p class="deals_name"><?php echo $subtitle; ?></p>
+                                <p class="online_deal"><?php echo $city[0];//$this->__('Online Deal') ?></p>
+                                <div class="price_info">
+    <?php if ($_product->getSpecialPrice()) { ?>
+                                <span class="original"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+                                <span> <?php echo Mage::helper('core')->currency($_product->getSpecialPrice(), true, false) ?></span>
+    <?php } else { ?>
+                                <span> <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span>
+    <?php } ?>
+                                </div>
+                            </div>
+                        </div></div>
+<?php } ?>
+                    <script type="text/javascript">
+                        <!--
+
+                        var dthen<?php echo $i; ?> = new Date("<?php echo Date("m/d/y h:i:s A", strtotime($expirydate)); ?>");
+                        start = "<?php echo Date("m/d/y h:i:s A", strtotime($currentTime)); ?>";
+                        start_date = Date.parse(start);
+                        var dnow<?php echo $i; ?> = new Date(start_date);
+                        if(CountStepper>0)
+                            ddiff= new Date((dnow<?php echo $i; ?>)-(dthen<?php echo $i; ?>));
+                        else
+                            ddiff = new Date((dthen<?php echo $i; ?>)-(dnow<?php echo $i; ?>));
+                        gsecs<?php echo $i; ?> = Math.floor(ddiff.valueOf()/1000);
+
+                        var iid<?php echo $i; ?> = "gcountbox_<?php echo $i; ?>";
+                        CountBack1(gsecs<?php echo $i; ?>,"gcountbox_"+j, j);
+                        j++;
+                        //-->
+                    </script>
+<?php
+                }
+                $i = $i + 1;
+            }
+        }
+    }
+} if (count($products) == 0) {
+    echo "<h1 class='recenttitle' style='color:#333;text-align:center;padding: 10px 0px 0px;'>No Deals!</h1>";
+}
+?>
+<div class="clear"></div>
+<?php echo $this->getToolbarHtml() ?>

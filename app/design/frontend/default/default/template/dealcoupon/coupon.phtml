@@ -1,0 +1,256 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+$session = Mage::getSingleton('customer/session');
+$isLogin = $session->isLoggedIn();
+$customerId = $session->getId();
+$orderId = Mage::app()->getRequest()->getParam('order_id');
+$_order = $this->getOrder($orderId);
+$baseurl = Mage::getBaseUrl();
+$skinPath = $this->getSkinUrl();
+$id = Mage::app()->getRequest()->getParam('id');
+$realOrderId = $_order[0]['increment_id'];
+$resource = Mage::getSingleton('core/resource');
+$couponemail = $resource->getConnection('core_write');
+$tprefix = (string) Mage::getConfig()->getTablePrefix();
+$uniquenumber = '';
+if ($id == '') {
+    $id = 1;
+}
+$giftCouponCheck = $this->getCouponCode($orderId,$id);
+if (isset($giftCouponCheck['uniqueid'])) {
+    $uniquenumber = $giftCouponCheck['uniqueid'];
+    $customerName = $giftCouponCheck['customer_name'];
+}
+//Barcode Generation starts
+$barcodeFileName = $uniquenumber;
+    $obj = Gclone_Barcode_Block_Barcode::generateBarcode($uniquenumber, $barcodeFileName);
+    $path = str_replace('index.php/', '',
+                    Mage::getBaseUrl()) . '/media/barcode/' . $barcodeFileName . '.png';
+    $uniquenumber .= '<img src=' . $path . '>';
+
+//Barcode Generation ends
+if (!empty($isLogin)) {
+   $CustomerOrderId = $orderId;
+    $store = Mage::app()->getStore();
+    $order = Mage::getModel('sales/order')->load($CustomerOrderId);
+    $items = $order->getAllItems();
+    $itemcount = count($items);
+    $Productname = '';
+    
+    $qty = '';
+    foreach ($items as $itemId => $item) {
+        $sku = $item->getSku();
+        $Productname = $item->getName();        
+        $qty = $item->getQtyToInvoice();
+        $model = Mage::getModel('catalog/product');
+        $productId = $item->getProductId();
+        $url = "barcode/productid" . $productId;
+        $barcodeemail = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . $url . '/lable' . $uniquenumber . '.png';
+        $productdetail = $model->load($item->getProductId());
+        $customArray = $this->getCustomoptions($sku,$productdetail,$CustomerOrderId);        
+        $customTitle = $customArray[0]['customtitle'];
+        $customoptionTitle = $customArray[0]['customoptiontitle'];
+        $customPrice = $customArray[0]['customprice'];
+        $currentproductimage = Mage::helper('catalog/image')->init($productdetail, 'image')->resize(386, 338);
+        if ($item->getSpecialPrice()) {
+            $specialPrice = $item->getSpecialPrice();
+        } else {
+            $specialPrice = $item->getPrice();
+        }
+        $Productname = $productdetail->getName();
+        $Fineprint = $productdetail->getFineprint();
+        $Map = $productdetail->getSitemap();               
+     $couponValid = $productdetail->getEnjoyby();
+
+            if ($couponValid != '') {
+                $couponValidDate = date("F j, Y", strtotime($couponValid));
+            } else {
+                $couponValidDate = 'N/A';
+            }
+        $couponCondition = $productdetail->getLimits();
+        $phone = $productdetail->getQuestions();
+        $Companywebsite = $productdetail->getCustomer_website();
+        $Companyname = $productdetail->getCompanyName();
+        $Companyaddress = $productdetail->getCustomersite();
+        $product_worth = $productdetail->getPrice();
+        $product_description = $productdetail->getDescription();
+        $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+    }
+    if (isset($CustomerOrderId)) {
+?>
+        <style>
+            tr{ border: none; }
+        </style>
+        <table style="border:5px solid #000;" width="740" cellpadding="0" cellspacing="0" rules="none" >
+            <tr>
+                <td><table bgcolor="#8C8C8C" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="20">&nbsp;</td>
+                            <td style="padding-top:10px;"><img src="<?php echo $this->getSkinUrl('images/logo_email.png'); ?>" alt="<?php echo $store->getName(); ?>" /></td>
+                            <td align="right" style="padding-top:10px;"><font face="Arial, Helvetica, sans-serif" size="5" color="#FFF"><strong># <?php echo $realOrderId; ?></strong></font></td>
+                            <td width="20">&nbsp;</td>
+                        </tr>
+                    </table></td>
+            </tr>
+            <tr>
+                <td><table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="20"></td>
+                            <td><table cellpadding="0" cellspacing="0" width="100%">
+                                    <tr><td height="20"></td></tr>
+                                    <tr>
+                                        <td style="padding-bottom: 15px;">
+                                            <font size="4" face="Arial, Helvetica, sans-serif" color="#181818" ><strong> <?php echo $Productname; ?></strong></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-bottom: 5px;">
+                                            <font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><span><?php echo $customTitle; ?></span></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <font size="2" face="Arial, Helvetica, sans-serif" color="#181818"><span><?php echo $customoptionTitle; ?></span></font>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="30">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td><table cellpadding="0" cellspacing="0" width="100%">
+                                                <tr>
+                                                    <td width="50%"><table cellpadding="0" cellspacing="0" width="100%">
+                                                            <tr>
+                                                                <td><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Recipient:</strong></font><br/>
+                                                                    <font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><?php echo $customerName; ?></font></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="10"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Expires On:</strong></font><br/>
+                                                                    <font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><?php echo $couponValidDate; ?></font></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="10"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Fine Print:</strong></font><br/>
+                                                                    <font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><?php echo substr($Fineprint, 0, 300) . '..'; ?></font></td>
+                                                            </tr>
+
+                                                            <tr><td height="10"></td></tr>
+                                                        </table></td>
+                                                    <td width="10%">&nbsp;</td>
+                                                    <td width="40%">
+                                                        <table cellpadding="0" cellspacing="0" width="100%">
+                                                            <tr>
+                                                                <td width="50" valign="top"><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Redeem at:</strong> </font><br/>
+                                                                    <font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><?php echo $Companyaddress; ?></font><br/><font size="3" face="Arial, Helvetica, sans-serif" color="#181818"><?php echo $Companywebsite; ?></font></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="10"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td valign="top"><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Worth</strong> </font><br/>
+<?php if ($customPrice) {
+            $specialPrice = $customPrice;
+        }
+          $specialPrice= number_format($specialPrice, 2, '.', '');
+        ?>
+                                                                    <font size="6" face="Arial, Helvetica, sans-serif" color="#181818"><strong><?php echo Mage::helper('core')->currency($specialPrice, true, true); ?></strong></font> </td>
+                                                            </tr>
+                                                            <tr><td height="10">&nbsp;</td></tr>
+
+                                                            <tr>
+                                                                <td valign="top"><font size="4" face="Arial, Helvetica, sans-serif" color="#181818"><strong> Coupon Code</strong> </font><br/>
+                                                                    <font size="6" face="Arial, Helvetica, sans-serif" color="#181818"><strong><?php echo $uniquenumber; ?></strong></font> </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table></td>
+                            </tr>
+                            <tr>
+                                <td height="20">&nbsp;</td>
+                            </tr>
+
+                        </table></td>
+                </tr>
+            </table></td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0"  width="750">
+    <tr>
+        <td  height="30">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0"><tr>
+
+                    <td width="50%">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('coupon-use')->toHtml() ?> </td>
+                    <td width="10%">&nbsp;</td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td  height="30">&nbsp;</td>
+    </tr>
+    <tr>
+        <td ><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('coupon-footer')->toHtml() ?></td>
+    </tr>
+    <tr>
+        <td  height="30">&nbsp;</td>
+    </tr>
+    <tr>
+        <td  ><hr size="1"/></td>
+    </tr>
+    <tr>
+        <td  height="10">&nbsp;</td>
+    </tr>
+    <tr>
+
+    </tr>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+<script type="text/javascript">window.print();</script>
+<?php
+    } else {
+        $url = Mage::getBaseUrl() . 'no-route';
+        Mage::app()->getFrontController()->getResponse()->setRedirect($url);
+    }
+} else {
+    $url = Mage::getBaseUrl() . 'no-route';
+    Mage::app()->getFrontController()->getResponse()->setRedirect($url);
+}
+?>

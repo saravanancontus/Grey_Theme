@@ -1,0 +1,51 @@
+<form id="form-validate" method="post" action="<?php echo $this->getUrl('advertsystem/index/invitesend') ?>">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <h2 class="legend"><?php echo $this->__('Invite Friends Via Email'); ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                
+                    <?php $addonClass = ""; ?>
+                    <?php if (version_compare(Mage::getVersion(), "1.3.2.4", "<="))
+                        $addonClass = " input-box"; ?>
+                    <div class="field<?php echo $addonClass; ?> name-firstname">
+                        <label class="required" for="email"><?php echo Mage::helper('advertsystem')->__('Name of your friend'); ?><em>*</em></label>
+                        <div class="input-box">
+                            <input class="input-text required-entry" title="Name" name="invite[name]" id="name"/>
+                        </div>
+                     </div>
+                <div class="field<?php echo $addonClass; ?>">
+                        <label class="required" for="email"><?php echo Mage::helper('advertsystem')->__('Email Id of your friend'); ?><em >*</em></label>
+                        <div class="input-box">
+                            <input class="input-text validate-email required-entry" title="Email" name="invite[email]" id="email"/>
+                        </div>
+                </div>
+                </li>
+                <li class="fields">
+                        <label class="required" for="email"><?php echo Mage::helper('advertsystem')->__('Subject'); ?><em>*</em></label>
+                        <div class="input-box">
+                            <input class="input-text required-entry" title="Subject" name="invite[subject]" id="subject"/>
+                        </div>
+                        
+                        
+                        <div class="clear"></div>
+                </li>
+                <li class="wide">
+                    <label class="required" for="email"><?php echo Mage::helper('advertsystem')->__('Message'); ?><em>*</em></label>
+                        <div class="input-box">
+                            <textarea class="input-text required-entry" title="Message" name="invite[message]" id="message"  cols="5" rows="3"></textarea>
+                        </div>
+                </li>
+        </ul>
+        <div class="buttons-set">
+        <p class="required">* Required Fields</p>
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button class="button" title="<?php echo Mage::helper('advertsystem')->__("Invite"); ?>" type="submit"><span><span>  <?php echo Mage::helper('advertsystem')->__("Invite !"); ?>  </span></span></button>
+    </div>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

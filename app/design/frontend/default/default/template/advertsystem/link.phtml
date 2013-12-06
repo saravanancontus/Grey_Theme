@@ -1,0 +1,13 @@
+<?php
+$status = Mage::getStoreConfig('advertsystem/invite/enabled');
+$amount = $this->getRuleDiscount();
+
+if($status == 1){
+?>
+<a href="<?php echo Mage::getBaseUrl().'advertsystem/index/invitation'?>" style="text-decoration:none;">
+<div class="side-block" style="background: url('<?php echo $this->getSkinUrl('images/refer_friend.jpg') ?>');background-repeat:no-repeat;height:180px;">
+    <p style="font-size: 18px;padding: 135px 0px 0px 65px;">Get <?php echo Mage::helper('core')->currency($amount, true, false);?></p>
+   
+</div>
+</a>
+<?php }?>

@@ -1,0 +1,94 @@
+<?php
+/**
+ * Author   : Contus Support
+ *
+ * * NOTICE OF LICENSE
+ *
+ * This source file is subject to the CONTUS ADVERT SYSTEM (REFER A FRIEND)
+ * License, which extends the  GNU General Public License (GPL).
+ * The CONTUS ADVERT SYSTEM (REFER A FRIEND) License is available at this URL:
+ *      http://license.txt
+ *
+ * DISCLAIMER
+ *
+ * By adding to, editing, or in any way modifying this code, CONTUS is
+ * not held liable for any inconsistencies or abnormalities in the
+ * behaviour of this code.
+ * By adding to, editing, or in any way modifying this code, the Licensee
+ * terminates any agreement of support offered by CONTUS, outlined in the
+ * provided Sweet Tooth License.
+ * Upon discovery of modified code in the process of support, the Licensee
+ * is still held accountable for any and all billable time CONTUS spent
+ * during the support process.
+ * CONTUS does not guarantee compatibility with any other framework extension.
+ * CONTUS is not responsbile for any inconsistencies or abnormalities in the
+ * behaviour of this code if caused by other framework extension.
+ * Also distributing the code is prohibited ,It is accountable if violated license agreement.
+ */
+$baseUrl = Mage::getBaseUrl();
+?>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php
+$currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+$_invites = $this->getInvites();
+$_discount = $this->getDiscount();
+$_percent = $this->getPercent();
+ ?>
+
+<div class="floatright">Earned Credit(Flat rate) : <?php echo Mage::helper('core')->currency($_discount, true, false);?> </div><br/>
+<div class="floatright">Earned Credit(%) : <?php echo $_percent;?> </div>
+<div class="clear"></div>
+<div class="fieldset group-select">
+    <h2 class="legend"><?php echo $this->__('Invites'); ?></h2>
+<?php echo $this->getChildHtml("invitation_toolbar"); ?>
+<?php if (count($_invites) > 0): ?>
+    <table class="data-table" id="my-orders-table">
+        <col width="1" />
+        <col width="1" />
+        <col />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th><?php echo $this->__('Id #') ?></th>
+                <th><?php echo $this->__('Friend Name') ?></th>
+                <th><?php echo $this->__('Friend Email') ?></th>
+                <th><span class="nobr"><?php echo $this->__('Referral Accepted') ?></span></th>
+                <th><span class="nobr"><?php echo $this->__('Discount Credited') ?></span></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php
+            $i = 1;
+            foreach ($_invites as $_invite):
+            ?>
+                <tr>
+                    <td><?php echo $i ?></td>
+                    <td><span class="nobr"><?php echo $_invite['friend_name'] ?></span></td>
+                    <td><?php echo $_invite['friend_email']; ?></td>
+                <td><?php
+                    if ($_invite['friend_id'] != 0) {
+                        echo $this->__('Yes');
+                    } else {
+                        echo $this->__('No');
+                    }
+            ?></td>
+                <td><?php
+                    if ($_invite['expired'] != 0) {
+                        echo $this->__('Yes');
+                    } else {
+                        echo $this->__('No');
+                    }
+            ?></td>
+                    </tr>
+<?php $i++;
+                endforeach; ?>
+                    </tbody>
+                </table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+                    <p align="center"><?php echo $this->__('No Records'); ?></p>
+<?php endif ?>
+</div>
